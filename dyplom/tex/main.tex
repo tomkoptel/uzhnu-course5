@@ -1,14 +1,16 @@
 \input{PREAMBLE.tex}
 \usepackage[ukrainian]{babel}
-\begin{document} \large
-\setlength{\emergencystretch}{100pt}
-\selectlanguage{ukrainian}
+\begin{document}
+    \large
+    \setlength{\emergencystretch}{100pt}
+    \selectlanguage{ukrainian}
     \setlength\parindent{1.25cm}
-\input{TITLE.tex}
-\input{ABSTRACT.tex}
-\input{CONT.tex}
-\input{vstup.tex}
-\input{chapter1.tex}
-%\input{vysnovky.tex}
-%\input{lit.tex}
+
+    \input{TITLE.tex}
+    \input{ABSTRACT.tex}
+    \input{CONT.tex}
+    \input{vstup.tex}
+    \input{chapter1.tex}
+    \include{biblio}
+
 \end{document}
