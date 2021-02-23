@@ -1,12 +1,18 @@
 {
-  "name": "AwesomeProject",
-  "displayName": "AwesomeProject",
+  "name": "BreedRN",
+  "displayName": "List of Dog Breeds",
   "expo": {
-    "name": "AwesomeProject",
-    "slug": "AwesomeProject",
+    "name": "BreedRN",
+    "slug": "BreedRN",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ]
+  },
+  "ios": {
+    "bundleidentifier": "com.olderwold.dyplom.rn"
+  },
+  "android": {
+    "package": "com.olderwold.dyplom.rn"
   }
 }
