@@ -1,4 +1,4 @@
-package com.breedrn.generated;
+package com.olderwold.dyplom.rn.generated;
 
 import java.util.Arrays;
 import java.util.List;
