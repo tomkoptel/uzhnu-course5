@@ -13,3 +13,4 @@
 
 # React Native
 [JSX Standard](https://reactjs.org/docs/jsx-in-depth.html)
+[Expo Limitations](https://docs.expo.io/introduction/why-not-expo/)
