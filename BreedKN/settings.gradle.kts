@@ -1,3 +1,3 @@
-rootProject.name = "BAI Dialog"
+rootProject.name = "BreedKN"
 enableFeaturePreview("GRADLE_METADATA")
-include(":labs", ":app", ":shared")
+include(":app", ":shared")
