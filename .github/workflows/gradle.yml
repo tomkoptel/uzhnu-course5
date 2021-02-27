@@ -37,6 +37,6 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
     - name: Test Shared JVM
-      run: ./gradlew :shared:testDebugUnitTest
+      run: ./BreedKN/gradlew :shared:testDebugUnitTest
     - name: Build Android App
-      run: ./gradlew :app:assembleDebug
+      run: ./BreedKN/gradlew :app:assembleDebug
