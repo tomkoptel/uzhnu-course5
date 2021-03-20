@@ -22,7 +22,7 @@ const BreedSchema = {
   properties: {
     id: "string",
     name: "string",
-    age: { type: "int", default: 1 },
+    isFavorite: { type: "bool", default: false },
   },
 };
 const config = {
@@ -49,6 +49,18 @@ export default function App() {
     });
   };
 
+  const cacheInDatabase = (data) => {
+    return Realm.open(config).then((realm) => {
+      realm.write(() => {
+        data.forEach((item) => {
+          realm.create("Breed", { ...item });
+        });
+      });
+      realm.close();
+      return data;
+    });
+  };
+
   const loadFromNetwork = () => {
     return fetch("https://dog.ceo/api/breeds/list/all")
       .then((response) => response.json())
@@ -59,34 +71,24 @@ export default function App() {
         let items = data.map((key) => {
           return { id: uuidv4(), name: key };
         });
-        console.log("Loaded from network");
         return items;
       });
   };
 
   useEffect(() => {
     loadFromDatabase()
-      .then((cachedData) => {
-        if (cachedData.length == 0) {
-          loadFromNetwork().then((fromNetwork) => {
-            Realm.open(config).then((realm) => {
-              realm.write(() => {
-                fromNetwork.forEach((item) => {
-                  realm.create("Breed", { ...item });
-                });
-              });
-              realm.close();
-              return fromNetwork;
-            });
-          });
-        } else {
-          return cachedData;
-        }
-      })
+      .then(
+        (cachedData) => {
+          if (cachedData.length == 0) {
+            return loadFromNetwork().then((data) => cacheInDatabase(data));
+          } else {
+            return Promise.resolve(cachedData);
+          }
+        },
+        (rejection) => console.log(rejection)
+      )
       .then((data) => setData(data))
-      .catch((error) => {
-        console.error(error);
-      })
+      .catch((error) => console.error(error))
       .finally(() => setLoading(false));
   }, []);
 
