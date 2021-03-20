@@ -15,17 +15,19 @@ import { v4 as uuidv4 } from "uuid";
 
 import Icon from "react-native-vector-icons/FontAwesome";
 import { TouchableOpacity } from "react-native-gesture-handler";
-const myIcon = <Icon name="rocket" size={30} color="#900" />;
 
-const TaskSchema = {
-  name: "Task",
+const BreedSchema = {
+  name: "Breed",
+  primaryKey: "id",
   properties: {
+    id: "string",
     name: "string",
+    age: { type: "int", default: 1 },
   },
 };
 const config = {
   deleteRealmIfMigrationNeeded: true,
-  schema: [TaskSchema],
+  schema: [BreedSchema],
 };
 
 export default function App() {
@@ -33,34 +35,60 @@ export default function App() {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    fetch("https://dog.ceo/api/breeds/list/all")
+  const loadFromDatabase = () => {
+    return Realm.open(config).then((realm) => {
+      const breeds = realm.objects("Breed");
+      const items = breeds.map((item) => {
+        let copy = {};
+        copy.name = item.name;
+        copy.id = item.id;
+        return copy;
+      });
+      realm.close();
+      return items;
+    });
+  };
+
+  const loadFromNetwork = () => {
+    return fetch("https://dog.ceo/api/breeds/list/all")
       .then((response) => response.json())
       .then((json) => {
         let keys = Object.keys(json.message);
         let uniqueKeys = new Set(keys);
         let data = Array.from(uniqueKeys);
-        console.log(uuidv4());
-        Realm.open(config).then((realm) => {
-          console.log(realm);
-          realm.write(() => {
-            // realm.create("Task", { name: "Ali" });
-          });
-
-          const tasks = realm.objects("Task");
-          console.log(tasks);
-
-          setData(data);
-          realm.close();
+        let items = data.map((key) => {
+          return { id: uuidv4(), name: key };
         });
+        console.log("Loaded from network");
+        return items;
+      });
+  };
+
+  useEffect(() => {
+    loadFromDatabase()
+      .then((cachedData) => {
+        if (cachedData.length == 0) {
+          loadFromNetwork().then((fromNetwork) => {
+            Realm.open(config).then((realm) => {
+              realm.write(() => {
+                fromNetwork.forEach((item) => {
+                  realm.create("Breed", { ...item });
+                });
+              });
+              realm.close();
+              return fromNetwork;
+            });
+          });
+        } else {
+          return cachedData;
+        }
       })
+      .then((data) => setData(data))
       .catch((error) => {
         console.error(error);
       })
       .finally(() => setLoading(false));
   }, []);
-
-  const renderItem = ({ item, key }) => <Item title={item} />;
 
   return (
     <SafeAreaView
@@ -74,39 +102,41 @@ export default function App() {
       ) : (
         <FlatList
           data={data}
-          renderItem={renderItem}
-          keyExtractor={(item) => item}
+          renderItem={({ index, item }) => {
+            return <Item item={item} onBookmark={(id) => console.log(id)} />;
+          }}
+          keyExtractor={(item) => item.id}
         />
       )}
     </SafeAreaView>
   );
 }
 
-const Item = ({ title }) => (
-  <View
-    style={{
-      height: 100,
-      padding: 20,
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-    }}
-  >
-    <Text
+const Item = ({ item, onBookmark }) => {
+  let { name, id } = item;
+
+  return (
+    <View
       style={{
-        fontSize: 32,
+        height: 100,
+        padding: 20,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
       }}
     >
-      {title}
-    </Text>
-    <Text>
-      <TouchableOpacity
-        onPress={() => {
-          console.log(title);
+      <Text
+        style={{
+          fontSize: 32,
         }}
       >
-        <Icon name="heart" size={30} color="#900" />
-      </TouchableOpacity>
-    </Text>
-  </View>
-);
+        {name}
+      </Text>
+      <Text>
+        <TouchableOpacity onPress={() => onBookmark(id)}>
+          <Icon name="heart" size={30} color="#900" />
+        </TouchableOpacity>
+      </Text>
+    </View>
+  );
+};
