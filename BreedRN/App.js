@@ -10,6 +10,8 @@ import {
 } from "react-native";
 
 import Realm from "realm";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 
 import Icon from "react-native-vector-icons/FontAwesome";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -38,6 +40,7 @@ export default function App() {
         let keys = Object.keys(json.message);
         let uniqueKeys = new Set(keys);
         let data = Array.from(uniqueKeys);
+        console.log(uuidv4());
         Realm.open(config).then((realm) => {
           console.log(realm);
           realm.write(() => {
