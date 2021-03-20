@@ -37,7 +37,9 @@ export default function App() {
 
   const loadFromDatabase = () => {
     return Realm.open(config).then((realm) => {
-      const breeds = realm.objects("Breed");
+      const breeds = realm
+        .objects("Breed")
+        .filtered(`TRUEPREDICATE SORT(name ASC) DISTINCT(name)`);
       const items = breeds.map((item) => {
         let copy = {};
         copy.name = item.name;
@@ -80,8 +82,12 @@ export default function App() {
       .then(
         (cachedData) => {
           if (cachedData.length == 0) {
-            return loadFromNetwork().then((data) => cacheInDatabase(data));
+            console.log("Loaded from Network");
+            return loadFromNetwork()
+              .then((data) => cacheInDatabase(data))
+              .then(() => loadFromDatabase());
           } else {
+            console.log("Loaded from Realm");
             return Promise.resolve(cachedData);
           }
         },
