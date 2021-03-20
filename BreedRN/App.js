@@ -12,6 +12,7 @@ import {
 import Realm from "realm";
 
 import Icon from "react-native-vector-icons/FontAwesome";
+import { TouchableOpacity } from "react-native-gesture-handler";
 const myIcon = <Icon name="rocket" size={30} color="#900" />;
 
 const TaskSchema = {
@@ -56,7 +57,7 @@ export default function App() {
       .finally(() => setLoading(false));
   }, []);
 
-  const renderItem = ({ item }) => <Item title={item} />;
+  const renderItem = ({ item, key }) => <Item title={item} />;
 
   return (
     <SafeAreaView
@@ -84,21 +85,25 @@ const Item = ({ title }) => (
       height: 100,
       padding: 20,
       flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
     }}
   >
-    <View style={{ flex: 2, backgroundColor: "red" }}>
-      <Text
-        style={{
-          fontSize: 32,
+    <Text
+      style={{
+        fontSize: 32,
+      }}
+    >
+      {title}
+    </Text>
+    <Text>
+      <TouchableOpacity
+        onPress={() => {
+          console.log(title);
         }}
       >
-        {title}
-      </Text>
-    </View>
-    <View style={{ flex: 1, backgroundColor: "darkorange" }}>
-      <Text>
-        <Icon name="rocket" size={30} color="#900" />
-      </Text>
-    </View>
+        <Icon name="heart" size={30} color="#900" />
+      </TouchableOpacity>
+    </Text>
   </View>
 );
