@@ -99,12 +99,7 @@ export default function App() {
   }, []);
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        marginTop: StatusBar.currentHeight || 0,
-      }}
-    >
+    <SafeAreaView style={styles.content}>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
@@ -124,22 +119,8 @@ const Item = ({ item, onBookmark }) => {
   let { name, id } = item;
 
   return (
-    <View
-      style={{
-        height: 100,
-        padding: 20,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
-      <Text
-        style={{
-          fontSize: 32,
-        }}
-      >
-        {name}
-      </Text>
+    <View style={styles.item}>
+      <Text style={styles.itemText}>{name}</Text>
       <Text>
         <TouchableOpacity onPress={() => onBookmark(id)}>
           <Icon name="heart" size={30} color="#900" />
@@ -148,3 +129,20 @@ const Item = ({ item, onBookmark }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  content: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
+  },
+  item: {
+    height: 100,
+    padding: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  itemText: {
+    fontSize: 30,
+  },
+});
