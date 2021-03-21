@@ -122,6 +122,9 @@ export default function App() {
         barStyle="light-content"
         hidden={false}
       />
+      <View style={styles.header}>
+        <Text style={styles.headerText}>React Native Breed List</Text>
+      </View>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
@@ -148,7 +151,7 @@ const Item = ({ item, onBookmark }) => {
           <Icon
             name={isFavorite ? "heart" : "heart-o"}
             size={30}
-            color="#900"
+            color="dimgray"
           />
         </TouchableOpacity>
       </Text>
@@ -157,6 +160,22 @@ const Item = ({ item, onBookmark }) => {
 };
 
 const styles = StyleSheet.create({
+  header: {
+    height: 60,
+    backgroundColor: "dimgray",
+    justifyContent: "center",
+    borderBottomWidth: 0,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 20,
+    elevation: 10,
+  },
+  headerText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 20,
+  },
   content: {
     flex: 1,
   },
