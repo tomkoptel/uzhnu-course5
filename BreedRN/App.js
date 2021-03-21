@@ -31,7 +31,6 @@ const config = {
 };
 
 export default function App() {
-  // To build refreshig state https://www.pluralsight.com/guides/display-a-list-using-the-flatlist-component-in-react-native
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
