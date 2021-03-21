@@ -10,83 +10,182 @@ import {
 } from "react-native";
 
 import Realm from "realm";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 
-const TaskSchema = {
-  name: "Task",
+import Icon from "react-native-vector-icons/FontAwesome";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+const BreedSchema = {
+  name: "Breed",
+  primaryKey: "id",
   properties: {
+    id: "string",
     name: "string",
+    isFavorite: { type: "bool", default: false },
   },
 };
 const config = {
   deleteRealmIfMigrationNeeded: true,
-  schema: [TaskSchema],
+  schema: [BreedSchema],
 };
 
 export default function App() {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    fetch("https://dog.ceo/api/breeds/list/all")
+  const loadFromDatabase = () => {
+    return Realm.open(config).then((realm) => {
+      const breeds = realm
+        .objects("Breed")
+        .filtered(`TRUEPREDICATE SORT(name ASC) DISTINCT(name)`);
+      const items = breeds.map((item) => {
+        let copy = {};
+        copy.name = item.name;
+        copy.id = item.id;
+        copy.isFavorite = item.isFavorite;
+        return copy;
+      });
+      realm.close();
+      return items;
+    });
+  };
+
+  const cacheInDatabase = (data) => {
+    return Realm.open(config).then((realm) => {
+      realm.write(() => {
+        data.forEach((item) => {
+          realm.create("Breed", { ...item });
+        });
+      });
+      realm.close();
+      return data;
+    });
+  };
+
+  const loadFromNetwork = () => {
+    return fetch("https://dog.ceo/api/breeds/list/all")
       .then((response) => response.json())
       .then((json) => {
         let keys = Object.keys(json.message);
         let uniqueKeys = new Set(keys);
         let data = Array.from(uniqueKeys);
-        Realm.open(config).then((realm) => {
-          console.log(realm);
-          realm.write(() => {
-            realm.create("Task", { name: "Ali" });
-          });
-
-          const tasks = realm.objects("Task");
-          console.log(tasks);
-
-          setData(data);
-          realm.close();
+        let items = data.map((key) => {
+          return { id: uuidv4(), name: key };
         });
+        return items;
+      });
+  };
+
+  const toggleBookmark = (id) => {
+    Realm.open(config)
+      .then((realm) => {
+        const results = realm.objects("Breed").filtered(`id="${id}"`);
+        const item = results[0];
+        if (item) {
+          realm.write(() => {
+            item.isFavorite = !item.isFavorite;
+          });
+        }
+        realm.close();
       })
-      .catch((error) => {
-        console.error(error);
-      })
+      .then(() => loadFromDatabase())
+      .then((data) => setData(data));
+  };
+
+  useEffect(() => {
+    loadFromDatabase()
+      .then(
+        (cachedData) => {
+          if (cachedData.length == 0) {
+            console.log("Loaded from Network");
+            return loadFromNetwork()
+              .then((data) => cacheInDatabase(data))
+              .then(() => loadFromDatabase());
+          } else {
+            console.log("Loaded from Realm");
+            return Promise.resolve(cachedData);
+          }
+        },
+        (rejection) => console.log(rejection)
+      )
+      .then((data) => setData(data))
+      .catch((error) => console.error(error))
       .finally(() => setLoading(false));
   }, []);
 
-  const renderItem = ({ item }) => <Item title={item} />;
-
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.content}>
+      <StatusBar
+        backgroundColor="#333"
+        barStyle={Platform.OS === "ios" ? "dark-content" : "light-content"}
+        hidden={false}
+      />
+      <View style={styles.header}>
+        <Text style={styles.headerText}>React Native Breed List</Text>
+      </View>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
         <FlatList
           data={data}
-          renderItem={renderItem}
-          keyExtractor={(item) => item}
+          renderItem={({ index, item }) => {
+            return <Item item={item} onBookmark={(id) => toggleBookmark(id)} />;
+          }}
+          keyExtractor={(item) => item.id}
         />
       )}
     </SafeAreaView>
   );
 }
 
-const Item = ({ title }) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
-);
+const Item = ({ item, onBookmark }) => {
+  let { name, id, isFavorite } = item;
+
+  return (
+    <View style={styles.item}>
+      <Text style={styles.itemText}>{name}</Text>
+      <Text>
+        <TouchableOpacity onPress={() => onBookmark(id)}>
+          <Icon
+            name={isFavorite ? "heart" : "heart-o"}
+            size={30}
+            color="dimgray"
+          />
+        </TouchableOpacity>
+      </Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-  container: {
+  header: {
+    height: 60,
+    backgroundColor: "dimgray",
+    justifyContent: "center",
+    borderBottomWidth: 0,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  headerText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 20,
+  },
+  content: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
   },
   item: {
-    backgroundColor: "#f9c2ff",
+    height: 100,
     padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  title: {
-    fontSize: 32,
+  itemText: {
+    fontSize: 30,
   },
 });
