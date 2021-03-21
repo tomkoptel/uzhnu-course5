@@ -44,6 +44,7 @@ export default function App() {
         let copy = {};
         copy.name = item.name;
         copy.id = item.id;
+        copy.isFavorite = item.isFavorite;
         return copy;
       });
       realm.close();
@@ -77,6 +78,22 @@ export default function App() {
       });
   };
 
+  const toggleBookmark = (id) => {
+    Realm.open(config)
+      .then((realm) => {
+        const results = realm.objects("Breed").filtered(`id="${id}"`);
+        const item = results[0];
+        if (item) {
+          realm.write(() => {
+            item.isFavorite = !item.isFavorite;
+          });
+        }
+        realm.close();
+      })
+      .then(() => loadFromDatabase())
+      .then((data) => setData(data));
+  };
+
   useEffect(() => {
     loadFromDatabase()
       .then(
@@ -106,7 +123,7 @@ export default function App() {
         <FlatList
           data={data}
           renderItem={({ index, item }) => {
-            return <Item item={item} onBookmark={(id) => console.log(id)} />;
+            return <Item item={item} onBookmark={(id) => toggleBookmark(id)} />;
           }}
           keyExtractor={(item) => item.id}
         />
@@ -116,14 +133,18 @@ export default function App() {
 }
 
 const Item = ({ item, onBookmark }) => {
-  let { name, id } = item;
+  let { name, id, isFavorite } = item;
 
   return (
     <View style={styles.item}>
       <Text style={styles.itemText}>{name}</Text>
       <Text>
         <TouchableOpacity onPress={() => onBookmark(id)}>
-          <Icon name="heart" size={30} color="#900" />
+          <Icon
+            name={isFavorite ? "heart" : "heart-o"}
+            size={30}
+            color="#900"
+          />
         </TouchableOpacity>
       </Text>
     </View>
