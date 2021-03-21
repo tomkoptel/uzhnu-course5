@@ -119,7 +119,7 @@ export default function App() {
     <SafeAreaView style={styles.content}>
       <StatusBar
         backgroundColor="#333"
-        barStyle="light-content"
+        barStyle={Platform.OS === "ios" ? "dark-content" : "light-content"}
         hidden={false}
       />
       <View style={styles.header}>
@@ -167,9 +167,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 20,
-    elevation: 10,
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 1,
   },
   headerText: {
     color: "white",
