@@ -117,6 +117,11 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.content}>
+      <StatusBar
+        backgroundColor="#333"
+        barStyle="light-content"
+        hidden={false}
+      />
       {isLoading ? (
         <ActivityIndicator />
       ) : (
@@ -154,7 +159,6 @@ const Item = ({ item, onBookmark }) => {
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
   },
   item: {
     height: 100,
