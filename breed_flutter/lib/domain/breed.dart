@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -14,24 +16,16 @@ class Breed {
     this.isFavorite,
   );
 
-  factory Breed.make(
-      {required String name,
-      List<String> races = const <String>[],
-      bool isFavorite = false}) {
-    final uuid = Uuid();
-    return Breed(uuid.v4(), name, races, isFavorite);
-  }
-
   Breed copyWith({
     String? id,
     String? name,
-    List<String>? race,
+    List<String>? races,
     bool? isFavorite,
   }) {
     return Breed(
       id ?? this.id,
       name ?? this.name,
-      race ?? this.races,
+      races ?? this.races,
       isFavorite ?? this.isFavorite,
     );
   }
@@ -40,14 +34,14 @@ class Breed {
     return {
       'id': id,
       'name': name,
-      'race': races,
-      'isFavorite': isFavorite,
+      'races': races.join(","),
+      'isFavorite': (isFavorite ? 1 : 0),
     };
   }
 
   @override
   String toString() {
-    return 'Breed(id: $id, name: $name, race: $races, isFavorite: $isFavorite)';
+    return 'Breed(id: $id, name: $name, races: $races, isFavorite: $isFavorite)';
   }
 
   @override
@@ -64,5 +58,26 @@ class Breed {
   @override
   int get hashCode {
     return id.hashCode ^ name.hashCode ^ races.hashCode ^ isFavorite.hashCode;
+  }
+
+  factory Breed.fromMap(Map<String, dynamic> map) {
+    return Breed(
+      map['id'],
+      map['name'],
+      map['races'].split(","),
+      (map['isFavorite'] == 1),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Breed.fromJson(String source) => Breed.fromMap(json.decode(source));
+
+  factory Breed.make(
+      {required String name,
+      List<String> races = const <String>[],
+      bool isFavorite = false}) {
+    final uuid = Uuid();
+    return Breed(uuid.v4(), name, races, isFavorite);
   }
 }
