@@ -1,13 +1,11 @@
 import 'package:test/test.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
-  test('String.split() splits the string on the delimiter', () {
-    var string = 'foo,bar,baz';
-    expect(string.split(','), equals(['foo', 'bar', 'baz']));
-  });
-
-  test('String.trim() removes surrounding whitespace', () {
-    var string = '  foo ';
-    expect(string.trim(), equals('foo'));
+  test('test dog ceo API', () async {
+    var url = Uri.parse('https://dog.ceo/api/breeds/list/all');
+    var response = await http.get(url);
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
   });
 }
