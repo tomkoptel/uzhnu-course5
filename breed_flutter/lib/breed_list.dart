@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'breed.dart';
+import 'domain/breed.dart';
 
 class BreedList extends StatefulWidget {
   BreedList({Key? key, required this.entries}) : super(key: key);
