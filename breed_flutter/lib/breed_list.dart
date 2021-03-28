@@ -47,7 +47,7 @@ class BreedItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(item.name ?? ""),
+          Text(item.name),
           IconButton(
             icon: Icon(iconVal),
             tooltip: 'Add breed to favorites',
