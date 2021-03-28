@@ -61,10 +61,18 @@ class Breed {
   }
 
   factory Breed.fromMap(Map<String, dynamic> map) {
+    final racesFromDb = map['races'];
+    List<String> races = const <String>[];
+    if (racesFromDb is String) {
+      if (racesFromDb.isNotEmpty) {
+        races = racesFromDb.split(",");
+      }
+    }
+
     return Breed(
       map['id'],
       map['name'],
-      map['races'].split(","),
+      races,
       (map['isFavorite'] == 1),
     );
   }
