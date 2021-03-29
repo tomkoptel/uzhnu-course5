@@ -21,33 +21,38 @@ class _BreedListState extends State<BreedList> {
 
   @override
   Widget build(BuildContext context) {
-    return context.watch<BreedListState>().when(
-        loaded: (items) => ListView.builder(
-            padding: const EdgeInsets.all(8),
-            itemCount: items.length,
-            itemBuilder: (BuildContext context, int index) {
-              return BreedItem(
-                item: items[index],
-                onFavorited: () {
-                  // setState(() {
-                  //   final entry = widget.entries[index];
-                  //   final newEntry = entry.copyWith(isFavorite: !entry.isFavorite);
-                  //   widget.entries[index] = newEntry;
-                  // });
-                },
-              );
-            }),
-        error: (error) => Container(
-              child: Center(
-                child: Text(error),
-              ),
-            ),
-        loading: () => Container(
-              child: Center(
-                child: Text("Loading..."),
-              ),
-            ));
+    return context
+        .watch<BreedListState>()
+        .when(loaded: showList, error: showError, loading: showLoading);
   }
+
+  Widget showList(items) => ListView.builder(
+      padding: const EdgeInsets.all(8),
+      itemCount: items.length,
+      itemBuilder: (BuildContext context, int index) {
+        return BreedItem(
+          item: items[index],
+          onFavorited: () {
+            // setState(() {
+            //   final entry = widget.entries[index];
+            //   final newEntry = entry.copyWith(isFavorite: !entry.isFavorite);
+            //   widget.entries[index] = newEntry;
+            // });
+          },
+        );
+      });
+
+  Widget showError(error) => Container(
+        child: Center(
+          child: Text(error),
+        ),
+      );
+
+  Widget showLoading() => Container(
+        child: Center(
+          child: Text("Loading..."),
+        ),
+      );
 }
 
 class BreedItem extends StatelessWidget {
