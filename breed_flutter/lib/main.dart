@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'data/breed_database.dart';
 import 'home.dart';
 
-void main() {
-  runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize database
+  final database = await BreedDatabase.create();
+
+  runApp(Provider<BreedDatabase>(
+    create: (_) => database,
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
