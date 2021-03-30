@@ -29,11 +29,13 @@ class BreedDatabase {
   }
 
   Future<List<Breed>> all() async {
-    final List<Map<String, dynamic>> maps = await database.query('breeds');
+    final List<Map<String, dynamic>> maps =
+        await database.query('breeds', orderBy: 'name');
 
-    return List.generate(maps.length, (i) {
+    var list = List.generate(maps.length, (i) {
       return Breed.fromMap(maps[i]);
     });
+    return list;
   }
 
   Future<void> clear() async {

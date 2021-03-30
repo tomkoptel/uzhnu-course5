@@ -30,14 +30,11 @@ class _BreedListState extends State<BreedList> {
       padding: const EdgeInsets.all(8),
       itemCount: items.length,
       itemBuilder: (BuildContext context, int index) {
+        final Breed breed = items[index];
         return BreedItem(
-          item: items[index],
+          item: breed,
           onFavorited: () {
-            // setState(() {
-            //   final entry = widget.entries[index];
-            //   final newEntry = entry.copyWith(isFavorite: !entry.isFavorite);
-            //   widget.entries[index] = newEntry;
-            // });
+            widget.viewModel.toggleFavorite(breed);
           },
         );
       });

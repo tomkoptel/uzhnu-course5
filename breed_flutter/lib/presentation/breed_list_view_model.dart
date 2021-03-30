@@ -18,12 +18,18 @@ class BreedListViewModel extends StateNotifier<BreedListState> {
         networkBreeds.forEach((element) async {
           await database.insert(element);
         });
-        state = BreedListState.loaded(networkBreeds);
+        final List<Breed> savedBreeds = await database.all();
+        state = BreedListState.loaded(savedBreeds);
       } else {
         state = BreedListState.loaded(cachedBreeds);
       }
     } catch (ex) {
       state = BreedListState.error(ex.toString());
     }
+  }
+
+  Future<void> toggleFavorite(Breed breed) async {
+    await database.insert(breed.copyWith(isFavorite: !breed.isFavorite));
+    await loadBreedList();
   }
 }
