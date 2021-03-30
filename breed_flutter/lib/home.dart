@@ -1,3 +1,4 @@
+import 'package:breed_flutter/data/breed_api.dart';
 import 'package:breed_flutter/data/breed_database.dart';
 import 'package:breed_flutter/presentation/breed_list_state.dart';
 import 'package:breed_flutter/presentation/breed_list_view_model.dart';
@@ -10,7 +11,7 @@ class HomePage extends StatelessWidget {
   static Widget create(BuildContext context, {Key? key, String? title}) {
     final database = context.read<BreedDatabase>();
     return StateNotifierProvider<BreedListViewModel, BreedListState>(
-      create: (_) => BreedListViewModel(database: database),
+      create: (_) => BreedListViewModel(database: database, api: BreedApi()),
       child: HomePage(key: key, title: title),
     );
   }
