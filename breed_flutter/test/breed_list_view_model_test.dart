@@ -18,7 +18,21 @@ void main() {
   final fakeDbBreed = Breed.make(name: "fakeDB");
   final fakeNetworkBreed = Breed.make(name: "fakeNetwork");
 
-  setUp(() {});
+  group('when toggle breed item', () {
+    setUp(() {
+      when(mockBreedDatabase.all())
+          .thenAnswer((_) => Future.value(<Breed>[fakeDbBreed]));
+    });
+    test('should toggle breed and load new list items', () async {
+      await listViewModel.toggleFavorite(fakeDbBreed);
+
+      var captured =
+          verify(mockBreedDatabase.insert(captureAny)).captured.single;
+      var capturedBreed = captured as Breed;
+      expect(capturedBreed.isFavorite, !fakeDbBreed.isFavorite);
+    });
+  });
+
   group('when database returns cached', () {
     setUp(() {
       when(mockBreedDatabase.all())
@@ -38,7 +52,15 @@ void main() {
 
   group('when database empty', () {
     setUp(() {
-      when(mockBreedDatabase.all()).thenAnswer((_) => Future.value(<Breed>[]));
+      var called = 0;
+      when(mockBreedDatabase.all()).thenAnswer((_) {
+        called++;
+        if (called == 1) {
+          return Future.value(<Breed>[]);
+        } else {
+          return Future.value(<Breed>[fakeDbBreed]);
+        }
+      });
     });
 
     test('and api returns success', () async {
@@ -49,7 +71,7 @@ void main() {
 
       final loaded = listViewModel.state
           .maybeWhen(loaded: (r) => r, orElse: () => const <Breed>[]);
-      expect(loaded, <Breed>[fakeNetworkBreed]);
+      expect(loaded, <Breed>[fakeDbBreed]);
     });
   });
 }
