@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(title: 'Flutter List of Breeds'),
+      home: HomePage.create(context, title: 'Flutter List of Breeds'),
     );
   }
 }

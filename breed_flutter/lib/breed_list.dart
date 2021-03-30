@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'domain/breed.dart';
+import 'package:breed_flutter/presentation/breed_list_state.dart';
+import 'package:breed_flutter/presentation/breed_list_view_model.dart';
+import 'package:provider/provider.dart';
 
 class BreedList extends StatefulWidget {
-  BreedList({Key? key, required this.entries}) : super(key: key);
-  final List<Breed> entries;
+  BreedList({Key? key, required this.viewModel}) : super(key: key);
+  final BreedListViewModel viewModel;
 
   @override
   _BreedListState createState() => _BreedListState();
@@ -11,23 +14,45 @@ class BreedList extends StatefulWidget {
 
 class _BreedListState extends State<BreedList> {
   @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemCount: widget.entries.length,
-        itemBuilder: (BuildContext context, int index) {
-          return BreedItem(
-            item: widget.entries[index],
-            onFavorited: () {
-              setState(() {
-                final entry = widget.entries[index];
-                final newEntry = entry.copyWith(isFavorite: !entry.isFavorite);
-                widget.entries[index] = newEntry;
-              });
-            },
-          );
-        });
+  void initState() {
+    super.initState();
+    widget.viewModel.loadBreedList();
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return context
+        .watch<BreedListState>()
+        .when(loaded: showList, error: showError, loading: showLoading);
+  }
+
+  Widget showList(items) => ListView.builder(
+      padding: const EdgeInsets.all(8),
+      itemCount: items.length,
+      itemBuilder: (BuildContext context, int index) {
+        return BreedItem(
+          item: items[index],
+          onFavorited: () {
+            // setState(() {
+            //   final entry = widget.entries[index];
+            //   final newEntry = entry.copyWith(isFavorite: !entry.isFavorite);
+            //   widget.entries[index] = newEntry;
+            // });
+          },
+        );
+      });
+
+  Widget showError(error) => Container(
+        child: Center(
+          child: Text(error),
+        ),
+      );
+
+  Widget showLoading() => Container(
+        child: Center(
+          child: Text("Loading..."),
+        ),
+      );
 }
 
 class BreedItem extends StatelessWidget {
