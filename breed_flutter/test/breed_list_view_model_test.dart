@@ -38,7 +38,15 @@ void main() {
 
   group('when database empty', () {
     setUp(() {
-      when(mockBreedDatabase.all()).thenAnswer((_) => Future.value(<Breed>[]));
+      var called = 0;
+      when(mockBreedDatabase.all()).thenAnswer((_) {
+        called++;
+        if (called == 1) {
+          return Future.value(<Breed>[]);
+        } else {
+          return Future.value(<Breed>[fakeDbBreed]);
+        }
+      });
     });
 
     test('and api returns success', () async {
@@ -49,7 +57,7 @@ void main() {
 
       final loaded = listViewModel.state
           .maybeWhen(loaded: (r) => r, orElse: () => const <Breed>[]);
-      expect(loaded, <Breed>[fakeNetworkBreed]);
+      expect(loaded, <Breed>[fakeDbBreed]);
     });
   });
 }
