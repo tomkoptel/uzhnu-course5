@@ -2,32 +2,54 @@ import 'package:breed_flutter/data/breed_api.dart';
 import 'package:breed_flutter/data/breed_database.dart';
 import 'package:breed_flutter/domain/breed.dart';
 import 'package:breed_flutter/presentation/breed_list_view_model.dart';
-import 'package:sqflite_common/sqlite_api.dart';
 import 'package:test/test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'breed_list_view_model_test.mocks.dart';
 
+@GenerateMocks([BreedDatabase, BreedApi])
 void main() {
-  test('test ability to get list of breeds from API', () async {
-    final listViewModel = BreedListViewModel(database: FakeBreedDatabse(), api: FakeApi());
-    await listViewModel.loadBreedList();
+  final mockBreedDatabase = MockBreedDatabase();
+  final mockBreedApi = MockBreedApi();
 
-    final noResults = const <Breed>[];
-    final loaded = listViewModel.state
-        .maybeWhen(loaded: (r) => r, orElse: () => noResults);
-    expect(loaded, isNot(isEmpty));
+  final listViewModel =
+      BreedListViewModel(database: mockBreedDatabase, api: mockBreedApi);
+
+  final fakeDbBreed = Breed.make(name: "fakeDB");
+  final fakeNetworkBreed = Breed.make(name: "fakeNetwork");
+
+  setUp(() {});
+  group('when database returns cached', () {
+    setUp(() {
+      when(mockBreedDatabase.all())
+          .thenAnswer((_) => Future.value(<Breed>[fakeDbBreed]));
+    });
+
+    test('api is not called', () async {
+      await listViewModel.loadBreedList();
+
+      final loaded = listViewModel.state
+          .maybeWhen(loaded: (r) => r, orElse: () => const <Breed>[]);
+      expect(loaded, <Breed>[fakeDbBreed]);
+
+      verifyNoMoreInteractions(mockBreedApi);
+    });
   });
-}
 
-class FakeApi extends BreedApi {
-  @override
-  Future<List<Breed>> fetchBreeds() {
-    return Future.value(<Breed>[Breed.make(name: "??")]);
-  }
-}
+  group('when database empty', () {
+    setUp(() {
+      when(mockBreedDatabase.all()).thenAnswer((_) => Future.value(<Breed>[]));
+    });
 
-class FakeBreedDatabse extends BreedDatabase {
-  FakeBreedDatabse() : super(FakeDatabase());
-}
+    test('and api returns success', () async {
+      when(mockBreedApi.fetchBreeds())
+          .thenAnswer((_) => Future.value(<Breed>[fakeNetworkBreed]));
+      await listViewModel.loadBreedList();
+      verify(mockBreedDatabase.insert(fakeNetworkBreed));
 
-class FakeDatabase extends Database {
-  noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+      final loaded = listViewModel.state
+          .maybeWhen(loaded: (r) => r, orElse: () => const <Breed>[]);
+      expect(loaded, <Breed>[fakeNetworkBreed]);
+    });
+  });
 }
