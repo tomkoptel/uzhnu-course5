@@ -91,6 +91,7 @@ const loadFromNetwork = () => {
 };
 \end{lstlisting}
 
+
 \section{Технологія бази даних}
 \label{section.2.6}
 В випадку вибору бази даних треба розглянути наступні фактори:
@@ -99,7 +100,7 @@ const loadFromNetwork = () => {
         \textbf{Технологія:} з відкритим кодом чи власністю?
     \end{item}
     \begin{item}
-        \textbf{Архітектура:} SQL або NoSQL?
+        \textbf{Архітектура:} SQL або NoSQL?s
     \end{item}
     \begin{item}
         \textbf{Масштабованість:} чи ви будете самостійно розміщувати або скористаєтесь масштабованою послугою?
@@ -108,55 +109,26 @@ const loadFromNetwork = () => {
 
 Ринок надає можливість використання таких рішень як:
 
-\begin{itemize}
-    \begin{item}
-        \textbf{Back4app}
-        \begin{itemize}
-            \item Відкрите джерело
-            \item Працює з базами даних SQL та NoSQL
-            \item Масштабована інфраструктура
-        \end{itemize}
-    \end{item}
-    \begin{item}
-        \textbf{Cloud Firestore}
-        \begin{itemize}
-            \item Пропрієтарний
-            \item Працює з базою даних NoSQL
-            \item Масштабована інфраструктура
-        \end{itemize}
-    \end{item}
-    \begin{item}
-        \textbf{DigitalOcean}
-        \begin{itemize}
-            \item Відкрите джерело
-            \item Працює з базами даних SQL
-            \item Масштабована інфраструктура
-        \end{itemize}
-    \end{item}
-    \begin{item}
-        \textbf{AWS RDS}
-        \begin{itemize}
-            \item Відкрите джерело
-            \item Працює з реляційними базами даних
-            \item Масштабована інфраструктура
-        \end{itemize}
-    \end{item}
-    \begin{item}
-        \textbf{Realm}
-        \begin{itemize}
-            \item Відкрите джерело
-            \item NoSQL база даних
-            \item Масштабована інфраструктура
-        \end{itemize}
-    \end{item}
-\end{itemize}
+\begin{longtable}[c]{|l|l|l|}
+    \caption{Порівняння Баз Даниx React Native}
+    \label{tab:rn_db_comparison}\\
+    \hline
+    & Сирцевий код  & Тип реаліаційної БД \\ \hline
+    \endhead
+%
+    Back4app        & Відкритий     & SQL, NoSQL          \\ \hline
+    Cloud Firestore & Пропрієтарний & NoSQL               \\ \hline
+    DigitalOcean    & Відкритий     & SQL                 \\ \hline
+    AWS RDS         & Відкритий     & SQL                 \\ \hline
+    Realm           & Відкритий     & NoSQL               \\ \hline
+\end{longtable}
 
 Під час роботи над тестовим продуктом було зроблене рішення використати Realm.
 Рішення базувалося скоріше на потребах швидкого та простого в інтеграції рішення.
 Як наведено нижче конфігурація в цілому є дуже проста. \ref{lst:rn_realm}
 
 \begin{lstlisting}[style=light, language=Python,label={lst:rn_realm},caption=React Native Realm]
-// опис схеми бази даних
+// 1
 const BreedSchema = {
   name: "Breed",
   primaryKey: "id",
@@ -166,20 +138,29 @@ const BreedSchema = {
     isFavorite: { type: "bool", default: false },
   },
 };
-// конфігурація
+// 2
 const config = {
   deleteRealmIfMigrationNeeded: true,
   schema: [BreedSchema],
 };
-// відкриваємо підключення до бази даних та робимо запит до таблиці
+// 3
 const loadFromDatabase = () => {
   return Realm.open(config).then((realm) => {
     const breeds = realm
       .objects("Breed")
       .filtered(`TRUEPREDICATE SORT(name ASC) DISTINCT(name)`);
+    // 4
     const items = breeds.map(copyObjects);
     realm.close();
     return items;
   });
 };
 \end{lstlisting}
+
+\begin{enumerate}
+    \item Опис схеми бази даних. В даному випадку одна таблиця.
+    \item Створюємо об'єкт конфігурації. Далі буде використаний, щоби відкрити підключення до бази даних.
+    \item Відкриваємо підключення до бази даних та робимо запит до таблиці.
+    \item Робимо копію даних, щоби від'єднати об'єкт від підключення, якщо не копіювати об'єкт виникне помилка виконання.
+\end{enumerate}
+
