@@ -20,7 +20,7 @@
 * [Testing Overview](https://reactnative.dev/docs/testing-overview)
 
 # Kotlin Native
-[Kotlin Multiplatform — A panacea for mobile app development?](https://mayankmkh.medium.com/kotlin-multiplatform-a-panacea-for-mobile-app-development-c41ffe850d1b)
+* [Kotlin Multiplatform — A panacea for mobile app development?](https://mayankmkh.medium.com/kotlin-multiplatform-a-panacea-for-mobile-app-development-c41ffe850d1b)
 
 # Flutter
-[Upgrading from ChangeNotifier](https://medium.com/flutter-community/upgrading-from-changenotifier-effd16fed1a6)
+* [Upgrading from ChangeNotifier](https://medium.com/flutter-community/upgrading-from-changenotifier-effd16fed1a6)
