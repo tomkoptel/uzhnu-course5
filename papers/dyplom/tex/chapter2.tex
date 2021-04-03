@@ -281,3 +281,51 @@ Unit test(єдносткові тести) допомагають протест
     \item у спільноті React Native Detox є популярним фреймворком, оскільки він спеціально підходить для додатків React Native.\cite{detox_home_page}
     \item ще однією популярною бібліотекою для iOS та Android додатків є Appium.\cite{appium_home_page}
 \end{itemize}
+
+\section{Структура проекту в React Native}
+\label{section.2.10}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:rn_app_structure},caption=React Native App Layout]
+├── App.js (1)
+├── Readme.md
+├── __tests__ (2)
+│ └── App.js
+├── android (3)
+│ ├── app
+│ ├── build
+│ ├── build.gradle
+│ ├── gradle
+│ ├── gradle.properties
+│ ├── gradlew
+│ ├── gradlew.bat
+│ ├── local.properties
+│ └── settings.gradle
+├── app.json (5)
+├── babel.config.js (6)
+├── index.js (7)
+├── ios (4)
+│ ├── BreedRN
+│ ├── BreedRN.xcodeproj
+│ ├── BreedRN.xcworkspace
+│ ├── Podfile
+│ ├── Podfile.lock
+│ └── Pods
+├── metro.config.js (8)
+├── node_modules (11)
+├── package-lock.json (10)
+└── package.json (9)
+\end{lstlisting}
+
+\begin{enumerate}
+    \item \textbf{App.js} сирцевий код нашого додатку
+    \item \textbf{\_\_tests\_\_} сирцевий код тестів
+    \item \textbf{android} сирцевий код платформеного коду Android
+    \item \textbf{ios} сирцевий код платформеного коду iOS
+    \item \textbf{app.json} конфігурує багато речей, від назви вашого додатка до піктограми до заставки, і навіть схеми глибоких зв’язків та ключів API для використання для деяких служб
+    \item \textbf{babel.config.js} конфігурує Babel - це набір інструментів, який в основному використовується для перетворення коду ECMAScript 2015+ у зворотну сумісну версію JavaScript у поточних та старих браузерах або середовищах.
+    \item \textbf{index.js} точка входу для React Native з цього файлу Javascript Engine вивантажує в пам'ять логіку додатку
+    \item \textbf{metro.config.js} конфігурує Metro пакувальник JavaScript для платформ Android та iOS
+    \item \textbf{package.json} конфігурує дерево залежностей або бібліотек, що використовує проект
+    \item \textbf{package-lock.json} файл що описує повністю дерево залежностей, таким чином створює відтворюване середовище
+    \item \textbf{node_modules} репозиторій артефактів або сирцевого коду всіх Javascript пакетів, що використовує проект
+\end{enumerate}
