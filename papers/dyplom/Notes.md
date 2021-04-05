@@ -12,10 +12,15 @@
 * [Developer Survey Stackoverflow 2019](https://insights.stackoverflow.com/survey/2019)
 
 # React Native
-[JSX Standard](https://reactjs.org/docs/jsx-in-depth.html)
-[Expo Limitations](https://docs.expo.io/introduction/why-not-expo/)
-[Managed vs Bare](https://docs.expo.io/introduction/managed-vs-bare/)
-[Should you use React Native to build your startup’s mobile app?](https://medium.com/snipe-gg/should-you-use-react-native-to-build-your-startups-mobile-app-c0baf9f4d9ad)
+* [JSX Standard](https://reactjs.org/docs/jsx-in-depth.html)
+* [Expo Limitations](https://docs.expo.io/introduction/why-not-expo/)
+* [Managed vs Bare](https://docs.expo.io/introduction/managed-vs-bare/)
+* [Should you use React Native to build your startup’s mobile app?](https://medium.com/snipe-gg/should-you-use-react-native-to-build-your-startups-mobile-app-c0baf9f4d9ad)
+* [The 5 Best React Native Databases](https://george-51059.medium.com/react-native-database-68d9599c4a5c)
+* [Testing Overview](https://reactnative.dev/docs/testing-overview)
 
 # Kotlin Native
-[Kotlin Multiplatform — A panacea for mobile app development?](https://mayankmkh.medium.com/kotlin-multiplatform-a-panacea-for-mobile-app-development-c41ffe850d1b)
+* [Kotlin Multiplatform — A panacea for mobile app development?](https://mayankmkh.medium.com/kotlin-multiplatform-a-panacea-for-mobile-app-development-c41ffe850d1b)
+
+# Flutter
+* [Upgrading from ChangeNotifier](https://medium.com/flutter-community/upgrading-from-changenotifier-effd16fed1a6)
