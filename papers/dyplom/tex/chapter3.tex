@@ -102,3 +102,27 @@ class _BreedListState extends State<BreedList> {
     \item При ініціалізації віджету виконуємо код бізнес логіки. Тут завантажуємо список порід собак.
     \item Логіка відображування стану нашої "обіцянки". Можемо або отримати результат, або помилку, або стан "завантаження".
 \end{enumerate}
+
+
+\section{Система побудування з використанням Flutter CLI}
+\label{section.3.2}
+Flutter CLI - інструмент командного рядка котрий дозволяє створити, виконати, зібрати сирцевий код проектів фреймфорку Flutter.
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_cli_create},caption=Flutter Create Project]
+flutter create my_app
+cd my_app
+flutter analyze
+flutter test
+flutter run lib/main.dart
+\end{lstlisting}
+
+Як видно в лістингу \ref{lst:flutter_cli_create} ми виконуємо команду, що створює, перевіряє, запускає тести та відтворює фактично код додатку.
+
+Додатково набір інсрументів дозволяє завантажити, сконфігурувати та під'єднати транзитивні залежності проекту \ref{lst:flutter_pub}.
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_pub},caption=Flutter Dependency Resolution]
+flutter pub get
+flutter pub outdated
+flutter pub upgrade
+\end{lstlisting}
+
+Повний список залежностей можна знайти на офіційній веб сторінці \cite{flutter_cli}.
