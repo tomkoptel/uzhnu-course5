@@ -4,3 +4,101 @@
 
 \section{Все віджити}
 \label{section.3.1}
+Однією з основних тем, яка супроводжує вас під час використання Flutter, є те, що на 80\% розробки це потужне використання віджетів.
+
+Віджети Flutter побудовані з використанням сучасного фреймворку, який черпає натхнення у React.
+Основна ідея полягає в тому, що ви створюєте свій інтерфейс з віджетів.
+Віджети описують, як повинен виглядати їхній вигляд, враховуючи їх поточну конфігурацію та стан.
+Коли стан віджета змінюється, віджет відновлює свій опис, при цьому фреймфорк порівнює новий стан з попереднім,
+визначає мінімальні зміни, та оновлює дерево візуалізації, таким чином, переходячи з одного стану в наступний.
+
+Далі ми наводимо сирцевий код, що описує логіку ініціалізації додатку та визначає головний віджет додатку. \ref{lst:flutter_app_widget}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_app_widget},caption=Flutter StatelessWidget]
+// 1
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'data/breed_database.dart';
+import 'home.dart';
+
+Future<void> main() async {
+  // 2
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 3
+  final database = await BreedDatabase.create();
+
+  // 4
+  runApp(Provider<BreedDatabase>(
+    create: (_) => database,
+    child: MyApp(),
+  ));
+}
+
+// 5
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // 6
+    return MaterialApp(
+      // 7
+      home: HomePage.create(context, title: 'Flutter List of Breeds'),
+    );
+  }
+}
+\end{lstlisting}
+
+\begin{enumerate}
+    \item Опис імпортовонах компенентів використовунах під час виконання додатку.
+    \item Ініціалізуємо прив'язку Flutter фреймфорку.
+    \item Створюємо підключення до бази даних.
+    \item Викликаємо runApp і прив'язуємо посилання на базу даних до дерева віджетів.
+    \item Опис кореневого віджету, котрий розширює віджет StatelessWidget(без стану).
+    \item Створюємо спеціфічний віджет з пакету Google Material Design.
+    \item Повертаємо віджет наступного рівня, котрий описує реалізацію головної сторінки.
+\end{enumerate}
+
+Як ми бачимо з наведеного сирцевого коду, по суті, розробка в Flutter подібна до гри з матрьошкою,
+де ми вкладаємо один віджет в настуапний поступово додаючи складність до розвязання.
+
+Треба звернути увагу, що головний віджет не має стану і тим самим визначає, що кореневий віджет буде не змінним
+під час перерахування дерева після зміни стану в інших шарах додатку.
+
+Тепер ознайомившись з прикладом віджету без стану, слід навести протилежність, а саме StateFullWidget(зі станом).
+Ми зробимо це на прикладі списку котрий відображає додаток.
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_app_widget},caption=Flutter StatefulWidget]
+// 1
+class BreedList extends StatefulWidget {
+  BreedList({Key? key, required this.viewModel}) : super(key: key);
+  final BreedListViewModel viewModel;
+
+  // 2
+  @override
+  _BreedListState createState() => _BreedListState();
+}
+
+class _BreedListState extends State<BreedList> {
+  @override
+  void initState() {
+    super.initState();
+    // 3
+    widget.viewModel.loadBreedList();
+  }
+
+  // 4
+  @override
+  Widget build(BuildContext context) {
+    return context
+        .watch<BreedListState>()
+        .when(loaded: showList, error: showError, loading: showLoading);
+  }
+}
+\end{lstlisting}
+
+\begin{enumerate}
+    \item Визначаємо віджет та наслідуємо віджет StatefulWidget(зі станом).
+    \item Реалізуємо контракт і створюємо об'єкт типу State<BreedList>.
+    \item При ініціалізації віджету виконуємо код бізнес логіки. Тут завантажуємо список порід собак.
+    \item Логіка відображування стану нашої "обіцянки". Можемо або отримати результат, або помилку, або стан "завантаження".
+\end{enumerate}
