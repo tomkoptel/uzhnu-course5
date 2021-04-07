@@ -204,3 +204,65 @@ class BreedApi {
     \item Операції до БД, виконуються у фоновому потоці на iOS та Android.
     \item Підтримка Linux / Windows / DartVM за допомогою sqflite_common_ffi.
 \end{itemize}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_sqflite},caption=Flutter SQFLITE]
+import 'package:breed_flutter/domain/breed.dart';
+import 'package:path/path.dart';
+// 1
+import 'package:sqflite/sqflite.dart';
+
+class BreedDatabase {
+  final Database database;
+
+  BreedDatabase(this.database);
+
+  static Future<BreedDatabase> create() async {
+    // 2
+    final Database database = await openDatabase(
+      join(await getDatabasesPath(), 'doggie_database.db'),
+      onCreate: (db, version) {
+        // 3
+        return db.execute(
+          "CREATE TABLE breeds(id TEXT PRIMARY KEY, name TEXT, races TEXT, isFavorite INTEGER)",
+        );
+      },
+      version: 1,
+    );
+    return BreedDatabase(database);
+  }
+
+  // 4
+  Future<void> insert(Breed breed) async {
+    await database.insert(
+      'breeds',
+      breed.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  // 5
+  Future<List<Breed>> all() async {
+    final List<Map<String, dynamic>> maps =
+        await database.query('breeds', orderBy: 'name');
+
+    var list = List.generate(maps.length, (i) {
+      return Breed.fromMap(maps[i]);
+    });
+    return list;
+  }
+
+  // 6
+  Future<void> clear() async {
+    await database.delete('breeds');
+  }
+}
+\end{lstlisting}
+
+\begin{enumerate}
+    \item Імпортуємо пакет sqflite, котрий надає можливість створення об'єкту бази даних.
+    \item Відкриваємо підключення до бази даних з використанням async/await API описаного в сексції \ref{section.3.3}
+    \item SQL запит, що створіє таблицю під час створення SQL БД на файловій системі.
+    \item Функція insert, що створює новий запис в таблиці використовуючи REPLACE стратегію для розв'язання конфліктів.
+    \item Функція all, що повертає об'єкти з БД та перетворює на тип доменої логіки.
+    \item Функція clear, знищує таблицю.
+\end{enumerate}
