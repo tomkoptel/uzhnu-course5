@@ -266,3 +266,69 @@ class BreedDatabase {
     \item Функція all, що повертає об'єкти з БД та перетворює на тип доменої логіки.
     \item Функція clear, знищує таблицю.
 \end{enumerate}
+
+
+\section{Управління станом з використанням Providers API}
+\label{section.3.5}
+Flutter пропонує кількп способів для управління станом. Серед них BLoC, Provider, Statefull Widgets, InheritedWidgets.
+В даній роботі ми розглянемо Provider API, котрий взяв за основу систему InheritedWidgets(віджет, що наслідує).
+Для того щоби зрозуміти контроль стану з Provider API ми повинні розлянути:
+
+\begin{itemize}
+    \item ChangeNotifier - це простий клас, включений до Flutter SDK, який забезпечує повідомлення про зміни своїх слухачів. Іншими словами, якщо щось є ChangeNotifier, ви можете підписатися на його зміни.
+    \item ChangeNotifierProvider - це віджет, який надає екземпляр ChangeNotifier своїм нащадкам. Це походить від пакету провайдера.
+    \item Consumer - це віджет, що дозволяє нам огорнути будь-який інший віджит далі в ієрархії та зчитати стан з класу, що наслідує ChangeNotifier.
+\end{itemize}
+
+В нашому додатку ми використали StateNotifier, котрий обновлює всіх підписників стану.
+Так наприклад зміна значення з стану "завантажується" на стан "завантажений" приводить до перебудови віджету.
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_sqflite},caption=Flutter SQFLITE]
+
+// 1
+class BreedListViewModel extends StateNotifier<BreedListState> {
+  BreedListViewModel({required this.database})
+      : super(const BreedListState.loading());
+  final BreedDatabase database;
+
+  Future<void> loadBreedList() async {
+      // 2
+      final List<Breed> cachedBreeds = await database.all();
+      // 3
+      state = BreedListState.loaded(savedBreeds);
+  }
+}
+
+class BreedList extends StatefulWidget {
+  BreedList({Key? key, required this.viewModel}) : super(key: key);
+  final BreedListViewModel viewModel;
+
+  @override
+  _BreedListState createState() => _BreedListState();
+}
+
+class _BreedListState extends State<BreedList> {
+  @override
+  void initState() {
+    super.initState();
+    // 4
+    widget.viewModel.loadBreedList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // 5
+    return context
+        .watch<BreedListState>()
+        .when(loaded: showList, error: showError, loading: showLoading);
+  }
+}
+\end{lstlisting}
+
+\begin{enumerate}
+    \item BreedListViewModel наслідує StateNotifier<BreedListState> отже стан описан додатковим дата класом BreedListState.
+    \item Викликаючи loadBreedList() ми вигружаємо інформацію з БД.
+    \item Встановлюємо новий стан, котрий буде поширен на віджет.
+    \item Виконуємо виклик до моделі для, того щоб почати процес завантаження.
+    \item Використовуючи API "watch" за рахунок StateNotifierProvider ми отримуємо новий стан, котрий оновлюємо згідно з трьох визначених типів.
+\end{enumerate}
