@@ -343,7 +343,7 @@ class _BreedListState extends State<BreedList> {
 Ми застосуємо пакети test та mockito.
 Пакет тест надає доступ до функцій, які дозволяють нам групувати тести.
 Пакет mockito надає функціонал, що дозволяє конфігурувати поведінку об'єктів типу mock(заглушка).
-\begin{lstlisting}[style=light, language=Python,label={lst:flutter_sqflite},caption=Flutter SQFLITE]
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_unit_test},caption=Flutter Unit Test]
 @GenerateMocks([BreedDatabase, BreedApi])
 void main() {
   // 1
@@ -390,4 +390,58 @@ void main() {
     \item Безпосередньо сам тест з описом його приназначення.
     \item Ми перехоплюємо посилання на об'єкт, що ми плануємо зберігти в БД.
     \item Остання перевірка на то, що стан перехопленого об'єкту змінився.
+\end{enumerate}
+
+\section{Структура проекту в Flutter}
+\label{section.3.7}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_project_layout},caption=Flutter Project Layout]
+├── README.md
+├── android (1)
+│ ├── app
+│ ├── breed_flutter_android.iml
+│ ├── build.gradle
+│ ├── gradle
+│ ├── gradle.properties
+│ ├── gradlew
+│ ├── gradlew.bat
+│ ├── local.properties
+│ └── settings.gradle
+├── build (2)
+├── ios (3)
+│ ├── Flutter
+│ ├── Podfile
+│ ├── Runner
+│ ├── Runner.xcodeproj
+│ └── Runner.xcworkspace
+├── lib (4)
+│ ├── breed_list.dart
+│ ├── data
+│ ├── domain
+│ ├── home.dart
+│ ├── main.dart
+│ └── presentation
+├── pubspec.lock (5)
+├── pubspec.yaml (6)
+├── test (7)
+│ ├── breed_database_test.dart
+│ ├── breed_list_view_model_test.dart
+│ ├── breed_list_view_model_test.mocks.dart
+│ └── network_test.dart
+└── web (8)
+    ├── favicon.png
+    ├── icons
+    ├── index.html
+    └── manifest.json
+\end{lstlisting}
+
+\begin{enumerate}
+    \item \textbf{android} сирцевий код платформеного коду Android.
+    \item \textbf{build} папка з тимчасовими файлами згенерованими Flutter CLI під час побудування проекту.
+    \item \textbf{ios} сирцевий код платформеного коду iOS.
+    \item \textbf{lib} сирцевий код Flutter, котрий фактично є серцем репозиторія та описую логіку проекту.
+    \item \textbf{pubspec.lock} файл що описує повністю дерево залежностей, таким чином створює відтворюване середовище.
+    \item \textbf{pubspec.yaml} конфігурує дерево залежностей або бібліотек, що використовує проект.
+    \item \textbf{test} сирцевий код тестів для платформи Flutter.
+    \item \textbf{web} сирцевий код платформеного коду веб сторінки.
 \end{enumerate}
