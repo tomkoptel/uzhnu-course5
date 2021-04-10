@@ -1,0 +1,91 @@
+\chapter{Kotlin Multiplatform}
+\label{ch4}
+
+
+\section{UI та Kotlin Multiplatform}
+\label{section.4.1}
+Специфіка розробки з використанням Kotlin Multiplatform передбачує, що розробка рівня UI буде досягнута
+інструментами нативними для платформи.
+
+Для розробки UI під Android використовується декларативний XML, що відтворюється під час виконання в середовищі компоненту
+контейнера так званої Activity(активність).
+\begin{lstlisting}[style=light, language=Python,label={lst:android_xml},caption=Android UI with XML]
+// 1
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // 2
+        setContentView(R.layout.activity_main)
+    }
+}
+
+// 3
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"/>
+\end{lstlisting}
+
+\begin{enumerate}
+    \item Декларуємо клас, що наслідує Activity.
+    \item Конфігуруємо Activity посилаючись на XML, що визначає елементи UI.
+    \item Безпосередньо сам XML, що декларує опис розмітки.
+\end{enumerate}
+
+Нещодавно з'явився тренд розробки UI з уживанням
+Kotlin DSL(Domain Specific Language - Специфічна Мова Домену) так званий Jetpack Compose \cite{jetpack_compose}.
+
+\begin{lstlisting}[style=light, language=Python,label={lst:android_jetpack_compose},caption=Android Jetpack Compose]
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val appContainer = (application as JetnewsApplication).container
+        // 1
+        setContent {
+            // 2
+            JetnewsApp(appContainer, navigationViewModel)
+        }
+    }
+}
+\end{lstlisting}
+
+\begin{enumerate}
+    \item Викликаємо функцію setContent, що приймає як аргумент функцію, що створює віджет.
+    \item Створюємо віджет, який описує додаток.
+\end{enumerate}
+
+Як видно з прикладу \ref{android_jetpack_compose} Android екосистема взяла той самий керунок, що Flutter та React Native.
+Такий самий тренд можна спостерігати і в розробці під iOS, де декларативний синтаксис описується з Swift UI \cite{swift_ui}.
+
+\begin{lstlisting}[style=light, language=Python,label={lst:ios_swift_ui},caption=Swift UI]
+import SwiftUI
+
+// 1
+@main
+struct LandmarksApp: App {
+    // 2
+    var body: some Scene {
+       // 3
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
+\end{lstlisting}
+
+\begin{enumerate}
+    \item Декларуємо структуру, що є вхідною точкою для запуску додатку.
+    \item Декларуємо сцену, що визначає екран користувача.
+    \item В декларативний спосіб описуємо UI.
+\end{enumerate}
+
+Як видно з прикладів \ref{android_jetpack_compose} та \ref{ios_swift_ui} Android та iOS теж вибрали стежку декларативної розробки UI.
+В свою чергу стає зрозуміло, що Kotlin Multiplatform не розв'язує проблему спільної бази коду для коду UI.
+Це дуже важливий момент, оскільки весь UI треба дуплікувати під кожну платформу.
+Якщо Kotlin Multiplatform не розв'язує проблему, то для чого його використовувати?
+Задачу яку собі поставив Kotlin Multiplatform, це опис спільної логіки, тобто звернення до бази даних, файлової системи, інернету, тощо.
