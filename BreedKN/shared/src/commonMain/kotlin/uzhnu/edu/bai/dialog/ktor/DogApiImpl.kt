@@ -11,19 +11,13 @@ import io.ktor.http.takeFrom
 
 class DogApiImpl : KtorApi {
     private val client = HttpClient {
-        install(JsonFeature) {
-            serializer = KotlinxSerializer()
-        }
+        install(JsonFeature) { serializer = KotlinxSerializer() }
     }
 
-    init {
-        ensureNeverFrozen()
-    }
+    init { ensureNeverFrozen() }
 
     override suspend fun getJsonFromApi(): BreedResult =
-        client.get<BreedResult> {
-            dogs("api/breeds/list/all")
-        }
+        client.get<BreedResult> { dogs("api/breeds/list/all") }
 
     private fun HttpRequestBuilder.dogs(path: String) {
         url {
