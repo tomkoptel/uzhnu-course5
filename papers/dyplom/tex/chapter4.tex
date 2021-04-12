@@ -158,3 +158,49 @@ class DogApiImpl : KtorApi {
 Більшість логіки, що створює сокет і опрацьовую потік байтів енкапсульвона за публічним інтерфейсом.
 Від клієнта потребується декларування викликів та дизайн DTO(Data Transfer Object - Транспортний Об'єкт Даних),
 в нащому випадку це клас, що описує структуру Json відповіді BreedResult.
+
+
+\section{Запити до SQLite бази даних з SQLDelight}
+\label{section.4.3}
+Для роботи з БД в нашому KMM(Kotlin) проекті було використана SQLDelight рішення \cite{sqldelight_home}.
+SQLDelight використовує ідею генерації коду клієнту на основі SQL визначень описаних в окремому файлі.
+
+\begin{lstlisting}[style=light, language=Python,label={lst:table_sq},caption=Table.sq]
+// 1
+CREATE TABLE Breed (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    favorite INTEGER NOT NULL DEFAULT 0
+);
+
+// 2
+selectAll:
+// 3
+SELECT * FROM Breed;
+\end{lstlisting}
+
+\begin{enumerate}
+    \item SQL що описує структуру таблиці.
+    \item Інструкція, що використовує SQLDelight для генерації Kotlin функції.
+    \item SQL запит що буде використаний для виборки значень з таблиці.
+\end{enumerate}
+
+Як видно з прикладу \ref{table_sq_gen} визначений вище SQL запит був використаний в згенерованому коді.
+Результатом виконання SQL запиту є посилання на об'єкт типу курсор, що дозволяє в динамічний спосіб зчитати
+результат та адуптувати результат до конкретного типу.
+Таким чином, ми уникаємо написання низькорівневого коду, в якому дуже просто припуститися помилки.
+
+\begin{lstlisting}[style=light, language=Python,label={lst:table_sq_gen},caption=Generate code]
+fun <T : Any> selectAll(mapper: (
+  id: Long,
+  name: String,
+  favorite: Long
+) -> T): Query<T> = Query(552535035, selectAll, driver, "Table.sq", "selectAll",
+    "SELECT * FROM Breed") { cursor ->
+  mapper(
+    cursor.getLong(0)!!,
+    cursor.getString(1)!!,
+    cursor.getLong(2)!!
+  )
+}
+\end{lstlisting}
