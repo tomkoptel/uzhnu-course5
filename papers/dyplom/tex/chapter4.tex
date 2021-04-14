@@ -205,7 +205,10 @@ fun <T : Any> selectAll(mapper: (
 }
 \end{lstlisting}
 
+
 \section{Юніт тестування в KMM}
+\label{section.4.4}
+
 Як і в випадку інших платформ розробки тестування коду є критичною для розвитку продукту.
 KMM і тут не відстає і пропонує розв'язання для тестування.
 Оскільк Kotlin підтримує JVM(Java Virtual Machine) середовище ми можемо запускати тести на стороні Linux, Windows та MacOS платформ.
@@ -263,3 +266,59 @@ internal actual fun testDbConnection(): SqlDriver {
 З наведених приклавдів можно зробити висновок, що KMM намагається максимально тісно співпрацювати з API специфічний для платформи.
 Таке рішення потребує знання не тільки специфіки Kotlin але й розуміння бібліотек специфічних для платформ.
 Тобто KMM не будує додатковий рівень абстракції, що ховає доступ до конкретних специфікацій.
+
+
+\section{Структура проекту KMM}
+\label{section.4.5}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:kmm_project_layout},caption=KMM Project Layout]
+├── app (1)
+│ ├── build.gradle.kts
+│ └── src
+├── build.gradle.kts
+├── buildSrc (2)
+│ ├── build.gradle.kts
+│ └── src
+├── gradle
+├── gradle.properties
+├── gradlew
+├── gradlew.bat
+├── ios (3)
+│ ├── Podfile
+│ ├── Podfile.lock
+│ ├── Pods
+│ ├── bai_dialog_ios
+│ ├── bai_dialog_ios.xcodeproj
+│ ├── bai_dialog_ios.xcworkspace
+│ ├── bai_dialog_iosTests
+│ └── bai_dialog_iosUITests
+├── local.properties
+├── settings.gradle.kts
+└── shared (4)
+    ├── build.gradle.kts
+    ├── consumer-rules.pro
+    ├── proguard-rules.pro
+    ├── shared.podspec
+    └── src
+        ├── androidMain (5)
+        ├── androidTest (6)
+        ├── commonMain (7)
+        ├── commonTest (8)
+        ├── iosMain (9)
+        ├── iosTest (10)
+        └── main (11)
+\end{lstlisting}
+
+\begin{enumerate}
+    \item \textbf{app} сирцевий код UI імплементації для Android.
+    \item \textbf{buildSrc} сирцевий код, що розширює систему розгортання Gradle.
+    \item \textbf{ios} сирцевий код UI імплементації для iOS.
+    \item \textbf{shared} папка в котрій зберігається загальний код.
+    \item \textbf{androidMain} імплементація коду специфічного для Android платформи.
+    \item \textbf{androidTest} імплементація тестів специфічних для Android платформи.
+    \item \textbf{commonMain} сирцевий код спільної незалежної від платформи логіки.
+    \item \textbf{commonTest} імплементація тестів для спільної незалежної від платформи логіки.
+    \item \textbf{iosMain} імплементація коду специфічного для iOS платформи.
+    \item \textbf{iosTest} імплементація тестів специфічних для iOS платформи.
+    \item \textbf{main} репозиторій в якому зберігається код Android модуля, а саме статичні ресурси та AndroidManifest.
+\end{enumerate}
