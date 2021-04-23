@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		795D8B0BBDA7E284A659842E /* Pods_bai_dialog_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29D7A82E691EA94E6F44CA6F /* Pods_bai_dialog_ios.framework */; };
+		71D400DE6671F9C43B6B3E9F /* shared in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D9ACA847441850907A96D75 /* shared */; };
 		EFD31C71245C50A50078E6AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD31C70245C50A50078E6AF /* AppDelegate.swift */; };
 		EFD31C77245C50AD0078E6AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFD31C76245C50AD0078E6AF /* Assets.xcassets */; };
 		EFD31C7A245C50AD0078E6AF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFD31C79245C50AD0078E6AF /* Preview Assets.xcassets */; };
@@ -36,19 +36,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		29D7A82E691EA94E6F44CA6F /* Pods_bai_dialog_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bai_dialog_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		05971494A146B2CBE3DB9350 /* Pods-BreedKN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreedKN.release.xcconfig"; path = "Target Support Files/Pods-BreedKN/Pods-BreedKN.release.xcconfig"; sourceTree = "<group>"; };
+		1D9ACA847441850907A96D75 /* shared */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = shared; path = "../../../../../../../../work/personal/uzhnu-course5/BreedKN/shared/build/bin/ios/debugFramework/shared.framework/shared"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7791BF1D942807A1EA951789 /* Pods-bai_dialog_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bai_dialog_ios.debug.xcconfig"; path = "Target Support Files/Pods-bai_dialog_ios/Pods-bai_dialog_ios.debug.xcconfig"; sourceTree = "<group>"; };
 		7F32210DB108921F52A0A984 /* Pods-bai_dialog_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bai_dialog_ios.release.xcconfig"; path = "Target Support Files/Pods-bai_dialog_ios/Pods-bai_dialog_ios.release.xcconfig"; sourceTree = "<group>"; };
-		EFD31C6D245C50A50078E6AF /* bai_dialog_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bai_dialog_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9AFC42388F74AB3005EA5D1 /* Pods-BreedKN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreedKN.debug.xcconfig"; path = "Target Support Files/Pods-BreedKN/Pods-BreedKN.debug.xcconfig"; sourceTree = "<group>"; };
+		EFD31C6D245C50A50078E6AF /* BreedKN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreedKN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFD31C70245C50A50078E6AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EFD31C76245C50AD0078E6AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EFD31C79245C50AD0078E6AF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EFD31C7C245C50AD0078E6AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EFD31C7E245C50AD0078E6AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EFD31C83245C50AD0078E6AF /* bai_dialog_iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bai_dialog_iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFD31C83245C50AD0078E6AF /* BreedKNTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreedKNTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFD31C87245C50AD0078E6AF /* bai_dialog_iosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bai_dialog_iosTests.swift; sourceTree = "<group>"; };
 		EFD31C89245C50AD0078E6AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EFD31C8E245C50AD0078E6AF /* bai_dialog_iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bai_dialog_iosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFD31C8E245C50AD0078E6AF /* BreedKNUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreedKNUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFD31C92245C50AD0078E6AF /* bai_dialog_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bai_dialog_iosUITests.swift; sourceTree = "<group>"; };
 		EFD31C94245C50AD0078E6AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EFD31CA5245C91820078E6AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				795D8B0BBDA7E284A659842E /* Pods_bai_dialog_ios.framework in Frameworks */,
+				71D400DE6671F9C43B6B3E9F /* shared in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +88,8 @@
 			children = (
 				7791BF1D942807A1EA951789 /* Pods-bai_dialog_ios.debug.xcconfig */,
 				7F32210DB108921F52A0A984 /* Pods-bai_dialog_ios.release.xcconfig */,
+				B9AFC42388F74AB3005EA5D1 /* Pods-BreedKN.debug.xcconfig */,
+				05971494A146B2CBE3DB9350 /* Pods-BreedKN.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -93,7 +97,7 @@
 		E1930871942DD86A7BC8524D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				29D7A82E691EA94E6F44CA6F /* Pods_bai_dialog_ios.framework */,
+				1D9ACA847441850907A96D75 /* shared */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -113,9 +117,9 @@
 		EFD31C6E245C50A50078E6AF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EFD31C6D245C50A50078E6AF /* bai_dialog_ios.app */,
-				EFD31C83245C50AD0078E6AF /* bai_dialog_iosTests.xctest */,
-				EFD31C8E245C50AD0078E6AF /* bai_dialog_iosUITests.xctest */,
+				EFD31C6D245C50A50078E6AF /* BreedKN.app */,
+				EFD31C83245C50AD0078E6AF /* BreedKNTests.xctest */,
+				EFD31C8E245C50AD0078E6AF /* BreedKNUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -163,28 +167,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		EFD31C6C245C50A50078E6AF /* bai_dialog_ios */ = {
+		EFD31C6C245C50A50078E6AF /* BreedKN */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EFD31C97245C50AD0078E6AF /* Build configuration list for PBXNativeTarget "bai_dialog_ios" */;
+			buildConfigurationList = EFD31C97245C50AD0078E6AF /* Build configuration list for PBXNativeTarget "BreedKN" */;
 			buildPhases = (
 				B76A835F32AF9D6DED240202 /* [CP] Check Pods Manifest.lock */,
 				EFD31C69245C50A50078E6AF /* Sources */,
 				EFD31C6A245C50A50078E6AF /* Frameworks */,
 				EFD31C6B245C50A50078E6AF /* Resources */,
-				7DB0DAA81CB782127FACC4CC /* [CP] Embed Pods Frameworks */,
+				87BE0592CEA2ED62CA08A0BC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = bai_dialog_ios;
+			name = BreedKN;
 			productName = bai_dialog_ios;
-			productReference = EFD31C6D245C50A50078E6AF /* bai_dialog_ios.app */;
+			productReference = EFD31C6D245C50A50078E6AF /* BreedKN.app */;
 			productType = "com.apple.product-type.application";
 		};
-		EFD31C82245C50AD0078E6AF /* bai_dialog_iosTests */ = {
+		EFD31C82245C50AD0078E6AF /* BreedKNTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EFD31C9A245C50AD0078E6AF /* Build configuration list for PBXNativeTarget "bai_dialog_iosTests" */;
+			buildConfigurationList = EFD31C9A245C50AD0078E6AF /* Build configuration list for PBXNativeTarget "BreedKNTests" */;
 			buildPhases = (
 				EFD31C7F245C50AD0078E6AF /* Sources */,
 				EFD31C80245C50AD0078E6AF /* Frameworks */,
@@ -195,14 +199,14 @@
 			dependencies = (
 				EFD31C85245C50AD0078E6AF /* PBXTargetDependency */,
 			);
-			name = bai_dialog_iosTests;
+			name = BreedKNTests;
 			productName = bai_dialog_iosTests;
-			productReference = EFD31C83245C50AD0078E6AF /* bai_dialog_iosTests.xctest */;
+			productReference = EFD31C83245C50AD0078E6AF /* BreedKNTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		EFD31C8D245C50AD0078E6AF /* bai_dialog_iosUITests */ = {
+		EFD31C8D245C50AD0078E6AF /* BreedKNUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EFD31C9D245C50AD0078E6AF /* Build configuration list for PBXNativeTarget "bai_dialog_iosUITests" */;
+			buildConfigurationList = EFD31C9D245C50AD0078E6AF /* Build configuration list for PBXNativeTarget "BreedKNUITests" */;
 			buildPhases = (
 				EFD31C8A245C50AD0078E6AF /* Sources */,
 				EFD31C8B245C50AD0078E6AF /* Frameworks */,
@@ -213,9 +217,9 @@
 			dependencies = (
 				EFD31C90245C50AD0078E6AF /* PBXTargetDependency */,
 			);
-			name = bai_dialog_iosUITests;
+			name = BreedKNUITests;
 			productName = bai_dialog_iosUITests;
-			productReference = EFD31C8E245C50AD0078E6AF /* bai_dialog_iosUITests.xctest */;
+			productReference = EFD31C8E245C50AD0078E6AF /* BreedKNUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -241,7 +245,7 @@
 					};
 				};
 			};
-			buildConfigurationList = EFD31C68245C50A50078E6AF /* Build configuration list for PBXProject "bai_dialog_ios" */;
+			buildConfigurationList = EFD31C68245C50A50078E6AF /* Build configuration list for PBXProject "BreedKN" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -254,9 +258,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EFD31C6C245C50A50078E6AF /* bai_dialog_ios */,
-				EFD31C82245C50AD0078E6AF /* bai_dialog_iosTests */,
-				EFD31C8D245C50AD0078E6AF /* bai_dialog_iosUITests */,
+				EFD31C6C245C50A50078E6AF /* BreedKN */,
+				EFD31C82245C50AD0078E6AF /* BreedKNTests */,
+				EFD31C8D245C50AD0078E6AF /* BreedKNUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -290,21 +294,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7DB0DAA81CB782127FACC4CC /* [CP] Embed Pods Frameworks */ = {
+		87BE0592CEA2ED62CA08A0BC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bai_dialog_ios/Pods-bai_dialog_ios-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BreedKN/Pods-BreedKN-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bai_dialog_ios/Pods-bai_dialog_ios-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BreedKN/Pods-BreedKN-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bai_dialog_ios/Pods-bai_dialog_ios-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BreedKN/Pods-BreedKN-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B76A835F32AF9D6DED240202 /* [CP] Check Pods Manifest.lock */ = {
@@ -322,7 +326,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-bai_dialog_ios-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BreedKN-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -362,12 +366,12 @@
 /* Begin PBXTargetDependency section */
 		EFD31C85245C50AD0078E6AF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = EFD31C6C245C50A50078E6AF /* bai_dialog_ios */;
+			target = EFD31C6C245C50A50078E6AF /* BreedKN */;
 			targetProxy = EFD31C84245C50AD0078E6AF /* PBXContainerItemProxy */;
 		};
 		EFD31C90245C50AD0078E6AF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = EFD31C6C245C50A50078E6AF /* bai_dialog_ios */;
+			target = EFD31C6C245C50A50078E6AF /* BreedKN */;
 			targetProxy = EFD31C8F245C50AD0078E6AF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -508,7 +512,7 @@
 		};
 		EFD31C98245C50AD0078E6AF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7791BF1D942807A1EA951789 /* Pods-bai_dialog_ios.debug.xcconfig */;
+			baseConfigurationReference = B9AFC42388F74AB3005EA5D1 /* Pods-BreedKN.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -528,7 +532,7 @@
 		};
 		EFD31C99245C50AD0078E6AF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F32210DB108921F52A0A984 /* Pods-bai_dialog_ios.release.xcconfig */;
+			baseConfigurationReference = 05971494A146B2CBE3DB9350 /* Pods-BreedKN.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -563,7 +567,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/bai_dialog_ios.app/bai_dialog_ios";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BreedKN.app/BreedKN";
 			};
 			name = Debug;
 		};
@@ -584,7 +588,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/bai_dialog_ios.app/bai_dialog_ios";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BreedKN.app/BreedKN";
 			};
 			name = Release;
 		};
@@ -629,7 +633,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EFD31C68245C50A50078E6AF /* Build configuration list for PBXProject "bai_dialog_ios" */ = {
+		EFD31C68245C50A50078E6AF /* Build configuration list for PBXProject "BreedKN" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EFD31C95245C50AD0078E6AF /* Debug */,
@@ -638,7 +642,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EFD31C97245C50AD0078E6AF /* Build configuration list for PBXNativeTarget "bai_dialog_ios" */ = {
+		EFD31C97245C50AD0078E6AF /* Build configuration list for PBXNativeTarget "BreedKN" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EFD31C98245C50AD0078E6AF /* Debug */,
@@ -647,7 +651,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EFD31C9A245C50AD0078E6AF /* Build configuration list for PBXNativeTarget "bai_dialog_iosTests" */ = {
+		EFD31C9A245C50AD0078E6AF /* Build configuration list for PBXNativeTarget "BreedKNTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EFD31C9B245C50AD0078E6AF /* Debug */,
@@ -656,7 +660,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EFD31C9D245C50AD0078E6AF /* Build configuration list for PBXNativeTarget "bai_dialog_iosUITests" */ = {
+		EFD31C9D245C50AD0078E6AF /* Build configuration list for PBXNativeTarget "BreedKNUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EFD31C9E245C50AD0078E6AF /* Debug */,

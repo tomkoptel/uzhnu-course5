@@ -4,6 +4,6 @@ platform :ios, '9.0'
 
 install! 'cocoapods', :deterministic_uuids => false
 
-target 'bai_dialog_ios' do
+target 'BreedKN' do
     pod 'shared', :path => '../shared/'
 end
