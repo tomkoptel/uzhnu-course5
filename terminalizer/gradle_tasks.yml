@@ -1,0 +1,179 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: bash -l
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: /Users/tom.koptel/work/personal/uzhnu-course5/BreedKN
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 80
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 24
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 2000
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: floating
+    title: Terminalizer
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      # margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 1052
+    content: "\r\nThe default interactive shell is now zsh.\r\nTo update your account to use zsh, please run `chsh -s /bin/zsh`.\r\nFor more details, please visit https://support.apple.com/kb/HT208050.\r\n"
+  - delay: 41
+    content: "\e]7;file://WRO0023.local/Users/tom.koptel/work/personal/uzhnu-course5/BreedKN\a\e[?1034hWRO0023:BreedKN tom.koptel$ "
+  - delay: 82
+    content: .
+  - delay: 590
+    content: /
+  - delay: 210
+    content: g
+  - delay: 193
+    content: r
+  - delay: 91
+    content: a
+  - delay: 116
+    content: d
+  - delay: 100
+    content: l
+  - delay: 148
+    content: e
+  - delay: 99
+    content: w
+  - delay: 182
+    content: ' '
+  - delay: 216
+    content: t
+  - delay: 86
+    content: a
+  - delay: 120
+    content: s
+  - delay: 102
+    content: k
+  - delay: 208
+    content: s
+  - delay: 523
+    content: "\r\n"
+  - delay: 753
+    content: "\r\n\r\n\e[2A\e[1m<\e[0;1m-------------> 0% CONFIGURING [33ms]\e[m\e[37D\e[1B\e[1m> Building buildSrc\e[m\e[19D\e[1B"
+  - delay: 94
+    content: "\e[2A\e[1m<\e[0;1m-------------> 0% CONFIGURING [131ms]\e[m\e[38D\e[1B\e[1m> Building buildSrc > :buildSrc\e[m\e[31D\e[1B"
+  - delay: 101
+    content: "\e[2A\e[1m<\e[0;32;1m===\e[0;39;1m----------> 25% CONFIGURING [231ms]\e[m\e[39D\e[1B\e[1m> Building buildSrc > :buildSrc:pluginUnderTestMetadata > Resolve dependencies \e[m\e[79D\e[1B"
+  - delay: 99
+    content: "\e[2A\e[1m<\e[0;32;1m===\e[0;39;1m----------> 25% CONFIGURING [331ms]\e[m\e[39D\e[1B\e[1m> root project > Resolve files of :classpath\e[m\e[0K\e[44D\e[1B"
+  - delay: 100
+    content: "\e[2A\e[1m<\e[0;32;1m======\e[0;39;1m-------> 50% CONFIGURING [431ms]\e[m\e[39D\e[1B\e[1m> :app\e[m\e[0K\e[6D\e[1B"
+  - delay: 100
+    content: "\e[2A\e[1m<\e[0;32;1m=========\e[0;39;1m----> 75% CONFIGURING [531ms]\e[m\e[39D\e[1B\e[1m> :shared\e[m\e[9D\e[1B"
+  - delay: 102
+    content: "\e[2A\e[0K\r\n\e[1m> Configure project :shared\e[m\r\nKotlin Multiplatform Projects are an experimental feature.\r\ncocoapodsExtension.isStatic false\r\ncocoapodsExtension.isStatic false\r\n\e[0K\r\n\e[0K\r\n\e[2A\e[1m<\e[0;1m-------------> 0% EXECUTING [632ms]\e[m\e[36D\e[1B\e[1m> :tasks\e[m\e[8D\e[1B"
+  - delay: 41
+    content: "\e[2A\e[0K\r\n\e[1m> Task :tasks\e[m\r\n\r\n\e[1m------------------------------------------------------------\e[m\r\n\e[1mTasks runnable from root project 'BreedKN'\e[m\r\n\e[1m------------------------------------------------------------\e[m\r\n\r\n\e[1mAndroid tasks\e[m\r\n\e[1m-------------\e[m\r\n\e[32mandroidDependencies\e[39m\e[33m - Displays the Android dependencies of the project.\e[39m\r\n\e[32msigningReport\e[39m\e[33m - Displays the signing info for the base and test modules\e[39m\r\n\e[32msourceSets\e[39m\e[33m - Prints out all the source sets defined in this project.\e[39m\r\n\r\n\e[1mBuild tasks\e[m\r\n\e[1m-----------\e[m\r\n\e[32massemble\e[39m\e[33m - Assemble main outputs for all the variants.\e[39m\r\n\e[32massembleAndroidTest\e[39m\e[33m - Assembles all the Test applications.\e[39m\r\n\e[32mbuild\e[39m\e[33m - Assembles and tests this project.\e[39m\r\n\e[32mbuildDependents\e[39m\e[33m - Assembles and tests this project and all projects that depend on it.\e[39m\r\n\e[32mbuildNeeded\e[39m\e[33m - Assembles and tests this project and all projects it depends on.\e[39m\r\n\e[32mbundle\e[39m\e[33m - Assemble bundles for all the variants.\e[39m\r\n\e[32mclean\e[39m\e[33m - Deletes the build directory.\e[39m\r\n\e[32mcleanBuildCache\e[39m\e[33m - Deletes the build cache directory.\e[39m\r\n\e[32mcompileDebugAndroidTestSources\e[39m\r\n\e[32mcompileDebugSources\e[39m\r\n\e[32mcompileDebugUnitTestSources\e[39m\r\n\e[32mcompileKotlinIos\e[39m\e[33m - Compiles a klibrary from the 'main' compilation for target 'native'.\e[39m\r\n\e[32mcompileReleaseSources\e[39m\r\n\e[32mcompileReleaseUnitTestSources\e[39m\r\n\e[32mcompileTestKotlinIos\e[39m\e[33m - Compiles a klibrary from the 'test' compilation for target 'native'.\e[39m\r\n\e[32mextractDebugAnnotations\e[39m\e[33m - Extracts Android annotations for the debug variant into the archive file\e[39m\r\n\e[32mextractReleaseAnnotations\e[39m\e[33m - Extracts Android annotations for the release variant into the archive file\e[39m\r\n\e[32miosMainKlibrary\e[39m\e[33m - Assembles outputs for compilation 'main' of target 'ios'\e[39m\r\n\e[32miosTestKlibrary\e[39m\e[33m - Assembles outputs for compilation 'test' of target 'ios'\e[39m\r\n\e[32mlinkDebugFrameworkIos\e[39m\e[33m - Links a framework 'debugFramework' for a target 'ios'.\e[39m\r\n\e[32mlinkDebugTestIos\e[39m\e[33m - Links a test executable 'debugTest' for a target 'ios'.\e[39m\r\n\e[32mlinkReleaseFrameworkIos\e[39m\e[33m - Links a framework 'releaseFramework' for a target 'ios'.\e[39m\r\n\e[32mmetadataJar\e[39m\e[33m - Assembles a jar archive containing the main classes.\e[39m\r\n\e[32mmetadataMainClasses\e[39m\e[33m - Assembles outputs for compilation 'main' of target 'metadata'\e[39m\r\n\r\n\e[1mBuild Setup tasks\e[m\r\n\e[1m-----------------\e[m\r\n\e[32minit\e[39m\e[33m - Initializes a new Gradle build.\e[39m\r\n\e[32mwrapper\e[39m\e[33m - Generates Gradle wrapper files.\e[39m\r\n\r\n\e[1mCleanup tasks\e[m\r\n\e[1m-------------\e[m\r\n\e[32mlintFix\e[39m\e[33m - Runs lint on all variants and applies any safe suggestions to the source code.\e[39m\r\n\r\n\e[1mCocoaPods tasks\e[m\r\n\e[1m---------------\e[m\r\n\e[32mpodspec\e[39m\e[33m - Generates a podspec file for CocoaPods import\e[39m\r\n\r\n\e[1mHelp tasks\e[m\r\n\e[1m----------\e[m\r\n\e[32mbuildEnvironment\e[39m\e[33m - Displays all buildscript dependencies declared in root project 'BreedKN'.\e[39m\r\n\e[32mdependencies\e[39m\e[33m - Displays all dependencies declared in root project 'BreedKN'.\e[39m\r\n\e[32mdependencyInsight\e[39m\e[33m - Displays the insight into a specific dependency in root project 'BreedKN'.\e[39m\r\n\e[32mhelp\e[39m\e[33m - Displays a help message.\e[39m\r\n\e[32mjavaToolchains\e[39m\e[33m - Displays the detected java toolchains. [incubating]\e[39m\r\n\e[32mkotlinDslAccessorsReport\e[39m\e[33m - Prints the Kotlin code for accessing the currently available project extensions and conventions.\e[39m\r\n\e[32moutgoingVariants\e[39m\e[33m - Displays the outgoing variants of root project 'BreedKN'.\e[39m\r\n\e[32mprojects\e[39m\e[33m - Displays the sub-projects of root project 'BreedKN'.\e[39m\r\n\e[32mproperties\e[39m\e[33m - Displays the properties of root project 'BreedKN'.\e[39m\r\n\e[32mtasks\e[39m\e[33m - Displays the tasks runnable from root project 'BreedKN' (some of the displayed tasks may belong to subprojects).\e[39m\r\n\r\n\e[1mInstall tasks\e[m\r\n\e[1m-------------\e[m\r\n\e[32minstallDebug\e[39m\e[33m - Installs the Debug build.\e[39m\r\n\e[32minstallDebugAndroidTest\e[39m\e[33m - Installs the android (on device) tests for the Debug build.\e[39m\r\n\e[32muninstallAll\e[39m\e[33m - Uninstall all applications.\e[39m\r\n\e[32muninstallDebug\e[39m\e[33m - Uninstalls the Debug build.\e[39m\r\n\e[32muninstallDebugAndroidTest\e[39m\e[33m - Uninstalls the android (on device) tests for the Debug build.\e[39m\r\n\e[32muninstallRelease\e[39m\e[33m - Uninstalls the Release build.\e[39m\r\n\r\n\e[1mSqldelight tasks\e[m\r\n\e[1m----------------\e[m\r\n\e[32mgenerateAndroidDebugBAIDBInterface\e[39m\e[33m - Generate androidDebug Kotlin interface for BAIDB\e[39m\r\n\e[32mgenerateAndroidReleaseBAIDBInterface\e[39m\e[33m - Generate androidRelease Kotlin interface for BAIDB\e[39m\r\n\e[32mgenerateIosMainBAIDBInterface\e[39m\e[33m - Generate iosMain Kotlin interface for BAIDB\e[39m\r\n\e[32mgenerateMetadataMainBAIDBInterface\e[39m\e[33m - Generate metadataMain Kotlin interface for BAIDB\e[39m\r\n\e[32mverifyAndroidDebugBAIDBMigration\e[39m\e[33m - Verify androidDebug BAIDB migrations and CREATE statements match.\e[39m\r\n\e[32mverifyAndroidReleaseBAIDBMigration\e[39m\e[33m - Verify androidRelease BAIDB migrations and CREATE statements match.\e[39m\r\n\e[32mverifyIosMainBAIDBMigration\e[39m\e[33m - Verify iosMain BAIDB migrations and CREATE statements match.\e[39m\r\n\e[32mverifyMetadataMainBAIDBMigration\e[39m\e[33m - Verify metadataMain BAIDB migrations and CREATE statements match.\e[39m\r\n\r\n\e[1mVerification tasks\e[m\r\n\e[1m------------------\e[m\r\n\e[32mallTests\e[39m\e[33m - Runs the tests for all targets and create aggregated report\e[39m\r\n\e[32mcheck\e[39m\e[33m - Runs all checks.\e[39m\r\n\e[32mconnectedAndroidTest\e[39m\e[33m - Installs and runs instrumentation tests for all flavors on connected devices.\e[39m\r\n\e[32mconnectedCheck\e[39m\e[33m - Runs all device checks on currently connected devices.\e[39m\r\n\e[32mconnectedDebugAndroidTest\e[39m\e[33m - Installs and runs the tests for debug on connected devices.\e[39m\r\n\e[32mdeviceAndroidTest\e[39m\e[33m - Installs and runs instrumentation tests using all Device Providers.\e[39m\r\n\e[32mdeviceCheck\e[39m\e[33m - Runs all device checks using Device Providers and Test Servers.\e[39m\r\n\e[32miosTest\e[39m\e[33m - Executes Kotlin/Native unit tests for target ios.\e[39m\r\n\e[32mlint\e[39m\e[33m - Runs lint on all variants.\e[39m\r\n\e[32mlintDebug\e[39m\e[33m - Runs lint on the Debug build.\e[39m\r\n\e[32mlintRelease\e[39m\e[33m - Runs lint on the Release build.\e[39m\r\n\e[32mlintVitalRelease\e[39m\e[33m - Runs lint on just the fatal issues in the release build.\e[39m\r\n\e[32mtest\e[39m\e[33m - Run unit tests for all variants.\e[39m\r\n\e[32mtestDebugUnitTest\e[39m\e[33m - Run unit tests for the debug build.\e[39m\r\n\e[32mtestReleaseUnitTest\e[39m\e[33m - Run unit tests for the release build.\e[39m\r\n\r\nTo see all tasks and more detail, run \e[1mgradlew\e[m\e[1m \e[m\e[1mtasks --all\e[m\r\n\r\nTo see more detail about a task, run \e[1mgradlew\e[m\e[1m \e[m\e[1mhelp --task <task>\e[m\r\n\r\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 7.0.\r\nUse '--warning-mode all' to show the individual deprecation warnings.\r\nSee https://docs.gradle.org/6.8.3/userguide/command_line_interface.html#sec:command_line_warnings\r\n\r\n\e[32;1mBUILD SUCCESSFUL\e[0;39m in 1s\r\n1 actionable task: 1 executed\r\n\e[0K\r\n\e[0K\r\n\e[2A\e[1m<\e[0;1m-------------> 0% WAITING\e[m\e[26D\e[1B\e[1m> :tasks\e[m\e[8D\e[1B\e[2A\e[2K\e[1B\e[2K\e[1A\e[0m\e[?12l\e[?25h"
+  - delay: 365
+    content: "\e]7;file://WRO0023.local/Users/tom.koptel/work/personal/uzhnu-course5/BreedKN\aWRO0023:BreedKN tom.koptel$ "
+  - delay: 557
+    content: "logout\r\nSaving session..."
+  - delay: 28
+    content: "\r\n...copying shared history..."
+  - delay: 8
+    content: "\r\n...saving history..."
+  - delay: 31
+    content: "truncating history files...\r\n...completed.\r\n"
+  - delay: 48
+    content: Deleting expired sessions...
+  - delay: 13
+    content: "3 completed.\r\n"
