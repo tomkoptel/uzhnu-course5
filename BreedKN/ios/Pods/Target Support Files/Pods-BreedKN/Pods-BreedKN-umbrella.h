@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_bai_dialog_iosVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_bai_dialog_iosVersionString[];
+FOUNDATION_EXPORT double Pods_BreedKNVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_BreedKNVersionString[];
 
