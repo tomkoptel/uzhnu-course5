@@ -1,0 +1,173 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: bash -l
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: /Users/tom.koptel/work/personal/uzhnu-course5/breed_flutter
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 80
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 24
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 2000
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: floating
+    title: Terminalizer
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      # margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 367
+    content: "Restored session: Sat 24 Apr 2021 16:41:14 CEST\r\n"
+  - delay: 325
+    content: "\r\nThe default interactive shell is now zsh.\r\nTo update your account to use zsh, please run `chsh -s /bin/zsh`.\r\nFor more details, please visit https://support.apple.com/kb/HT208050.\r\n\e]7;file://WRO0023.local/Users/tom.koptel/work/personal/uzhnu-course5/breed_flutter\a\e[?1034hWRO0023:breed_flutter tom.koptel$ "
+  - delay: 1188
+    content: f
+  - delay: 72
+    content: l
+  - delay: 255
+    content: u
+  - delay: 145
+    content: t
+  - delay: 159
+    content: t
+  - delay: 113
+    content: e
+  - delay: 101
+    content: r
+  - delay: 117
+    content: ' '
+  - delay: 501
+    content: t
+  - delay: 125
+    content: e
+  - delay: 202
+    content: s
+  - delay: 90
+    content: t
+  - delay: 396
+    content: "\r\n"
+  - delay: 3679
+    content: "\r00:00 \e[32m+0\e[0m: ...nal/uzhnu-course5/breed_flutter/test/breed_database_test.dart\e[0m\e[0m     "
+  - delay: 996
+    content: "\r00:01 \e[32m+0\e[0m: ...nal/uzhnu-course5/breed_flutter/test/breed_database_test.dart\e[0m\e[0m     "
+  - delay: 999
+    content: "\r00:02 \e[32m+0\e[0m: ...nal/uzhnu-course5/breed_flutter/test/breed_database_test.dart\e[0m\e[0m     "
+  - delay: 46
+    content: "\r00:02 \e[32m+0\e[0m: ...nu-course5/breed_flutter/test/breed_list_view_model_test.dart\e[0m\e[0m     \r00:02 \e[32m+0\e[0m: ... integrational test of BreedDatabase\e[0m                              "
+  - delay: 98
+    content: "\r00:02 \e[32m+1\e[0m: ... integrational test of BreedDatabase\e[0m                              "
+  - delay: 6
+    content: "\r00:02 \e[32m+2\e[0m: ... integrational test of BreedDatabase\e[0m                              "
+  - delay: 5
+    content: "\r00:02 \e[32m+3\e[0m\e[31m -1\e[0m: ... test dog ceo API\e[0m                                              "
+  - delay: 43
+    content: "\r00:02 \e[32m+3\e[0m\e[31m -1\e[0m: /Users/tom.koptel/work/personal/uzhnu-course5/breed_flutter/test/breed_database_test.dart: integrational test of BreedDatabase \e[1m\e[31m[E]\e[0m\e[0m\r\n  MissingPluginException(No implementation found for method getDatabasesPath on channel com.tekartik.sqflite)\r\n  package:flutter/src/services/platform_channel.dart 156:7  MethodChannel._invokeMethod\r\n  \r\n"
+  - delay: 202
+    content: "\r00:02 \e[32m+4\e[0m\e[31m -1\e[0m: ... test dog ceo API\e[0m                                              "
+  - delay: 16
+    content: "\r00:02 \e[32m+4\e[0m\e[31m -1\e[0m: \e[31mSome tests failed.\e[0m                                                \r\n"
+  - delay: 315
+    content: "\e]7;file://WRO0023.local/Users/tom.koptel/work/personal/uzhnu-course5/breed_flutter\aWRO0023:breed_flutter tom.koptel$ "
+  - delay: 1745
+    content: "\r\n\e]7;file://WRO0023.local/Users/tom.koptel/work/personal/uzhnu-course5/breed_flutter\aWRO0023:breed_flutter tom.koptel$ "
+  - delay: 349
+    content: "logout\r\nSaving session..."
+  - delay: 26
+    content: "\r\n...saving history..."
+  - delay: 22
+    content: "truncating history files...\r\n...completed.\r\n"
