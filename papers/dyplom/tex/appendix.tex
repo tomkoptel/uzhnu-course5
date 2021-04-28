@@ -1,0 +1,20 @@
+\appendix
+\renewcommand{\appendixname}{Додаток}
+
+
+\chapter{Сирцевий код}
+\label{cha:appendix1}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:rn_network},caption=React Native Network Call]
+const loadFromNetwork = () => {
+  return fetch("https://dog.ceo/api/breeds/list/all")
+    .then((response) => response.json())
+    .then((json) => {
+      return items;
+    })
+    .then((data) => setData(data))
+    .catch((error) => console.error(error))
+    .finally(() => setLoading(false));
+};
+\end{lstlisting}
+%\end{appendices}

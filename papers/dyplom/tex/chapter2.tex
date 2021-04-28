@@ -63,7 +63,7 @@ Fetch забезпечує загальне визначення Requestі Respo
 Fetch API залежить від Promise.
 Promise або "обіцянка" - це проксі для значення, яке не обов'язково відомо при створенні об'єкту.\cite{promise_doc}
 Інакше кажучи, це API обгортка, яка задає контракт згідно которого promise(обіцянка) може знаходитись в одному зі станів:
-A Promiseзнаходиться в одному з таких станів:
+A Promise знаходиться в одному з таких станів:
 \begin{itemize}
     \begin{item}
         \textbf{в очікуванні(peding)}: початковий стан, ні виконаний, ні відхилений.
@@ -76,20 +76,7 @@ A Promiseзнаходиться в одному з таких станів:
     \end{item}
 \end{itemize}
 
-Прикладом коду, котрий виконує запит та отримує відповідь в форматі JSON.
-
-\begin{lstlisting}[style=light, language=Python,label={lst:rn_network},caption=React Native Network Call]
-const loadFromNetwork = () => {
-  return fetch("https://dog.ceo/api/breeds/list/all")
-    .then((response) => response.json())
-    .then((json) => {
-      return items;
-    })
-    .then((data) => setData(data))
-    .catch((error) => console.error(error))
-    .finally(() => setLoading(false));
-};
-\end{lstlisting}
+Прикладом коду, котрий виконує запит та отримує відповідь в форматі JSON можна знайти в додатку \ref{lst:rn_network}.
 
 
 \section{Realm React Native}
