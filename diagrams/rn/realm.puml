@@ -1,0 +1,11 @@
+@startuml
+participant "Контекст Додатку" as App
+database Realm
+autonumber
+
+App --> App : Конфігурація таблиці
+App --> Realm : Відкриваємо підключення з конфігурацією
+App --> Realm : Робимо вибірку значень
+Realm --> App : Повертає "активний" курсор значень
+App --> App : Робимо копію значень
+@enduml

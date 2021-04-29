@@ -17,4 +17,35 @@ const loadFromNetwork = () => {
     .finally(() => setLoading(false));
 };
 \end{lstlisting}
-%\end{appendices}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:rn_realm},caption=React Native Realm]
+# We define the schema of the table
+const BreedSchema = {
+  name: "Breed",
+  primaryKey: "id",
+  properties: {
+    id: "string",
+    name: "string",
+    isFavorite: { type: "bool", default: false },
+  },
+};
+
+# We do list all schemas available and configure conflict resolution strategy
+const config = {
+  deleteRealmIfMigrationNeeded: true,
+  schema: [BreedSchema],
+};
+
+# Finally we do consume the values from the database
+const loadFromDatabase = () => {
+  return Realm.open(config).then((realm) => {
+    const breeds = realm
+      .objects("Breed")
+      .filtered(`TRUEPREDICATE SORT(name ASC) DISTINCT(name)`);
+    # For each item we need detach it from the Realm to avoid accidental mutations
+    const items = breeds.map(copyObjects);
+    realm.close();
+    return items;
+  });
+};
+\end{lstlisting}

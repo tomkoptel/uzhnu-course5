@@ -112,44 +112,23 @@ A Promise знаходиться в одному з таких станів:
 
 Під час роботи над тестовим продуктом було зроблене рішення використати Realm.
 Рішення базувалося скоріше на потребах швидкого та простого в інтеграції рішення.
-Як наведено нижче конфігурація в цілому є дуже проста. \ref{lst:rn_realm}
+Як наведено в додатку \ref{lst:rn_realm}  конфігурація в цілому є дуже проста (також див. \ref{fig:rn_realm}).
 
-\begin{lstlisting}[style=light, language=Python,label={lst:rn_realm},caption=React Native Realm]
-// 1
-const BreedSchema = {
-  name: "Breed",
-  primaryKey: "id",
-  properties: {
-    id: "string",
-    name: "string",
-    isFavorite: { type: "bool", default: false },
-  },
-};
-// 2
-const config = {
-  deleteRealmIfMigrationNeeded: true,
-  schema: [BreedSchema],
-};
-// 3
-const loadFromDatabase = () => {
-  return Realm.open(config).then((realm) => {
-    const breeds = realm
-      .objects("Breed")
-      .filtered(`TRUEPREDICATE SORT(name ASC) DISTINCT(name)`);
-    // 4
-    const items = breeds.map(copyObjects);
-    realm.close();
-    return items;
-  });
-};
-\end{lstlisting}
+Спочатку ми описуємо схему бази даних. В даному випадку одна таблиця.
+Створюємо об'єкт конфігурації, котрий буде використаний, щоби відкрити підключення до бази даних.
+Передавши конфігурацію ми отримаємо відкрите підключення до бази даних та робимо запит до таблиці.
+Запит повертає нам результат зі збереженими даним з котрих ми робимо копію кожного об\'єкту.
+Особливість Realm об\'єктів полягає в тому, що вони є вікном до курсору в таблиці.
+Щоби уникнути випадкових змін в таблиці ми спеціально робимо копію, яка є "чистим" об\'єктом від\'єднаним від БД.
 
-\begin{enumerate}
-    \item Опис схеми бази даних. В даному випадку одна таблиця.
-    \item Створюємо об'єкт конфігурації. Далі буде використаний, щоби відкрити підключення до бази даних.
-    \item Відкриваємо підключення до бази даних та робимо запит до таблиці.
-    \item Робимо копію даних, щоби від'єднати об'єкт від підключення, якщо не копіювати об'єкт виникне помилка виконання.
-\end{enumerate}
+\begin{figure}
+    \label{fig:rn_realm}
+    \begin{center}
+        \includegraphics[scale=0.4]{rn_realm.png}
+    \end{center}
+
+    Взаємодія React Native додатку з БД
+\end{figure}
 
 
 \section{Управління станом в React Native}
