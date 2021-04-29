@@ -1,0 +1,18 @@
+@startuml
+participant "Контекст Додатку" as App
+database Realm
+boundary "Сервер" as Network
+boundary useEffect as useEffect
+autonumber
+
+App --> App : Ініціалізуємо стан з пустим масвом значень
+App --> useEffect : розпочинає інтеракцію з шаром даних
+useEffect --> Realm : Перевіряємо наявність даних
+alt БД пуста
+useEffect --> Network : Робимо запит до серверу
+Network --> useEffect : Сервер повертає дані
+useEffect --> Realm: Зберігає дані в БД
+end
+Realm --> useEffect: Повертає дані
+useEffect --> App: Відображаємо дані, як лист віджетів
+@enduml

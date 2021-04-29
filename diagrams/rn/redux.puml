@@ -1,0 +1,38 @@
+@startuml
+
+left to right direction
+'top to bottom direction
+
+skinparam state  {
+  BackgroundColor<<V>> #8ee3ff
+  BackgroundColor<<R>> #6be47c
+  BackgroundColor<<S>> #cab3f5
+  BackgroundColor<<St>> #f3b39b
+}
+
+state Actions<<R>>
+Actions: 1 або N об'єктів типу Reducer
+Actions: кожен об'єкт репрезентує довільну дію
+Actions: наприклад запит до БД або інтернету
+
+state View<<V>>
+View : фактично віджет, що описує візуальну частину
+View : React Components
+
+state Dispatcher
+Dispatcher: повідомляє Store о новій події
+Actions --> Dispatcher
+Dispatcher --> Store
+
+state Store<<S>> {
+  state Reducer<<R>>
+  Reducer : 1 або N об'єктів типу Reducer
+  state State<<St>>
+  State: Об'єкт, що описує стан додатку
+  Reducer -> State
+  State -> Reducer
+}
+Store -> View
+View -> Actions
+
+@enduml

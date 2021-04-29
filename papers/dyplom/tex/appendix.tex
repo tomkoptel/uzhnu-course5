@@ -49,3 +49,24 @@ const loadFromDatabase = () => {
   });
 };
 \end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:rn_state_hooks},caption=React Native Hooks]
+export default function App() {
+  # Declaring state of array of items
+  const [data, setData] = useState([]);
+  # Mark the code as one that defines effect. In this case we read from DB.
+  useEffect(() => {
+    // 3
+    loadFromDatabase().then((data) => setData(data));
+  });
+
+  # Return the list of items as widget that transforms data as <Item> widget
+  return <FlatList
+    data={data}
+    renderItem={({ item }) => {
+      return <Item item={item} />;
+    }}
+    keyExtractor={(item) => item.id}
+  />
+}
+\end{lstlisting}
