@@ -70,3 +70,72 @@ export default function App() {
   />
 }
 \end{lstlisting}
+
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_app_widget},caption=Flutter StatelessWidget]
+# All imported from Dart pubsub packages installed locally
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'data/breed_database.dart';
+import 'home.dart';
+
+Future<void> main() async {
+  # Make sure widgets intitialised, so that we can avoid tree state inconsistencies
+  WidgetsFlutterBinding.ensureInitialized();
+
+  # We do create an instance that connects to the local SQLite database
+  final database = await BreedDatabase.create();
+
+  # runApp kicks off the widget creation
+  # we do pass a Provider that delegates database instance
+  # to any leaf of widget tree interested in making calls
+  runApp(Provider<BreedDatabase>(
+    create: (_) => database,
+    child: MyApp(),
+  ));
+}
+
+# It is a root widget instantiated
+# marked as one without a state management
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    # We do use the Material Design widgets
+    return MaterialApp(
+      # The home widget represented with HomePage
+      home: HomePage.create(context, title: 'Flutter List of Breeds'),
+    );
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_app_widget},caption=Flutter StatefulWidget]
+# We are declaring widget
+# and inherit widge that will hold a state object
+class BreedList extends StatefulWidget {
+  BreedList({Key? key, required this.viewModel}) : super(key: key);
+  final BreedListViewModel viewModel;
+
+  @override
+  _BreedListState createState() => _BreedListState();
+}
+
+# State object holds infor about state
+# and uses widge to access dependencies
+class _BreedListState extends State<BreedList> {
+  @override
+  void initState() {
+    super.initState();
+    # As soon as widget instantiated we do consume list of items
+    widget.viewModel.loadBreedList();
+  }
+
+  # Lastly we use context to observe chages of the state
+  @override
+  Widget build(BuildContext context) {
+    return context
+        .watch<BreedListState>()
+        .when(loaded: showList, error: showError, loading: showLoading);
+  }
+}
+\end{lstlisting}
