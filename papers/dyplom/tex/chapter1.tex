@@ -493,3 +493,26 @@ Unit test(єдносткові тести) допомагають протест
 Головне, що требу розуміти в випадку віджетів зі станом це те, що зміна стану приводить до перемалювання віджету.
 Оскільки один віджет може повертати довільно складне дерево віджетів змінивши стан голови гілки призведе до змін
 ланки віджетів, що наслідує наш віджет зі станом.
+
+\section{Система побудування з використанням Flutter CLI}
+\label{section.1.17}
+Flutter CLI - інструмент командного рядка котрий дозволяє створити, виконати, зібрати сирцевий код проектів фреймфорку Flutter.
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_cli_create},caption=Flutter Create Project]
+flutter create my_app
+cd my_app
+flutter analyze
+flutter test
+flutter run lib/main.dart
+\end{lstlisting}
+
+Як видно в лістингу \ref{lst:flutter_cli_create} ми виконуємо команду, що створює, перевіряє, запускає тести та відтворює фактично код додатку.
+
+Додатково набір інсрументів дозволяє завантажити, сконфігурувати та під'єднати транзитивні залежності проекту \ref{lst:flutter_pub}.
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_pub},caption=Flutter Dependency Resolution]
+flutter pub get
+flutter pub outdated
+flutter pub upgrade
+\end{lstlisting}
+
+Повний список залежностей можна знайти на офіційній веб сторінці \cite{flutter_cli}.
