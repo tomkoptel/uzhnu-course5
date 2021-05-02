@@ -516,3 +516,27 @@ flutter pub upgrade
 \end{lstlisting}
 
 Повний список залежностей можна знайти на офіційній веб сторінці \cite{flutter_cli}.
+
+\section{Flutter та пакет http.dart}
+\label{section.1.18}
+Отримання даних з Інтернету необхідно для більшості програм.
+На щастя, Dart і Flutter надають інструменти, такі як httpпакет, для цього виду робіт.
+
+Цей пакет містить набір функцій та класів високого рівня, що полегшують споживання ресурсів HTTP.
+http.dart підтримує мобільну, настільну та браузерні платформи.
+
+Використання функцій верхнього рівня дозволяє робити окремі HTTP-запити.
+Якщо є потреба робити кілька запитів на один і той же сервер, тоді зручніше всього тримати відкритим постійне з’єднання,
+використовуючи клієнт, а не одноразові запити.
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_pub},caption=Flutter Dependency Resolution]
+import 'package:http/http.dart' as http;
+var client = http.Client();
+try {
+  var uriResponse = await client.post(Uri.parse('https://example.com/whatsit/create'),
+      body: {'name': 'doodle', 'color': 'blue'});
+  print(await client.get(uriResponse.bodyFields['uri']));
+} finally {
+  client.close();
+}
+\end{lstlisting}
