@@ -140,7 +140,6 @@ class _BreedListState extends State<BreedList> {
 }
 \end{lstlisting}
 
-
 \begin{lstlisting}[style=light, language=Python,label={lst:flutter_networking},caption=Flutter Networking]
 import 'dart:convert';
 
@@ -172,6 +171,62 @@ class BreedApi {
       # We perform short-circuit exit as we failed to consume the result
       throw Exception('Failed to load breed items');
     }
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_sqflite},caption=Flutter SQFLITE]
+import 'package:breed_flutter/domain/breed.dart';
+import 'package:path/path.dart';
+# We are using sqflite to avoid implementing low-level DB communication
+import 'package:sqflite/sqflite.dart';
+
+# Wrapper class that hides usage of sqflite lib
+# Improves encapsulation of code by increasing cohesion
+class BreedDatabase {
+  final Database database;
+
+  BreedDatabase(this.database);
+
+  # Creates and instance of database returned as a promise
+  static Future<BreedDatabase> create() async {
+    # Opens connection relying on the default DB path
+    final Database database = await openDatabase(
+      join(await getDatabasesPath(), 'doggie_database.db'),
+      onCreate: (db, version) {
+        # RAW SQL statement used to create table
+        return db.execute(
+          "CREATE TABLE breeds(id TEXT PRIMARY KEY, name TEXT, races TEXT, isFavorite INTEGER)",
+        );
+      },
+      version: 1,
+    );
+    return BreedDatabase(database);
+  }
+
+  # Creates new instance of Breed model
+  Future<void> insert(Breed breed) async {
+    await database.insert(
+      'breeds',
+      breed.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  # Returns list of all breeds
+  Future<List<Breed>> all() async {
+    final List<Map<String, dynamic>> maps =
+        await database.query('breeds', orderBy: 'name');
+
+    var list = List.generate(maps.length, (i) {
+      return Breed.fromMap(maps[i]);
+    });
+    return list;
+  }
+
+  # Prunes the contents of the breeds table
+  Future<void> clear() async {
+    await database.delete('breeds');
   }
 }
 \end{lstlisting}

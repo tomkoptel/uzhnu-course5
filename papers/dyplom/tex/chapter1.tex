@@ -540,3 +540,16 @@ try {
   client.close();
 }
 \end{lstlisting}
+
+\section{Flutter та пакет sqflite}
+\label{section.2.4}
+SQFlite - це порт SQLite драйверу для платформ написаних на Dart, яке підтримує iOS, Android та MacOS.
+
+До можливостей sqflite можна віднести:
+
+\begin{itemize}
+    \item Підтримка транзакцій та пакетів.
+    \item Помічники для вставки / запиту / оновлення / видалення запитів.
+    \item Операції до БД, виконуються у фоновому потоці на iOS та Android.
+    \item Підтримка Linux / Windows / DartVM за допомогою sqflite_common_ffi.
+\end{itemize}
