@@ -230,3 +230,47 @@ class BreedDatabase {
   }
 }
 \end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_sqflite},caption=Flutter SQFLITE]
+# BreedListViewModel extends StateNotifier<BreedListState>
+# where the state described with BreedListState
+class BreedListViewModel extends StateNotifier<BreedListState> {
+  BreedListViewModel({required this.database})
+      : super(const BreedListState.loading());
+  final BreedDatabase database;
+
+  Future<void> loadBreedList() async {
+      # Extract all items from DB
+      final List<Breed> cachedBreeds = await database.all();
+      # Assign items to the state
+      state = BreedListState.loaded(savedBreeds);
+  }
+}
+
+class BreedList extends StatefulWidget {
+  BreedList({Key? key, required this.viewModel}) : super(key: key);
+  final BreedListViewModel viewModel;
+
+  @override
+  _BreedListState createState() => _BreedListState();
+}
+
+class _BreedListState extends State<BreedList> {
+  @override
+  void initState() {
+    super.initState();
+    # As soon as our state widget initialized we do communicate to the view model
+    widget.viewModel.loadBreedList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    # We do listen to the changes of the view model
+    # BreedList depends on BreedListViewModel and uses BreedListState
+    # to permutate between all possible states
+    return context
+        .watch<BreedListState>()
+        .when(loaded: showList, error: showError, loading: showLoading);
+  }
+}
+\end{lstlisting}
