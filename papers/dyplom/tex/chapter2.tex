@@ -162,7 +162,7 @@
 
 
 \section{Архітектура додатку React Native}
-\label{section.2.2}
+\label{section.2.4}
 В реалізації додатку React Native ми використали систему звротніх викликів або так званих "хуків".
 Наприклад, \textbf{useState} - це Хук, що дозволяє додавати стан React до функціональних компонентів.
 
@@ -184,7 +184,7 @@ React запам'ятає передану нами функцію (яку ми 
 
 
 \section{Комунікація з мережею в Flutter додатку з http.dart та async/await}
-\label{section.2.3}
+\label{section.2.5}
 В нашому додатку запит до інтернету описан в наступному описі сирцевого коду \ref{lst:flutter_networking}.
 
 Найголовнішим принципом, котрим ми опируємо в прикладі запиту до інтернету, це використання "обіцянок" на базі dart:async Future<T>.
@@ -199,7 +199,7 @@ React запам'ятає передану нами функцію (яку ми 
 
 
 \section{Комунікація з SQLite БД в Flutter додатку з SQFlite}
-\label{section.2.4}
+\label{section.2.6}
 Для комунікації з БД в додатку була використана бібліотека SQFlite.
 Рішення, що використовує цю бібліотеку можна знайти за наступним посиланнєм \ref{lst:flutter_sqflite}.
 
@@ -212,7 +212,7 @@ SQL операції.
 
 
 \section{Управління станом в Flutter додатку з Providers API}
-\label{section.2.5}
+\label{section.2.7}
 Flutter пропонує кілька способів для управління станом. Серед них BLoC, Provider, Statefull Widgets, InheritedWidgets.
 В даній роботі ми розглянемо Provider API, котрий взяв за основу систему InheritedWidgets(віджет, що наслідує).
 Для того щоби зрозуміти контроль стану з Provider API ми повинні розлянути:
@@ -227,63 +227,19 @@ Flutter пропонує кілька способів для управлінн
 Так наприклад зміна значення з стану "завантажується" на стан "завантажений" приводить до перебудови віджету \ref{lst:flutter_sqflite}.
 
 
-\section{Юніт тестування в Flutter}
-\label{section.2.6}
+\section{Юніт тестування в Flutter додатку}
+\label{section.2.8}
 Як було вже зазначено, найкращий спосіб контролю якості в проекті це написання та сопроводження коду написанням юнит тестів.
 Цей підхід до розробки програмного забезпечення не оминув і розробку під Flutter.
 
-В даній секції ми наведемо приклад тесту написаного для коду бізнес логіки.
+В даній секції ми наведемо приклад тесту написаного для коду бізнес логіки \ref{lst:flutter_unit_test}.
 Ми застосуємо пакети test та mockito.
 Пакет тест надає доступ до функцій, які дозволяють нам групувати тести.
 Пакет mockito надає функціонал, що дозволяє конфігурувати поведінку об'єктів типу mock(заглушка).
-\begin{lstlisting}[style=light, language=Python,label={lst:flutter_unit_test},caption=Flutter Unit Test]
-@GenerateMocks([BreedDatabase, BreedApi])
-void main() {
-  // 1
-  final mockBreedDatabase = MockBreedDatabase();
-  final mockBreedApi = MockBreedApi();
 
-  // 2
-  final listViewModel =
-      BreedListViewModel(database: mockBreedDatabase, api: mockBreedApi);
-
-  // 3
-  final fakeDbBreed = Breed.make(name: "fakeDB");
-  final fakeNetworkBreed = Breed.make(name: "fakeNetwork");
-
-  // 4
-  group('when toggle breed item', () {
-    // 5
-    setUp(() {
-      when(mockBreedDatabase.all())
-          .thenAnswer((_) => Future.value(<Breed>[fakeDbBreed]));
-    });
-
-    // 6
-    test('should toggle breed and load new list items', () async {
-      await listViewModel.toggleFavorite(fakeDbBreed);
-
-      // 7
-      var captured =
-          verify(mockBreedDatabase.insert(captureAny)).captured.single;
-      var capturedBreed = captured as Breed;
-
-      // 8
-      expect(capturedBreed.isFavorite, !fakeDbBreed.isFavorite);
-    });
-  });
-\end{lstlisting}
-
-\begin{enumerate}
-    \item Створюємо об'єкти заглушки, що підміняють нам фактичний доступ до БД та API.
-    \item Створюємо екземпляр моделі, що робить запит до інтернету та запусує/читає значення з БД.
-    \item Створюємо екземпляри об'єктів, що репрезентують результат або з інернету, або з БД.
-    \item Приклад застосування функції group з пакету test.
-    \item Логіка, що виконується перед запуском тестів. Тут ми конфігуруємо поведінку моку.
-    \item Безпосередньо сам тест з описом його приназначення.
-    \item Ми перехоплюємо посилання на об'єкт, що ми плануємо зберігти в БД.
-    \item Остання перевірка на то, що стан перехопленого об'єкту змінився.
-\end{enumerate}
+Ми маємо дві "рухомі" залежності: шар комунікації з мережею та БД.
+Рухомі частини - це те що ми, як користувачі бібліотек http.dart та SQFlite не контролюємо.
+Отже, щоб спростити конфігурацію юніт тестування ми замінили реальні об'єкти на об'єкти заглушки.
 
 
 \section{UI та Kotlin Multiplatform}

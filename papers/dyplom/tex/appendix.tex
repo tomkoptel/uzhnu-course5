@@ -274,3 +274,44 @@ class _BreedListState extends State<BreedList> {
   }
 }
 \end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_unit_test},caption=Flutter Unit Test]
+@GenerateMocks([BreedDatabase, BreedApi])
+void main() {
+  # First we need to create mocks for DB and network communication
+  # This allows us to isolate changes caused by moving parts
+  # and keep the logic of the test simple and isolated
+  final mockBreedDatabase = MockBreedDatabase();
+  final mockBreedApi = MockBreedApi();
+
+  # We need to pass our mocks as dependencies
+  final listViewModel =
+      BreedListViewModel(database: mockBreedDatabase, api: mockBreedApi);
+
+  # We do create 2 fake objects to represent
+  # the state of DB and network data stores
+  final fakeDbBreed = Breed.make(name: "fakeDB");
+  final fakeNetworkBreed = Breed.make(name: "fakeNetwork");
+
+  # We do use `group` to create a group of related unit tests
+  group('when toggle breed item', () {
+    # Before each test we do setup expectation for DB always return items
+    setUp(() {
+      when(mockBreedDatabase.all())
+          .thenAnswer((_) => Future.value(<Breed>[fakeDbBreed]));
+    });
+
+    test('should toggle breed and load new list items', () async {
+      await listViewModel.toggleFavorite(fakeDbBreed);
+
+      # We do capture the value we pass to DB
+      var captured =
+          verify(mockBreedDatabase.insert(captureAny)).captured.single;
+      var capturedBreed = captured as Breed;
+
+      # We do assert that the captured value has been mutated
+      # In this case that its flag has been reverted
+      expect(capturedBreed.isFavorite, !fakeDbBreed.isFavorite);
+    });
+  });
+\end{lstlisting}
