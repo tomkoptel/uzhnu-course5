@@ -367,3 +367,29 @@ struct LandmarksApp: App {
     }
 }
 \end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:kmm_ktor},caption=Ktor]
+import io.ktor.client.HttpClient
+import io.ktor.features.json.*
+import io.ktor.request.*
+import io.ktor.http.takeFrom
+
+interface KtorApi {
+    suspend fun getJsonFromApi(): BreedResult
+}
+
+class DogApiImpl : KtorApi {
+    private val client = HttpClient {
+        install(JsonFeature) { serializer = KotlinxSerializer() }
+    }
+
+    init { ensureNeverFrozen() }
+
+    override suspend fun getJsonFromApi(): BreedResult =
+        client.get<BreedResult> { url {
+            takeFrom("https://dog.ceo/")
+            encodedPath = "api/breeds/list/all"
+        }
+    }
+}
+\end{lstlisting}
