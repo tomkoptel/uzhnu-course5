@@ -315,3 +315,55 @@ void main() {
     });
   });
 \end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:android_xml},caption=Android UI with XML]
+# Activity is an entry point to the app UI
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        # We do configure this page to render specific XML layout
+        setContentView(R.layout.activity_main)
+    }
+}
+
+# XML is a declarative way of describing UI on Android
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"/>
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:android_jetpack_compose},caption=Android Jetpack Compose]
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val appContainer = (application as JetnewsApplication).container
+        # We use Kotlin extension function
+        setContent {
+            # The enclosing lambda will create our widget and return to the app
+            JetnewsApp(appContainer, navigationViewModel)
+        }
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:ios_swift_ui},caption=Swift UI]
+import SwiftUI
+
+# Widget declaration as an entry point to the app
+@main
+struct LandmarksApp: App {
+    # The scene defines our screen
+    var body: some Scene {
+        WindowGroup {
+            # Finally we yield a widget back to the enclosing lambda
+            ContentView()
+        }
+    }
+}
+\end{lstlisting}

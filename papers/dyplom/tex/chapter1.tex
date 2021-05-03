@@ -474,6 +474,7 @@ Unit test(єдносткові тести) допомагають протест
     \item ще однією популярною бібліотекою для iOS та Android додатків є Appium.\cite{appium_home_page}
 \end{itemize}
 
+
 \section{Flutter порівнняня віджетів з/без стану}
 \label{sec:flutter_widgets_theory}
 Однією з основних тем, яка супроводжує вас під час використання Flutter, є те, що на 80\% розробки це потужне використання віджетів.
@@ -503,6 +504,7 @@ Unit test(єдносткові тести) допомагають протест
 Оскільки один віджет може повертати довільно складне дерево віджетів змінивши стан голови гілки призведе до змін
 ланки віджетів, що наслідує наш віджет зі станом.
 
+
 \section{Система побудування з використанням Flutter CLI}
 \label{sec:flutter_cli_theory}
 Flutter CLI - інструмент командного рядка котрий дозволяє створити, виконати, зібрати сирцевий код проектів фреймфорку Flutter.
@@ -525,6 +527,7 @@ flutter pub upgrade
 \end{lstlisting}
 
 Повний список залежностей можна знайти на офіційній веб сторінці \cite{flutter_cli}.
+
 
 \section{Flutter та пакет http.dart}
 \label{sec:flutter_http_dart_theory}
@@ -550,6 +553,7 @@ try {
 }
 \end{lstlisting}
 
+
 \section{Flutter та пакет sqflite}
 \label{sec:flutter_sqflite_theory}
 SQFlite - це порт SQLite драйверу для платформ написаних на Dart, яке підтримує iOS, Android та MacOS.
@@ -562,3 +566,24 @@ SQFlite - це порт SQLite драйверу для платформ напи
     \item Операції до БД, виконуються у фоновому потоці на iOS та Android.
     \item Підтримка Linux / Windows / DartVM за допомогою sqflite_common_ffi.
 \end{itemize}
+
+
+\section{UI та Kotlin Multiplatform}
+\label{sec:kmm_ui}
+Специфіка розробки з використанням Kotlin Multiplatform передбачує, що розробка рівня UI буде досягнута
+інструментами нативними для платформи.
+
+Для розробки UI під Android використовується декларативний XML, що відтворюється під час виконання в середовищі компоненту
+контейнера так званої Activity(активність) (див. \ref{lst:android_xml}).
+
+Нещодавно з'явився тренд розробки UI з уживанням
+Kotlin DSL(Domain Specific Language - Специфічна Мова Домену) так званий Jetpack Compose \cite{jetpack_compose}.
+
+Як видно з прикладу \ref{android_jetpack_compose} Android екосистема взяла той самий керунок, що Flutter та React Native.
+Такий самий тренд можна спостерігати і в розробці під iOS, де декларативний синтаксис описується з Swift UI \cite{swift_ui}.
+
+Як видно з прикладів \ref{android_jetpack_compose} та \ref{ios_swift_ui} Android та iOS теж вибрали стежку декларативної розробки UI.
+В свою чергу стає зрозуміло, що Kotlin Multiplatform не розв'язує проблему спільної бази коду для коду UI.
+Це дуже важливий момент, оскільки весь UI треба дуплікувати під кожну платформу.
+Якщо Kotlin Multiplatform не розв'язує проблему, то для чого його використовувати?
+Задачу яку собі поставив Kotlin Multiplatform, це опис спільної логіки, тобто звернення до бази даних, файлової системи, інернету, тощо.
