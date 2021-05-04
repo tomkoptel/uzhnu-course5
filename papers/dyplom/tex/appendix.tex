@@ -419,3 +419,35 @@ fun <T : Any> selectAll(mapper: (
   )
 }
 \end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:kotin_test_common},caption=Common Unit Test]
+internal expect fun testDbConnection(): SqlDriver
+internal expect fun <T> runTest(block: suspend () -> T)
+
+abstract class SqlDelightTest {
+    private lateinit var dbHelper: DatabaseHelper
+
+    @BeforeTest
+    fun setup() = runTest {
+        dbHelper = DatabaseHelper(testDbConnection())
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:kotin_test_ios},caption=iOS SQLDriver]
+import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
+
+internal actual fun testDbConnection(): SqlDriver = NativeSqliteDriver(BAIDB.Schema, "baidb")
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:kotin_test_android},caption=Android SQLDriver]
+import com.squareup.sqldelight.android.AndroidSqliteDriver
+import com.squareup.sqldelight.db.SqlDriver
+import androidx.test.core.app.ApplicationProvider
+
+internal actual fun testDbConnection(): SqlDriver {
+    val app = ApplicationProvider.getApplicationContext<Application>()
+    return AndroidSqliteDriver(BAIDB.Schema, app, "baidb")
+}
+\end{lstlisting}
+

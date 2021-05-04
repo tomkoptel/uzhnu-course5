@@ -280,7 +280,7 @@ SQLDelight використовує ідею генерації коду для 
 нам уникати надмірного повторення в написанні коду прослойки для коммунікації з БД.
 
 
-\section{Юніт тестування в KMM}
+\section{Юніт тестування в KMM додатку}
 \label{sec:kmm_unit_testing}
 
 Як і в випадку інших платформ розробки тестування коду є критичною для розвитку продукту.
@@ -290,52 +290,20 @@ KMM і тут не відстає і пропонує розв'язання дл
 Тести, що супроводжують загальну логіку тримають в відокремленому репозиторії commonTest.
 Для конфігурації специфічного для платформи коду виділяють iosTest для iOS та androidTest для Android платформ.
 
-\begin{lstlisting}[style=light, language=Python,label={lst:kotin_test_common},caption=Common Unit Test]
-// 1
-internal expect fun testDbConnection(): SqlDriver
-// 2
-internal expect fun <T> runTest(block: suspend () -> T)
+В нашому додатку був написаний простий інтеграційний тест (див. \ref{lst:kotin_test_common}).
+Дуже важливо підкреслити наявність ф-цій \textbf{testDbConnection} та \textbf{runTest}.
+Де \textbf{testDbConnection} абстрагує реалізацію драйверу підключення до БД та буде реалізована для кожної
+з платформ в своєму специфічному вихідному наборі (ios, android).
+\textbf{runTest} абстрагує реалізацію логіку запуску тесту.
+Модель багатопотоковість унікальна для кожної з платформ, тому впроваджується абстракція та конкретна імплементація
+для кожної з платформ.
 
-abstract class SqlDelightTest {
-    private lateinit var dbHelper: DatabaseHelper
-
-    @BeforeTest
-    fun setup() = runTest {
-        // 3
-        dbHelper = DatabaseHelper(testDbConnection())
-    }
-}
-\end{lstlisting}
-
-\begin{enumerate}
-    \item Ф-ція \textbf{testDbConnection} абстрагує реалізацію драйверу.
-    \item Ф-ція \textbf{runTest} абстрагує реалізацію логіку запуску тесту. Модель багатопотоковість унікальна для кожної з платформ.
-    \item Безпосередньо створюємо об'єкт, що відкриває запити до БД.
-\end{enumerate}
-
-Важливо зауважити, що ми базуємо наше рішення на базі специфічної для KMM пари expect та actual.
+Важливо зауважити, що ми базуємо наше рішення на базі специфічної для KMM пари \textbf{expect} та \textbf{actual}.
 Дані ключові слова маркерують ф-ції, як ті що залежать від API специфічного для платформи.
 
 В \ref{lst:kotin_test_ios} ми використовуємо в якості реалізації драйвер специфічний для iOS платформи.
 
-\begin{lstlisting}[style=light, language=Python,label={lst:kotin_test_ios},caption=iOS SQLDriver]
-import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
-
-internal actual fun testDbConnection(): SqlDriver = NativeSqliteDriver(BAIDB.Schema, "baidb")
-\end{lstlisting}
-
 В \ref{lst:kotin_test_android} ми використовуємо в якості реалізації драйвер специфічний для Android платформи.
-
-\begin{lstlisting}[style=light, language=Python,label={lst:kotin_test_android},caption=Android SQLDriver]
-import com.squareup.sqldelight.android.AndroidSqliteDriver
-import com.squareup.sqldelight.db.SqlDriver
-import androidx.test.core.app.ApplicationProvider
-
-internal actual fun testDbConnection(): SqlDriver {
-    val app = ApplicationProvider.getApplicationContext<Application>()
-    return AndroidSqliteDriver(BAIDB.Schema, app, "baidb")
-}
-\end{lstlisting}
 
 З наведених приклавдів можно зробити висновок, що KMM намагається максимально тісно співпрацювати з API специфічний для платформи.
 Таке рішення потребує знання не тільки специфіки Kotlin але й розуміння бібліотек специфічних для платформ.
