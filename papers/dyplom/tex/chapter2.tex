@@ -160,6 +160,36 @@
     \item \textbf{main} репозиторій в якому зберігається код Android модуля, а саме статичні ресурси та AndroidManifest.
 \end{enumerate}
 
+\section{Архітектура додатків}
+\label{sec:general_app_architecture}
+
+Загальна задача всіх додатків для всіх платформ - це висвітлення списку порід собак з використанням ресурсу https://dog.ceo/api.
+Отже серед поставлених задач було реалізація, як рівня коммунікації з мережею так і рівень взаємодії з закешованими
+значеннями. Додатково було зроблено рішення підтримувати можливість реєстрації породи серед списку улюблених.
+
+Поведінка всіх додатків наслідує послідовність дій описану на мал. \ref{fig:gen_app_flow}.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.25]{general_app_flow.png}
+        \caption{Загальна схема послідовностей додатку}
+        \label{fig:gen_app_flow}
+    \end{center}
+\end{figure}
+
+В якості архітектурного рішення всі додатки імітують архітектуру MVVM(Model-View-View Model) (див. мал. \ref{fig:gen_app_architecture}).
+\textbf{ViewModel} - це контроллер, що відповідає за комунікацію з Model рівнем та повертає структуру даних адаптовану під рівень презентації.
+\textbf{Model} - це рівень, котрий описує формат рівню даних. На Model рівню ми описуємо контракт взаємодії з даними, як з
+мережею так і з базою даних.
+\textbf{View} - відповідає за відображення даних, по суті будучи пасивним спостерігачем даних з рівня ViewModel.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.3]{app_layers.png}
+        \caption{Загальна архітектура додатку}
+        \label{fig:gen_app_architecture}
+    \end{center}
+\end{figure}
 
 \section{Архітектура додатку React Native}
 \label{sec:kn_app_architecture}
