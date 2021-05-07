@@ -169,11 +169,31 @@
 
 Поведінка всіх додатків наслідує послідовність дій описану на мал. \ref{fig:gen_app_flow}.
 
+Загальна архітектура побудувана на базі подходу "чистої архітектури" (мал. \ref{fig:clean_architecture}).
+Ідеологія архітектури, це організація коду по шарам абстракції \textbf{domain, presentation, data}.
+
+\textbf{Рівень презентації} (або presentation) відповідає за відображення даних, фактично це дерево віджетів,
+що ми відображуємо на сторінці.
+
+\textbf{Рівень даних} (або data) відповідає за виклики до мережі, збереження даних в БД та робота з файловою системою.
+Цей рівень знає де взяти дані.
+
+\textbf{Рівень домену} (або domain) рівень бізнес логіки. В цьому рівні ми визначаємо контракт. Далі на базі контракту
+ми будуємо рівень презентації.
+
 \begin{figure}
     \begin{center}
         \includegraphics[scale=0.25]{general_app_flow.png}
         \caption{Загальна схема послідовностей додатку}
         \label{fig:gen_app_flow}
+    \end{center}
+\end{figure}
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.25]{clean_architecture.png}
+        \caption{Чиста архітектура (Clean Architecture)}
+        \label{fig:clean_architecture}
     \end{center}
 \end{figure}
 
@@ -216,7 +236,18 @@ React запам'ятає передану нами функцію (яку ми 
 \section{Особливості архітектури додатку Flutter}
 \label{sec:flutter_network_app}
 
-??
+Архітектура додатку Flutter наслідує підхід "чистої архетиктури" (мал. \ref{fig:clean_architecture}).
+На мал. \ref{fig:flutter_classes} відображено дерево взаємодії класів, де ми позначили залежність класу
+від конкретного рівня абстракції на базі розшарування з (presentation, domain, data).
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.3]{flutter_classes.png}
+        \caption{Діаграма класів}
+        \label{fig:flutter_classes}
+    \end{center}
+\end{figure}
+
 
 \section{Особливості архітектури додатку Kotlin Multiplatform}
 \label{sec:kmm_architecture}
