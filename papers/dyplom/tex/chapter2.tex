@@ -240,6 +240,14 @@ React запам'ятає передану нами функцію (яку ми 
 На мал. \ref{fig:flutter_classes} відображено дерево взаємодії класів, де ми позначили залежність класу
 від конкретного рівня абстракції на базі розшарування з (presentation, domain, data).
 
+До \textbf{рівня презентації (presentation)} належать віджети Main, MyApp, HomePage, BreedList, BreedItem та
+BreedListState, BreedListViewModel котрі відповідають за логіку комунікації з інформаційним та доменими рівнями.
+
+До \textbf{рівня домену (domain)} належить Breed, котрий описує всю необхідну інформацію таку, як назва породи та чи
+належить вона до списку улюблених.
+
+До \textbf{рівня даних (data)} належить BreedApi та BreedDatabase. На цьому рівні описана взаємодія з БД та мережею.
+
 \begin{figure}
     \begin{center}
         \includegraphics[scale=0.4]{flutter_classes.png}
