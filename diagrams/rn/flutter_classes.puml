@@ -1,7 +1,7 @@
 @startuml
 
-left to right direction
-'top to bottom direction
+'left to right direction
+top to bottom direction
 
 skinparam class  {
   BackgroundColor<<Widget>> #8ee3ff
@@ -26,11 +26,11 @@ Main --> MyApp
 MyApp --> HomePage
 HomePage --> BreedList
 BreedList --> BreedItem
-BreedListViewModel *-- HomePage
+HomePage o-- BreedListViewModel
 BreedListViewModel *-- Breed
-BreedListViewModel *-- BreedList
+BreedList o-- BreedListViewModel
+BreedList *-- BreedListState
 BreedListViewModel *-- BreedListState
-BreedListState *-- BreedList
 BreedItem *-- Breed
 
 BreedListViewModel *-- BreedApi
