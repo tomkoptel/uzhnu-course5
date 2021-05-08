@@ -1,0 +1,18 @@
+@startuml
+
+top to bottom direction
+
+skinparam activity {
+  BackgroundColor<< Coral >> Coral
+  BackgroundColor<< Blue >> LightBlue
+  BackgroundColor<< Green >> LightGreen
+}
+
+Platform --> BreedModel<< Coral >>
+BreedModel --> DogApiImpl << Green >>
+BreedModel --> DatabaseHelper << Green >>
+DatabaseHelper --> BreedModel
+
+BreedModel --> Breed << Blue >>
+Breed --> Platform
+@enduml

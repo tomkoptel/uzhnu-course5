@@ -227,7 +227,7 @@ React запам'ятає передану нами функцію (яку ми 
 \begin{figure}
     \begin{center}
         \includegraphics[scale=0.3]{app_widget.png}
-        \caption{Схема послідовності віджету App та інтеракція з шаром даних}
+        \caption{Взаємодія шарів абстракції в React Native}
         \label{fig:rn_realm}
     \end{center}
 \end{figure}
@@ -251,7 +251,7 @@ BreedListState, BreedListViewModel котрі відповідають за ло
 \begin{figure}
     \begin{center}
         \includegraphics[scale=0.4]{flutter_classes.png}
-        \caption{Діаграма класів}
+        \caption{Діаграма класів Flutter}
         \label{fig:flutter_classes}
     \end{center}
 \end{figure}
@@ -260,4 +260,34 @@ BreedListState, BreedListViewModel котрі відповідають за ло
 \section{Особливості архітектури додатку Kotlin Multiplatform}
 \label{sec:kmm_architecture}
 
-??
+Проект, незалежно від того, працює він в Android або iOS, використовує базові компоненти презентації
+Activity для Android та ViewController для iOS платформ.
+
+Компонент презентації створють BreedModel, конфігурують зворотні виклики(callbacks) та стартують BreedModel.
+BreedModel є загальним кодом MultiPlatform, тому ми вже в загальному коді.
+BreedModel реалізовує кросс-платформений код та посилається на бібліотеку Multiplatform-Settings,
+та два допоміжні класи: DogApiImpl (який реалізує KtorApi) і DatabaseHelper.
+
+DatabseHelper та DogApiImpl використовують бібліотеки Multiplatform для отримання даних і повернення їх до BreedModel.
+Зауважимо, що BreedModel посилається на інтерфейс KtorApi. Це дає можливість протестувати модель за допомогою Mock(заглушки) Api.
+
+BreedModel підписується на потік змін з бази даних. Таким чином, будь-які зміни в базі даних будуть викликати
+зворотній виклик та відновлювати рівень презентації.
+Описана модель повертає список собачих порід та відображає на рівні презентації.
+Модель отримує інформацію з мережі, а потім зберігає дані в базі даних.
+
+Отримаємо наступний приклад описаний на мал. \ref{fig:kmm_architecture}.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.4]{kmm_architecture.png}
+        \caption{Взаємодія шарів абстракції в KMM}
+        \label{fig:kmm_architecture}
+    \end{center}
+\end{figure}
+
+Останій пазл нашої конфігурації полягає в використанні мультиплатформенної бібліотеки для зберігання налаштувань.
+В нашому випадку ми використовуємо це рішення для того, щоби зберігати час останьої обнови, а саме коли було в останнє запит до серверу.
+Коли до BreedModel виконує запит на отримання списку пород з мережі, наша модель спочатку перевіряє, чи виконано це запит протягом минулої години.
+Якщо відповідь негативна, то модель приймає вирішення оновити список порід.
+
