@@ -1,0 +1,38 @@
+@startuml
+
+'left to right direction
+top to bottom direction
+
+skinparam class  {
+  BackgroundColor<<Widget>> #8ee3ff
+  BackgroundColor<<Domain>> #cab3f5
+  BackgroundColor<<Presentation>> #f3b39b
+  BackgroundColor<<Data>> #6be47c
+}
+
+class Main <<Widget>>
+class MyApp <<Widget>>
+class HomePage <<Widget>>
+class BreedList <<Widget>>
+class BreedItem <<Widget>>
+class Breed <<Domain>>
+class BreedListViewModel <<Presentation>>
+class BreedListState <<Presentation>>
+
+class BreedApi <<Data>>
+class BreedDatabase <<Data>>
+
+Main --> MyApp
+MyApp --> HomePage
+HomePage --> BreedList
+BreedList --> BreedItem
+HomePage o-- BreedListViewModel
+BreedListViewModel *-- Breed
+BreedList o-- BreedListViewModel
+BreedList *-- BreedListState
+BreedListViewModel *-- BreedListState
+BreedItem *-- Breed
+
+BreedListViewModel *-- BreedApi
+BreedListViewModel *-- BreedDatabase
+@enduml

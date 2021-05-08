@@ -1,0 +1,35 @@
+@startuml
+
+left to right direction
+'top to bottom direction
+
+skinparam state  {
+  BackgroundColor<<V>> #8ee3ff
+  BackgroundColor<<R>> #6be47c
+  BackgroundColor<<S>> #cab3f5
+  BackgroundColor<<St>> #f3b39b
+}
+
+state ViewModel<<R>>
+ViewModel: React Hooks для React Native додатку
+ViewModel: StateProvider для Flutter додатку
+ViewModel: ViewModel для Kotlin Multiplatform
+
+state View<<V>>
+View : JSX для React Native
+View : Flutter StateFull, Stateless widgets
+View : Android XML & iOS Storyboard для KMM
+
+state Model<<S>> {
+  state Database<<R>>
+  Database : Realm для React Native додатку
+  Database : SQLite для Kotlin Multiplatform та Flutter додатків
+  state Network<<St>>
+  Network: Всі виклики виконуємо до https://dog.ceo/api
+}
+
+ViewModel --> Model
+Model --> ViewModel
+ViewModel --> View
+View --> ViewModel
+@enduml

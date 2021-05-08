@@ -7,7 +7,6 @@
 %    \usepackage{mathptmx}
 
 \usepackage{amsmath,amssymb,euscript,amsthm}
-\usepackage{enumitem}
 
 % Пакет для включения рисунков
 %--------------------------------------
@@ -36,12 +35,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \parindent=1.25cm
-
-
 \textwidth=15,5cm
 \textheight=22cm
 \hoffset=-0.8cm
 \voffset=-1.3cm
+
 \pagestyle{myheadings}
 \makeatletter
 \@addtoreset{equation}{section}
@@ -240,3 +238,8 @@ tabsize=2
 
 \lstset{style=light}
 %--------------------------------------
+
+% How to reduce line space (leading) within an enumerate environment?
+% https://tex.stackexchange.com/questions/43743/how-to-reduce-line-space-leading-within-an-enumerate-environment
+\usepackage{enumitem}
+\setlist[enumerate]{itemsep=0mm}

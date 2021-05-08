@@ -1,289 +1,9 @@
-\chapter{React Native}
+\chapter{Опис додатків з використанням кросс-платформених рішень}
 \label{ch2}
 
 
-\section{Декларативний}
-\label{section.2.1}
-
-React спрощує створення інтерактивних інтерфейсів.
-Вам потрібно лише описати, як різні частини інтерфейсу виглядають у кожному стані вашого додатку і React ефективно оновить та відрендерить лише потрібні компоненти.
-Декларативні інтерфейси роблять наш код більш передбачуваним і його набагато легше налагоджувати.
-
-
-\section{Заснований на компонентах}
-\label{section.2.2}
-React Native заснований на основі інкапсульованих компонентів, які керують власним станом, і з них будують складні інтерфейси.
-Оскільки логіка компонентів написана на JavaScript, замість шаблонів, ми з легкістю можемo передавати складні дані у додатку і зберігати стан окремо від DOM.
-
-
-\section{JSX}
-\label{section.2.3}
-Розглянемо оголошення змінної:
-\begin{lstlisting}[style=light, language=Python,label={lst:jsx_hello},caption=JSX Hello World]
-const element = <h1>Hello, world!</h1>;
-\end{lstlisting}
-
-Цей дивний синтаксис тегів не є ні рядком, ні HTML.
-
-Він має назву JSX, і це розширення синтаксису для JavaScript.
-Його використовує React, щоб описати інтерфейс користувача.
-JSX може нагадувати мову шаблонів, але з усіма перевагами JavaScript.
-
-React використовує той факт, що логіка виводу пов’язана з іншою логікою інтерфейсу користувача: як обробляються події, як змінюється стан з часом і як дані готуються для рендерингу.
-
-Замість того, щоб штучно відокремити технології, розмістивши розмітку і логіку в окремих файлах, React розділяє відповідальність між вільно зв’язаними одиницями, що містять обидві технології і називаються “компонентами”.
-React не вимагає використання JSX, але більшість людей цінують його за візуальну допомогу при роботі з інтерфейсом користувача в коді JavaScript.
-Він також дозволяє React показати зрозуміліші повідомлення про помилки та попередження.
-
-
-\section{Система побудування Expo}
-\label{section.2.4}
-React Native пропонує два різних способи побудування проекту \textbf{«керований»} та \textbf{«простий»} робочими процесами.
-\begin{itemize}
-    \begin{item}
-        За допомогою \textbf{керованого} робочого процесу ви пишете лише інструменти та служби JavaScript / TypeScript та Expo, які піклуються про все інше.
-    \end{item}
-    \begin{item}
-        У \textbf{простому} робочому процесі ви маєте повний контроль над кожним аспектом власного проекту, а інструменти та послуги Expo трохи більш обмежені.
-    \end{item}
-\end{itemize}
-
-В обох випадках використовується екосистема інструментів, що спрощують процес пободування проекту, ховаючи деталі та називається Expo.
-Expo - платформа для універсальних додатків React, набір інструментів та служб, побудованих навколо React Native та власних платформ, які допомагають вам розробляти, будувати, розгортати та швидко переглядати iOS, Android та веб-додатки з тієї самої кодової бази JavaScript / TypeScript.\cite{expo_doc}
-
-
-\section{Запити до мережі. Fetch API}
-\label{section.2.5}
-React Native надає API Fetch для ваших мережевих потреб.
-API Fetch забезпечує інтерфейс для отримання ресурсів (у тому числі по всій мережі).
-Буде здаватися звичним кожному, хто використовував XMLHttpRequest, але новий API забезпечує більш потужний та гнучкий набір функцій.
-Fetch забезпечує загальне визначення Requestі Responseоб'єктів (та інших речей, пов'язаних із мережевими запитами).
-Це дозволить їх використовувати там, де вони потрібні в майбутньому.
-
-Fetch API залежить від Promise.
-Promise або "обіцянка" - це проксі для значення, яке не обов'язково відомо при створенні об'єкту.\cite{promise_doc}
-Інакше кажучи, це API обгортка, яка задає контракт згідно которого promise(обіцянка) може знаходитись в одному зі станів:
-A Promiseзнаходиться в одному з таких станів:
-\begin{itemize}
-    \begin{item}
-        \textbf{в очікуванні(peding)}: початковий стан, ні виконаний, ні відхилений.
-    \end{item}
-    \begin{item}
-        \textbf{виконано(fulfilled)} : це означає, що операція була успішно завершена.
-    \end{item}
-    \begin{item}
-        \textbf{відхилено(rejected)} : означає, що операція не вдалася.
-    \end{item}
-\end{itemize}
-
-Прикладом коду, котрий виконує запит та отримує відповідь в форматі JSON.
-
-\begin{lstlisting}[style=light, language=Python,label={lst:rn_network},caption=React Native Network Call]
-const loadFromNetwork = () => {
-  return fetch("https://dog.ceo/api/breeds/list/all")
-    .then((response) => response.json())
-    .then((json) => {
-      return items;
-    })
-    .then((data) => setData(data))
-    .catch((error) => console.error(error))
-    .finally(() => setLoading(false));
-};
-\end{lstlisting}
-
-
-\section{Realm React Native}
-\label{section.2.6}
-В випадку вибору бази даних треба розглянути наступні фактори:
-\begin{itemize}
-    \begin{item}
-        \textbf{Технологія:} з відкритим кодом чи власністю?
-    \end{item}
-    \begin{item}
-        \textbf{Архітектура:} SQL або NoSQL?s
-    \end{item}
-    \begin{item}
-        \textbf{Масштабованість:} чи ви будете самостійно розміщувати або скористаєтесь масштабованою послугою?
-    \end{item}
-\end{itemize}
-
-Ринок надає можливість використання таких рішень як:
-
-\begin{longtable}[c]{|l|l|l|}
-    \caption{Порівняння Баз Даниx React Native}
-    \label{tab:rn_db_comparison} \\
-    \hline
-    & Сирцевий код  & Тип реаліаційної БД \\ \hline
-    \endhead
-%
-    Back4app        & Відкритий     & SQL, NoSQL          \\ \hline
-    Cloud Firestore & Пропрієтарний & NoSQL               \\ \hline
-    DigitalOcean    & Відкритий     & SQL                 \\ \hline
-    AWS RDS         & Відкритий     & SQL                 \\ \hline
-    Realm           & Відкритий     & NoSQL               \\ \hline
-\end{longtable}
-
-Під час роботи над тестовим продуктом було зроблене рішення використати Realm.
-Рішення базувалося скоріше на потребах швидкого та простого в інтеграції рішення.
-Як наведено нижче конфігурація в цілому є дуже проста. \ref{lst:rn_realm}
-
-\begin{lstlisting}[style=light, language=Python,label={lst:rn_realm},caption=React Native Realm]
-// 1
-const BreedSchema = {
-  name: "Breed",
-  primaryKey: "id",
-  properties: {
-    id: "string",
-    name: "string",
-    isFavorite: { type: "bool", default: false },
-  },
-};
-// 2
-const config = {
-  deleteRealmIfMigrationNeeded: true,
-  schema: [BreedSchema],
-};
-// 3
-const loadFromDatabase = () => {
-  return Realm.open(config).then((realm) => {
-    const breeds = realm
-      .objects("Breed")
-      .filtered(`TRUEPREDICATE SORT(name ASC) DISTINCT(name)`);
-    // 4
-    const items = breeds.map(copyObjects);
-    realm.close();
-    return items;
-  });
-};
-\end{lstlisting}
-
-\begin{enumerate}
-    \item Опис схеми бази даних. В даному випадку одна таблиця.
-    \item Створюємо об'єкт конфігурації. Далі буде використаний, щоби відкрити підключення до бази даних.
-    \item Відкриваємо підключення до бази даних та робимо запит до таблиці.
-    \item Робимо копію даних, щоби від'єднати об'єкт від підключення, якщо не копіювати об'єкт виникне помилка виконання.
-\end{enumerate}
-
-
-\section{Управління станом в React Native}
-\label{section.2.8}
-React Native використовує систему звротніх викликів або так званих "хуків".
-Наприклад, \textbf{useState} - це Хук, що дозволяє додавати стан React до функціональних компонентів.
-
-\begin{lstlisting}[style=light, language=Python,label={lst:rn_state_hooks},caption=React Native Hooks]
-export default function App() {
-  // 1
-  const [data, setData] = useState([]);
-  // 2
-  useEffect(() => {
-    // 3
-    loadFromDatabase().then((data) => setData(data));
-  });
-
-  return <FlatList
-    data={data}
-    renderItem={({ item }) => {
-      return <Item item={item} />;
-    }}
-    keyExtractor={(item) => item.id}
-  />
-}
-\end{lstlisting}
-
-\begin{enumerate}
-    \begin{item}
-        useState оголошує “змінну стану”.
-        Наша змінна називається, data ми можемо називати її як завгодно, наприклад banana.
-        Єдиним аргументом useState() хука є початковий стан.
-        useState повертає пару значень: поточний стан та функцію, яка його оновлює.
-    \end{item}
-    \begin{item}
-        Використовуючи useEffect хук, ми повідомляємо React, що наш компонент повинен виконати додаткову фунцію після рендерингу.
-        React запам'ятає передану нами функцію (яку ми будемо називати "ефектом") і викличе її пізніше після оновлення UI нашого додатку.
-    \end{item}
-    \begin{item}
-        Ефект котрий ми створили буде виконаний при ініціалізації додатку.
-        І як результат виконання ми отримаємо дані з локальної бази які ми і відобразимо.
-    \end{item}
-\end{enumerate}
-
-Даний підхід дозволяє швидко і в простий спосіб сконфігурувати стан нашого компоненту.
-Хуки дозволяють описувати N станів.
-Хоча це звучить добре нажаль, в більш складних компонентах з великою кількістю взаємодій з користувачем такий підхід призведе до високої зв'язаності коду.
-В свою чергу ми отримаємо складний до зрозуміння сирцевий код і нестабільне рішення з великою кількістю помилок.
-Для рішення цієї проблеми можна застосувати архітектуру Redux.
-
-Redux - передбачуваний контейнер стану для Javscript додатків Apps.
-Redux допомагає писати програми, які поводяться послідовно , працюють у різних середовищах (клієнтських, серверних та власних) і легкі для перевірки. \cite{redux_home_page}
-Централізація стану та логіки вашого додатка забезпечує потужні можливості, такі як скасування / повтор , стійкість стану та багато іншого. \cite{redux_home_page}
-
-
-\section{Тестування в React Native}
-\label{section.2.9}
-У міру розширення вашої кодової бази невеликі помилки та крайні випадки, на які ви не очікуєте, можуть перетворюватися на більші збої.
-Помилки призводять до поганого досвіду для користувачів і, зрештою, до втрат бізнесу.
-Одним із способів полібшити якість сирцевого коду є написання тестів.
-
-Одним з найкращих способів виправити помилку в коді є написання тесту, який виявляє її.
-Потім, коли ви виправляєте помилку і повторно запускаєте тест, якщо він проходить, це означає, що помилка виправлена, і ніколи повторно не буде впроваджена в сирцевий код проекту.
-
-Тести також можуть служити документацією для нових людей, які приєднуються до вашої команди.
-Людям, які ніколи раніше не бачили кодової бази, аналіз тестів може допомогти зрозуміти, як працює існуючий код.
-Нарешті, але не менш важливим є те, що більш автоматизоване тестування означає менше часу, проведеного за допомогою ручного контролю якості, звільняючи цінний час.
-
-За замовчуванням React Native постачається з тестовою структурою Jest. \cite{jest_home_page}
-
-\begin{lstlisting}[style=light, language=Python,label={lst:rn_jest_test},caption=Jest Unit Test]
-  it('given 2 +2 returns 4', () => {
-    expect(2 + 2).toBe('red');
-  });
-\end{lstlisting}
-
-Jest дозволяє групувати тести з уживанням функцій "describe"(опис).
-Підтримує хуки для ініціалізації стану "beforeEach"(перед кожним) та "beforeAll"(після всіх).
-
-Unit test(єдносткові тести) допомагають протестувати тільки бізнес логіку.
-Для тестування UI компонентів застосовується компонентне тестування.
-Навіть якщо логіка вашого додатка має високий рівень охоплення тестуванням і є правильною,
-без тестування компонентів ви все одно можете доставити непрацюючий інтерфейс для своїх користувачів.
-
-Під час тестування компонентів React можна перевірити дві речі:
-
-\begin{itemize}
-    \begin{item}
-        \textbf{Взаємодію:} для забезпечення належної поведінки компонента під час взаємодії з ним користувачем (наприклад, коли користувач натискає кнопку)
-    \end{item}
-    \begin{item}
-        \textbf{Рендеринг:} щоб переконатися, що вихідний вигляд компонента, який використовує React, правильний (наприклад, зовнішній вигляд кнопки та розміщення її в інтерфейсі)
-    \end{item}
-\end{itemize}
-
-Однак требу мати на увазі, що тестування компонентів - це лише тести JavaScript, що виконуються у середовищі Node.js.
-Вони не беруть до уваги будь-який iOS, Android або інший код платформи, який підтримує компоненти React Native.
-Звідси випливає, що вони не можуть надати вам 100\% впевненості, що все працює.
-Якщо в коді платформи iOS або Android є помилка, вони її не знайдуть.
-
-Останій клас тестів - це ті, що дозволяють протестувати в наскрізний спосіб наш додаток (далі E2E - End to End).
-Це робиться шляхом запуску тестів на фінальній зборці додатку виконаному в середовищі Android або iOS.
-У тестах E2E ви більше не думаєте про компоненти React, React Native API, Redux чи будь-яку бізнес-логіку.
-
-Тести E2E дають вам максимально можливу впевненість у тому, що частина вашого додатка працює.
-Однак в випадку E2E ми мусимо враховувати наступні компроміси.
-
-\begin{itemize}
-    \item їх написання займає більше часу порівняно з іншими типами тестів
-    \item вони працюють повільніше
-    \item вони більш нестабільні "flakky" ("flakky"  - це тест, який випадково проходить і не проходить без будь-яких змін в коді)
-\end{itemize}
-
-Доступно кілька інструментів тестування E2E.
-\begin{itemize}
-    \item у спільноті React Native Detox є популярним фреймворком, оскільки він спеціально підходить для додатків React Native.\cite{detox_home_page}
-    \item ще однією популярною бібліотекою для iOS та Android додатків є Appium.\cite{appium_home_page}
-\end{itemize}
-
 \section{Структура проекту в React Native}
-\label{section.2.10}
+\label{sec:rn_structure_app}
 
 \begin{lstlisting}[style=light, language=Python,label={lst:rn_app_structure},caption=React Native App Layout]
 ├── App.js (1)
@@ -329,3 +49,252 @@ Unit test(єдносткові тести) допомагають протест
     \item \textbf{package-lock.json} файл що описує повністю дерево залежностей, таким чином створює відтворюване середовище
     \item \textbf{node\_modules} репозиторій артефактів або сирцевого коду всіх Javascript пакетів, що використовує проект
 \end{enumerate}
+
+
+\section{Структура проекту в Flutter}
+\label{sec:flutter_structure_app}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_project_layout},caption=Flutter Project Layout]
+├── README.md
+├── android (1)
+│ ├── app
+│ ├── build.gradle
+│ ├── gradle
+│ ├── gradle.properties
+│ ├── gradlew
+│ ├── gradlew.bat
+│ ├── local.properties
+│ └── settings.gradle
+├── build (2)
+├── ios (3)
+│ ├── Flutter
+│ ├── Podfile
+│ ├── Runner
+│ ├── Runner.xcodeproj
+│ └── Runner.xcworkspace
+├── lib (4)
+│ ├── breed_list.dart
+│ ├── data
+│ ├── domain
+│ ├── home.dart
+│ ├── main.dart
+│ └── presentation
+├── pubspec.lock (5)
+├── pubspec.yaml (6)
+├── test (7)
+│ ├── breed_database_test.dart
+│ ├── breed_list_view_model_test.dart
+│ ├── breed_list_view_model_test.mocks.dart
+│ └── network_test.dart
+└── web (8)
+    ├── favicon.png
+    ├── icons
+    ├── index.html
+    └── manifest.json
+\end{lstlisting}
+
+\begin{enumerate}
+    \item \textbf{android} сирцевий код платформеного коду Android.
+    \item \textbf{build} папка з тимчасовими файлами згенерованими Flutter CLI під час побудування проекту.
+    \item \textbf{ios} сирцевий код платформеного коду iOS.
+    \item \textbf{lib} сирцевий код Flutter, котрий фактично є серцем репозиторія та описую логіку проекту.
+    \item \textbf{pubspec.lock} файл що описує повністю дерево залежностей, таким чином створює відтворюване середовище.
+    \item \textbf{pubspec.yaml} конфігурує дерево залежностей або бібліотек, що використовує проект.
+    \item \textbf{test} сирцевий код тестів для платформи Flutter.
+    \item \textbf{web} сирцевий код платформеного коду веб сторінки.
+\end{enumerate}
+
+
+\section{Структура проекту Kotlin Multi-Platform}
+\label{sec:kmm_structure_app}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:kmm_project_layout},caption=KMM Project Layout]
+├── app (1)
+│ ├── build.gradle.kts
+│ └── src
+├── build.gradle.kts
+├── buildSrc (2)
+│ ├── build.gradle.kts
+│ └── src
+├── gradle
+├── gradle.properties
+├── gradlew
+├── gradlew.bat
+├── ios (3)
+│ ├── Podfile
+│ ├── Podfile.lock
+│ ├── Pods
+│ ├── bai_dialog_ios
+│ ├── bai_dialog_ios.xcodeproj
+│ ├── bai_dialog_ios.xcworkspace
+│ ├── bai_dialog_iosTests
+│ └── bai_dialog_iosUITests
+├── local.properties
+├── settings.gradle.kts
+└── shared (4)
+    ├── build.gradle.kts
+    ├── consumer-rules.pro
+    ├── proguard-rules.pro
+    ├── shared.podspec
+    └── src
+        ├── androidMain (5)
+        ├── androidTest (6)
+        ├── commonMain (7)
+        ├── commonTest (8)
+        ├── iosMain (9)
+        ├── iosTest (10)
+        └── main (11)
+\end{lstlisting}
+
+\begin{enumerate}
+    \item \textbf{app} сирцевий код UI імплементації для Android.
+    \item \textbf{buildSrc} сирцевий код, що розширює систему розгортання Gradle.
+    \item \textbf{ios} сирцевий код UI імплементації для iOS.
+    \item \textbf{shared} папка в котрій зберігається загальний код.
+    \item \textbf{androidMain} імплементація коду специфічного для Android платформи.
+    \item \textbf{androidTest} імплементація тестів специфічних для Android платформи.
+    \item \textbf{commonMain} сирцевий код спільної незалежної від платформи логіки.
+    \item \textbf{commonTest} імплементація тестів для спільної незалежної від платформи логіки.
+    \item \textbf{iosMain} імплементація коду специфічного для iOS платформи.
+    \item \textbf{iosTest} імплементація тестів специфічних для iOS платформи.
+    \item \textbf{main} репозиторій в якому зберігається код Android модуля, а саме статичні ресурси та AndroidManifest.
+\end{enumerate}
+
+\section{Архітектура додатків}
+\label{sec:general_app_architecture}
+
+Загальна задача всіх додатків для всіх платформ - це висвітлення списку порід собак з використанням ресурсу https://dog.ceo/api.
+Отже серед поставлених задач було реалізація, як рівня коммунікації з мережею так і рівень взаємодії з закешованими
+значеннями. Додатково було зроблено рішення підтримувати можливість реєстрації породи серед списку улюблених.
+
+Поведінка всіх додатків наслідує послідовність дій описану на мал. \ref{fig:gen_app_flow}.
+
+Загальна архітектура побудувана на базі подходу "чистої архітектури" (мал. \ref{fig:clean_architecture}).
+Ідеологія архітектури, це організація коду по шарам абстракції \textbf{domain, presentation, data}.
+
+\textbf{Рівень презентації} (або presentation) відповідає за відображення даних, фактично це дерево віджетів,
+що ми відображуємо на сторінці.
+
+\textbf{Рівень даних} (або data) відповідає за виклики до мережі, збереження даних в БД та робота з файловою системою.
+Цей рівень знає де взяти дані.
+
+\textbf{Рівень домену} (або domain) рівень бізнес логіки. В цьому рівні ми визначаємо контракт. Далі на базі контракту
+ми будуємо рівень презентації.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.25]{general_app_flow.png}
+        \caption{Загальна схема послідовностей додатку}
+        \label{fig:gen_app_flow}
+    \end{center}
+\end{figure}
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.4]{clean_architecture.png}
+        \caption{Чиста архітектура (Clean Architecture)}
+        \label{fig:clean_architecture}
+    \end{center}
+\end{figure}
+
+В якості архітектурного рішення всі додатки імітують архітектуру MVVM(Model-View-View Model) (див. мал. \ref{fig:gen_app_architecture}).
+\textbf{ViewModel} - це контроллер, що відповідає за комунікацію з Model рівнем та повертає структуру даних адаптовану під рівень презентації.
+\textbf{Model} - це рівень, котрий описує формат рівню даних. На Model рівню ми описуємо контракт взаємодії з даними, як з
+мережею так і з базою даних.
+\textbf{View} - відповідає за відображення даних, по суті будучи пасивним спостерігачем даних з рівня ViewModel.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.3]{app_layers.png}
+        \caption{Загальна архітектура додатку}
+        \label{fig:gen_app_architecture}
+    \end{center}
+\end{figure}
+
+\section{Особливості архітектури додатку React Native}
+\label{sec:kn_app_architecture}
+В реалізації додатку React Native ми використали систему звротніх викликів або так званих "хуків".
+Наприклад, \textbf{useState} - це Хук, що дозволяє додавати стан React до функціональних компонентів.
+
+"useState" оголошує "змінну стану" та повертає пару значень: поточний стан та функцію, яка його оновлює.
+Наша змінна називається, data ми можемо називати її як завгодно, наприклад banana \ref{lst:rn_state_hooks}.
+
+Використовуючи useEffect хук, ми повідомляємо React, що наш компонент повинен виконати додаткову фунцію після рендерингу.
+React запам'ятає передану нами функцію (яку ми будемо називати "ефектом") і викличе її пізніше після оновлення UI нашого додатку.
+
+Ефект котрий ми створили буде виконаний при ініціалізації додатку. І як результат виконання ми отримаємо дані з локальної бази які ми і відобразимо (див. на \ref{fig:rn_realm})).
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.3]{app_widget.png}
+        \caption{Взаємодія шарів абстракції в React Native}
+        \label{fig:rn_realm}
+    \end{center}
+\end{figure}
+
+
+\section{Особливості архітектури додатку Flutter}
+\label{sec:flutter_network_app}
+
+Архітектура додатку Flutter наслідує підхід "чистої архетиктури" (мал. \ref{fig:clean_architecture}).
+На мал. \ref{fig:flutter_classes} відображено дерево взаємодії класів, де ми позначили залежність класу
+від конкретного рівня абстракції на базі розшарування з (presentation, domain, data).
+
+До \textbf{рівня презентації (presentation)} належать віджети Main, MyApp, HomePage, BreedList, BreedItem та
+BreedListState, BreedListViewModel котрі відповідають за логіку комунікації з інформаційним та доменими рівнями.
+
+До \textbf{рівня домену (domain)} належить Breed, котрий описує всю необхідну інформацію таку, як назва породи та чи
+належить вона до списку улюблених.
+
+До \textbf{рівня даних (data)} належить BreedApi та BreedDatabase. На цьому рівні описана взаємодія з БД та мережею.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.4]{flutter_classes.png}
+        \caption{Діаграма класів Flutter}
+        \label{fig:flutter_classes}
+    \end{center}
+\end{figure}
+
+
+\section{Особливості архітектури додатку Kotlin Multiplatform}
+\label{sec:kmm_architecture}
+
+Проект, незалежно від того, працює він в Android або iOS, використовує базові компоненти презентації
+Activity для Android та ViewController для iOS платформ.
+
+Компонент презентації створють BreedModel, конфігурують зворотні виклики(callbacks) та стартують BreedModel.
+BreedModel є загальним кодом MultiPlatform, тому ми вже в загальному коді.
+BreedModel реалізовує кросс-платформений код та посилається на бібліотеку Multiplatform-Settings,
+та два допоміжні класи: DogApiImpl (який реалізує KtorApi) і DatabaseHelper.
+
+DatabseHelper та DogApiImpl використовують бібліотеки Multiplatform для отримання даних і повернення їх до BreedModel.
+Зауважимо, що BreedModel посилається на інтерфейс KtorApi. Це дає можливість протестувати модель за допомогою Mock(заглушки) Api.
+
+BreedModel підписується на потік змін з бази даних. Таким чином, будь-які зміни в базі даних будуть викликати
+зворотній виклик та відновлювати рівень презентації.
+Описана модель повертає список собачих порід та відображає на рівні презентації.
+Модель отримує інформацію з мережі, а потім зберігає дані в базі даних.
+
+Отримаємо наступний приклад описаний на мал. \ref{fig:kmm_architecture}.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.4]{kmm_architecture.png}
+        \caption{Взаємодія шарів абстракції в KMM}
+        \label{fig:kmm_architecture}
+    \end{center}
+\end{figure}
+
+Останій пазл нашої конфігурації полягає в використанні мультиплатформенної бібліотеки для зберігання налаштувань (див. мал. \ref{fig:kmm_app_flow}).
+В нашому випадку ми використовуємо це рішення для того, щоби зберігати час останьої обнови, а саме коли було в останнє запит до серверу.
+Коли до BreedModel виконує запит на отримання списку пород з мережі, наша модель спочатку перевіряє, чи виконано це запит протягом минулої години.
+Якщо відповідь негативна, то модель приймає вирішення оновити список порід.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.3]{kmm_app_flow.png}
+        \caption{Послідовність дій для перевірки закешовоного стану в KMM}
+        \label{fig:kmm_app_flow}
+    \end{center}
+\end{figure}

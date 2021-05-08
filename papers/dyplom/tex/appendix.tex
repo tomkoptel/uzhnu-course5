@@ -1,0 +1,453 @@
+\appendix
+\renewcommand{\appendixname}{Додаток}
+
+
+\chapter{Сирцевий код}
+\label{cha:appendix1}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:rn_network},caption=React Native Network Call]
+const loadFromNetwork = () => {
+  return fetch("https://dog.ceo/api/breeds/list/all")
+    .then((response) => response.json())
+    .then((json) => {
+      return items;
+    })
+    .then((data) => setData(data))
+    .catch((error) => console.error(error))
+    .finally(() => setLoading(false));
+};
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:rn_realm},caption=React Native Realm]
+# We define the schema of the table
+const BreedSchema = {
+  name: "Breed",
+  primaryKey: "id",
+  properties: {
+    id: "string",
+    name: "string",
+    isFavorite: { type: "bool", default: false },
+  },
+};
+
+# We do list all schemas available and configure conflict resolution strategy
+const config = {
+  deleteRealmIfMigrationNeeded: true,
+  schema: [BreedSchema],
+};
+
+# Finally we do consume the values from the database
+const loadFromDatabase = () => {
+  return Realm.open(config).then((realm) => {
+    const breeds = realm
+      .objects("Breed")
+      .filtered(`TRUEPREDICATE SORT(name ASC) DISTINCT(name)`);
+    # For each item we need detach it from the Realm to avoid accidental mutations
+    const items = breeds.map(copyObjects);
+    realm.close();
+    return items;
+  });
+};
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:rn_state_hooks},caption=React Native Hooks]
+export default function App() {
+  # Declaring state of array of items
+  const [data, setData] = useState([]);
+  # Mark the code as one that defines effect. In this case we read from DB.
+  useEffect(() => {
+    // 3
+    loadFromDatabase().then((data) => setData(data));
+  });
+
+  # Return the list of items as widget that transforms data as <Item> widget
+  return <FlatList
+    data={data}
+    renderItem={({ item }) => {
+      return <Item item={item} />;
+    }}
+    keyExtractor={(item) => item.id}
+  />
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_app_widget},caption=Flutter StatelessWidget]
+# All imported from Dart pubsub packages installed locally
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'data/breed_database.dart';
+import 'home.dart';
+
+Future<void> main() async {
+  # Make sure widgets intitialised, so that we can avoid tree state inconsistencies
+  WidgetsFlutterBinding.ensureInitialized();
+
+  # We do create an instance that connects to the local SQLite database
+  final database = await BreedDatabase.create();
+
+  # runApp kicks off the widget creation
+  # we do pass a Provider that delegates database instance
+  # to any leaf of widget tree interested in making calls
+  runApp(Provider<BreedDatabase>(
+    create: (_) => database,
+    child: MyApp(),
+  ));
+}
+
+# It is a root widget instantiated
+# marked as one without a state management
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    # We do use the Material Design widgets
+    return MaterialApp(
+      # The home widget represented with HomePage
+      home: HomePage.create(context, title: 'Flutter List of Breeds'),
+    );
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_app_widget},caption=Flutter StatefulWidget]
+# We are declaring widget
+# and inherit widge that will hold a state object
+class BreedList extends StatefulWidget {
+  BreedList({Key? key, required this.viewModel}) : super(key: key);
+  final BreedListViewModel viewModel;
+
+  @override
+  _BreedListState createState() => _BreedListState();
+}
+
+# State object holds infor about state
+# and uses widge to access dependencies
+class _BreedListState extends State<BreedList> {
+  @override
+  void initState() {
+    super.initState();
+    # As soon as widget instantiated we do consume list of items
+    widget.viewModel.loadBreedList();
+  }
+
+  # Lastly we use context to observe chages of the state
+  @override
+  Widget build(BuildContext context) {
+    return context
+        .watch<BreedListState>()
+        .when(loaded: showList, error: showError, loading: showLoading);
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_networking},caption=Flutter Networking]
+import 'dart:convert';
+
+import 'package:breed_flutter/domain/breed.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+
+class BreedApi {
+  # We are performing call in asynchronous way
+  Future<List<Breed>> fetchBreeds() async {
+    # Creates the unique resource identifier
+    final Uri url = Uri.parse('https://dog.ceo/api/breeds/list/all');
+    # Fire the network call and await for response
+    final Response response = await http.get(url);
+    # Decode response
+    final Map<String, dynamic> body = jsonDecode(response.body);
+    # Extract value by key
+    final Map<String, dynamic> message = body['message'];
+
+    # If 200 OK we proceed with mapping raw response to collection of domain types
+    if (response.statusCode == 200) {
+      return message.keys.map((breedName) {
+        final List<dynamic> rawRaces = message[breedName];
+        final List<String> races =
+            rawRaces.map((race) => race.toString()).toList();
+        return Breed.make(name: breedName, races: races);
+      }).toList();
+    } else {
+      # We perform short-circuit exit as we failed to consume the result
+      throw Exception('Failed to load breed items');
+    }
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_sqflite},caption=Flutter SQFLITE]
+import 'package:breed_flutter/domain/breed.dart';
+import 'package:path/path.dart';
+# We are using sqflite to avoid implementing low-level DB communication
+import 'package:sqflite/sqflite.dart';
+
+# Wrapper class that hides usage of sqflite lib
+# Improves encapsulation of code by increasing cohesion
+class BreedDatabase {
+  final Database database;
+
+  BreedDatabase(this.database);
+
+  # Creates and instance of database returned as a promise
+  static Future<BreedDatabase> create() async {
+    # Opens connection relying on the default DB path
+    final Database database = await openDatabase(
+      join(await getDatabasesPath(), 'doggie_database.db'),
+      onCreate: (db, version) {
+        # RAW SQL statement used to create table
+        return db.execute(
+          "CREATE TABLE breeds(id TEXT PRIMARY KEY, name TEXT, races TEXT, isFavorite INTEGER)",
+        );
+      },
+      version: 1,
+    );
+    return BreedDatabase(database);
+  }
+
+  # Creates new instance of Breed model
+  Future<void> insert(Breed breed) async {
+    await database.insert(
+      'breeds',
+      breed.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  # Returns list of all breeds
+  Future<List<Breed>> all() async {
+    final List<Map<String, dynamic>> maps =
+        await database.query('breeds', orderBy: 'name');
+
+    var list = List.generate(maps.length, (i) {
+      return Breed.fromMap(maps[i]);
+    });
+    return list;
+  }
+
+  # Prunes the contents of the breeds table
+  Future<void> clear() async {
+    await database.delete('breeds');
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_sqflite},caption=Flutter SQFLITE]
+# BreedListViewModel extends StateNotifier<BreedListState>
+# where the state described with BreedListState
+class BreedListViewModel extends StateNotifier<BreedListState> {
+  BreedListViewModel({required this.database})
+      : super(const BreedListState.loading());
+  final BreedDatabase database;
+
+  Future<void> loadBreedList() async {
+      # Extract all items from DB
+      final List<Breed> cachedBreeds = await database.all();
+      # Assign items to the state
+      state = BreedListState.loaded(savedBreeds);
+  }
+}
+
+class BreedList extends StatefulWidget {
+  BreedList({Key? key, required this.viewModel}) : super(key: key);
+  final BreedListViewModel viewModel;
+
+  @override
+  _BreedListState createState() => _BreedListState();
+}
+
+class _BreedListState extends State<BreedList> {
+  @override
+  void initState() {
+    super.initState();
+    # As soon as our state widget initialized we do communicate to the view model
+    widget.viewModel.loadBreedList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    # We do listen to the changes of the view model
+    # BreedList depends on BreedListViewModel and uses BreedListState
+    # to permutate between all possible states
+    return context
+        .watch<BreedListState>()
+        .when(loaded: showList, error: showError, loading: showLoading);
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:flutter_unit_test},caption=Flutter Unit Test]
+@GenerateMocks([BreedDatabase, BreedApi])
+void main() {
+  # First we need to create mocks for DB and network communication
+  # This allows us to isolate changes caused by moving parts
+  # and keep the logic of the test simple and isolated
+  final mockBreedDatabase = MockBreedDatabase();
+  final mockBreedApi = MockBreedApi();
+
+  # We need to pass our mocks as dependencies
+  final listViewModel =
+      BreedListViewModel(database: mockBreedDatabase, api: mockBreedApi);
+
+  # We do create 2 fake objects to represent
+  # the state of DB and network data stores
+  final fakeDbBreed = Breed.make(name: "fakeDB");
+  final fakeNetworkBreed = Breed.make(name: "fakeNetwork");
+
+  # We do use `group` to create a group of related unit tests
+  group('when toggle breed item', () {
+    # Before each test we do setup expectation for DB always return items
+    setUp(() {
+      when(mockBreedDatabase.all())
+          .thenAnswer((_) => Future.value(<Breed>[fakeDbBreed]));
+    });
+
+    test('should toggle breed and load new list items', () async {
+      await listViewModel.toggleFavorite(fakeDbBreed);
+
+      # We do capture the value we pass to DB
+      var captured =
+          verify(mockBreedDatabase.insert(captureAny)).captured.single;
+      var capturedBreed = captured as Breed;
+
+      # We do assert that the captured value has been mutated
+      # In this case that its flag has been reverted
+      expect(capturedBreed.isFavorite, !fakeDbBreed.isFavorite);
+    });
+  });
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:android_xml},caption=Android UI with XML]
+# Activity is an entry point to the app UI
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        # We do configure this page to render specific XML layout
+        setContentView(R.layout.activity_main)
+    }
+}
+
+# XML is a declarative way of describing UI on Android
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"/>
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:android_jetpack_compose},caption=Android Jetpack Compose]
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val appContainer = (application as JetnewsApplication).container
+        # We use Kotlin extension function
+        setContent {
+            # The enclosing lambda will create our widget and return to the app
+            JetnewsApp(appContainer, navigationViewModel)
+        }
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:ios_swift_ui},caption=Swift UI]
+import SwiftUI
+
+# Widget declaration as an entry point to the app
+@main
+struct LandmarksApp: App {
+    # The scene defines our screen
+    var body: some Scene {
+        WindowGroup {
+            # Finally we yield a widget back to the enclosing lambda
+            ContentView()
+        }
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:kmm_ktor},caption=Ktor]
+import io.ktor.client.HttpClient
+import io.ktor.features.json.*
+import io.ktor.request.*
+import io.ktor.http.takeFrom
+
+interface KtorApi {
+    suspend fun getJsonFromApi(): BreedResult
+}
+
+class DogApiImpl : KtorApi {
+    private val client = HttpClient {
+        install(JsonFeature) { serializer = KotlinxSerializer() }
+    }
+
+    init { ensureNeverFrozen() }
+
+    override suspend fun getJsonFromApi(): BreedResult =
+        client.get<BreedResult> { url {
+            takeFrom("https://dog.ceo/")
+            encodedPath = "api/breeds/list/all"
+        }
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:table_sq},caption=Table.sq]
+CREATE TABLE Breed (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    favorite INTEGER NOT NULL DEFAULT 0
+);
+
+selectAll:
+SELECT * FROM Breed;
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:table_sq_gen},caption=Generate code]
+fun <T : Any> selectAll(mapper: (
+  id: Long,
+  name: String,
+  favorite: Long
+) -> T): Query<T> = Query(552535035, selectAll, driver, "Table.sq", "selectAll",
+    "SELECT * FROM Breed") { cursor ->
+  mapper(
+    cursor.getLong(0)!!,
+    cursor.getString(1)!!,
+    cursor.getLong(2)!!
+  )
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:kotin_test_common},caption=Common Unit Test]
+internal expect fun testDbConnection(): SqlDriver
+internal expect fun <T> runTest(block: suspend () -> T)
+
+abstract class SqlDelightTest {
+    private lateinit var dbHelper: DatabaseHelper
+
+    @BeforeTest
+    fun setup() = runTest {
+        dbHelper = DatabaseHelper(testDbConnection())
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:kotin_test_ios},caption=iOS SQLDriver]
+import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
+
+internal actual fun testDbConnection(): SqlDriver = NativeSqliteDriver(BAIDB.Schema, "baidb")
+\end{lstlisting}
+
+\begin{lstlisting}[style=light, language=Python,label={lst:kotin_test_android},caption=Android SQLDriver]
+import com.squareup.sqldelight.android.AndroidSqliteDriver
+import com.squareup.sqldelight.db.SqlDriver
+import androidx.test.core.app.ApplicationProvider
+
+internal actual fun testDbConnection(): SqlDriver {
+    val app = ApplicationProvider.getApplicationContext<Application>()
+    return AndroidSqliteDriver(BAIDB.Schema, app, "baidb")
+}
+\end{lstlisting}
+

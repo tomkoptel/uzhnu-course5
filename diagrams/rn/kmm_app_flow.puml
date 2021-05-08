@@ -1,0 +1,15 @@
+@startuml
+participant "Додаток" as App
+database "База Даних" as DB
+database "Збережена конфігурація" as Config
+boundary "API Серверу" as Network
+autonumber
+
+App --> Config
+alt Виклик був зроблений годину назад
+    App --> Network : Робимо запит до серверу
+else
+    DB --> App: Зчитуємо дані з БД
+end
+
+@enduml

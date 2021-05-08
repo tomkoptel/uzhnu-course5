@@ -1,0 +1,21 @@
+@startuml
+actor Користувач as User
+participant "Додаток" as App
+database "База Даних" as DB
+boundary "API Серверу" as Network
+autonumber
+
+User --> App: Відкриває додаток
+App --> DB : Перевіряємо наявність даних
+alt База даних пуста
+    App --> Network : Робимо запит до серверу
+    alt Запит до серверу закінчується помилкою
+        App --> User: Висвічуємо помилку користувачу
+    else
+        Network --> DB : Зберігаємо дані в базі даних
+    end
+else
+    DB --> App: Отримує закешовані дані
+end
+App --> User: Відображаємо дані, як лист віджетів
+@enduml
