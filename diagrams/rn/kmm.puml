@@ -1,0 +1,12 @@
+@startuml
+skinparam activity {
+  BackgroundColor<< Coral >> Coral
+  BackgroundColor<< Blue >> LightBlue
+  BackgroundColor<< Green >> LightGreen
+}
+
+"Android" --> "Загальна логіка (shared/domain)" << Coral >>
+"IOS" --> "Загальна логіка (shared/domain)" << Coral >>
+"Загальна логіка (shared/domain)" --> "API платформи iOS" << Blue >>
+"Загальна логіка (shared/domain)" --> "API платформи Android" << Blue >>
+@enduml
