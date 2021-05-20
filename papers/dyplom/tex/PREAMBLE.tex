@@ -244,3 +244,6 @@ tabsize=2
 % https://tex.stackexchange.com/questions/43743/how-to-reduce-line-space-leading-within-an-enumerate-environment
 \usepackage{enumitem}
 \setlist[enumerate]{itemsep=0mm}
+
+% Fixes the numbering of the images
+\renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}
