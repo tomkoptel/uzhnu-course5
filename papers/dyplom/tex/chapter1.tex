@@ -302,12 +302,30 @@ React Native - це не найкращий вибір для програм, я
 \subsection{Тест продуктивності}
 \label{subsec:benchmarking}
 
-Див рис. \ref{fig:android_benchmark_list}.
-Див рис. \ref{fig:ios_benchmark_list}.
-Див рис. \ref{fig:android_benchmark_animations}.
-Див рис. \ref{fig:ios_benchmark_animations}.
-Див рис. \ref{fig:android_benchmark_animations2}.
-Див рис. \ref{fig:ios_benchmark_animations2}.
+В даному розділі аналіз побудован на основі результатів виконання тестів продуктивності виконаних на пристроях Xiaomi Redmi Note 5 та iPhone 6s.
+Проекти були створенні на наступних версіях React Native 0.62.0, Flutter >=2.7.0 <3.0.0, Android 29 та iOS 9.0.
+
+Самі додатки та результати були розроблені в компанії inVerita \ref{inVerita}.
+
+Перший випадок тестує продуктивність додатків, що показують списки обсягом в 1000 елементів.
+Результат виконання тесту на Android див. рис. \ref{fig:android_benchmark_list}, де
+для iOS див. рис. \ref{fig:android_benchmark_list}.
+Для обох платформ частота кадрів тримається в значеннях 60.
+На платформі Android найгірші результати продемонструвала платформа React Native, яка використовує найбільше ресурсів.
+На платформі iOS React Native також продемонструвала найгірші результати, окрім використання ресурсів GPU.
+
+В другому і третьому випадках були протестовані анімації (див. рис.
+\ref{fig:android_benchmark_animations}, рис. \ref{fig:ios_benchmark_animations},
+рис. \ref{fig:android_benchmark_animations2}, рис. \ref{fig:ios_benchmark_animations2}).
+
+При виконані більш простих анімацій на платформі Android найкращий результат використання ресурсів CPU та RAM було
+досягненно для платформи Flutter, хоча остання продемонструвала найгірше значення частоти кадрів в 9 одиниць.
+При тестуванні анімацій на iOS платформі найкращий результат був досягнут на нативній базі коду з 30 одиницями.
+Flutter так само, як і випадку з Android платформою продемонстрував найнижче значення частоти кадрів 8 одиниць.
+
+В останьому тесті найкращі результати тестів продуктивності спостерігаються для нативних платформ де як і FPS був близький до 60 кадрів в секунду,
+так і використання RAM, GPU та CPU були найнижчі. Як і в першому так і в третьому тестах React Native продемонструвала
+себе, як платформа з найвищими показниками використання ресурсів пристрою.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{android_benchmark_list.png}
@@ -329,7 +347,7 @@ React Native - це не найкращий вибір для програм, я
 
 \begin{figure}
     \includegraphics[width=\textwidth]{ios_benchmark_animations.png}
-    \caption{Android тестовий аналіз продуктивності анімацій}
+    \caption{iOS тестовий аналіз продуктивності анімацій}
     \label{fig:ios_benchmark_animations}
 \end{figure}
 
@@ -341,7 +359,7 @@ React Native - це не найкращий вибір для програм, я
 
 \begin{figure}
     \includegraphics[width=\textwidth]{ios_benchmark_animations2.png}
-    \caption{Android тестовий аналіз продуктивності важких анімацій}
+    \caption{iOS тестовий аналіз продуктивності важких анімацій}
     \label{fig:ios_benchmark_animations2}
 \end{figure}
 
