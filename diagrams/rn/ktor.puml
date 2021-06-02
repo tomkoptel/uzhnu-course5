@@ -1,0 +1,27 @@
+@startuml
+
+'left to right direction
+top to bottom direction
+
+skinparam class  {
+  BackgroundColor<<Interface>> #6be47c
+}
+
+class HttpClient {
+  +install(HttpClientFeature)
+  +get<T>
+}
+
+class HttpClientFeature <<Interface>>
+class JsonSerializer <<Interface>>
+
+class JsonFeature extends HttpClientFeature {
+  +serializer
+}
+
+class KotlinxSerializer extends JsonSerializer {
+}
+
+JsonFeature --> JsonSerializer
+HttpClient --> JsonFeature
+@enduml

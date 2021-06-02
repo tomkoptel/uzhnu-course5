@@ -1,0 +1,15 @@
+@startuml
+
+class Breed {
+ -String id
+ -String name
+ -List<String> races
+ -bool isFavorite
+ +Breed copyWith()
+ +Map<String, dynamic> toMap()
+ +String toString()
+ +int hashCode()
+ +{static} Breed fromMap()
+}
+
+@enduml
