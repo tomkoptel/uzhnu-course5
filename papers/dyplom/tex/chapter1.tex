@@ -769,7 +769,7 @@ Future API за принципом схожий на Javascrip Promise API.
 
 \subsection{Flutter та пакет sqflite}
 \label{subsec:flutter_sqflite_theory}
-SQFlite - це порт SQLite драйверу для платформ написаних на Dart, яке підтримує iOS, Android та MacOS.
+SQFlite - це порт SQLite драйверу для платформ iOS, Android та MacOS написаний на мові Dart.
 
 До можливостей sqflite можна віднести:
 
@@ -780,9 +780,10 @@ SQFlite - це порт SQLite драйверу для платформ напи
     \item Підтримка Linux / Windows / DartVM за допомогою sqflite_common_ffi.
 \end{itemize}
 
-Рішення, що використовує цю бібліотеку можна знайти за наступним посиланнєм \ref{lst:flutter_sqflite}.
+Рішення, що використовує цю бібліотеку можна знайти за наступним посиланням \ref{lst:flutter_sqflite}.
 
-Для того щоб, уникнути витік залежності рішення SQFlite було огорнуто в додатковий тип \textbf{BreedDatabase}.
+SQFlite було огорнуто в додатковий тип \textbf{BreedDatabase},
+що дає перевагу в майбутньому без великих втрат замінити SQFLite іншим рішенням для комунікації з БД.
 \textbf{BreedDatabase} дає можливість виконання стандартних процедур підключення до БД з розширенням .sqlite
 на стандартному шляху до файлу абстрагованого за допомогою \textbf{getDatabasesPath()} API.
 
