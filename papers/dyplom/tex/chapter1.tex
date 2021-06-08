@@ -845,14 +845,13 @@ Flutter пропонує кілька способів для управлінн
 Нещодавно з'явився тренд розробки UI з уживанням
 Kotlin DSL(Domain Specific Language - Специфічна Мова Домену) так званий Jetpack Compose \cite{jetpack_compose}.
 
-Як видно з прикладу \ref{android_jetpack_compose} Android екосистема взяла той самий керунок, що Flutter та React Native.
+Як видно з лістингу \ref{android_jetpack_compose} Android екосистема взяла той самий напрямок, що Flutter та React Native.
 Такий самий тренд можна спостерігати і в розробці під iOS, де декларативний синтаксис описується з Swift UI \cite{swift_ui}.
 
-Як видно з прикладів \ref{android_jetpack_compose} та \ref{ios_swift_ui} Android та iOS теж вибрали стежку декларативної розробки UI.
-В свою чергу стає зрозуміло, що Kotlin Multiplatform не розв'язує проблему спільної бази коду для коду UI.
+В лістингах \ref{android_jetpack_compose} та \ref{ios_swift_ui} для Android та iOS наведені приклади декларативної розробки UI.
+Стає зрозуміло, що Kotlin Multiplatform не розв'язує проблему спільної бази коду для рівня рендерінгу.
 Це дуже важливий момент, оскільки весь UI треба дуплікувати під кожну платформу.
-Якщо Kotlin Multiplatform не розв'язує проблему, то для чого його використовувати?
-Задачу яку собі поставив Kotlin Multiplatform, це опис спільної логіки, тобто звернення до бази даних, файлової системи, інернету, тощо.
+Задачу яку розв\'язує Kotlin Multiplatform, це опис спільної логіки, тобто звернення до бази даних, файлової системи, інернету, тощо.
 
 \subsection{Система побудування Gradle та Kotlin Multiplatform}
 \label{subsec:kmm_gradle}
