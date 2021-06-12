@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: sigan/latex
+    container: aergus/latex
     steps:
     - uses: actions/checkout@v2
     - name: Build paper

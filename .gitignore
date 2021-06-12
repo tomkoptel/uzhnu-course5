@@ -24,3 +24,14 @@ gradle-app.setting
 *.log
 *.blg
 .terminalizer
+
+*.blg
+*.bib
+*.cls
+*.sty
+*.bst
+*.clo
+*.asm
+*.aux
+*.bbl
+*.toc
