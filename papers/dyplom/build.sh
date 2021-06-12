@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # Pdflatex
 PDFLATEX='pdflatex -interaction=nonstopmode -shell-escape -file-line-error'
