@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build paper
-      run: (cd papers/dyplom && ./build_paper.sh)
+      run: (cd papers/dyplom && ./build.sh)
     - name: Upload Paper
       uses: actions/upload-artifact@v1
       with:
