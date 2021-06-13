@@ -160,6 +160,7 @@
     \item \textbf{main} репозиторій в якому зберігається код Android модуля, а саме статичні ресурси та AndroidManifest.
 \end{enumerate}
 
+
 \section{Архітектура додатків}
 \label{sec:general_app_architecture}
 
@@ -212,6 +213,7 @@
 \end{figure}
 \FloatBarrier
 
+
 \section{Особливості архітектури додатку React Native}
 \label{sec:kn_app_architecture}
 В реалізації додатку React Native я використав систему звротніх викликів або так званих "хуків".
@@ -250,14 +252,14 @@ BreedListState, BreedListViewModel, що відповідають за логі�
 з конкретикою реалізації рівня даних. Даний підхід дозволяє мені замінити деталі реалізації рівня даних без впливу на
 рівень презентації. Наприклад, я можу замість зберігання даних в БД використати кеш на файловій системі.
 
-\begin{figure}
+\begin{figure}[h]
     \begin{center}
         \includegraphics[scale=0.4]{breed_dart.png}
-        \caption{Реалізація структури класу Breed}
-        \label{fig:flutter_breed_class}
     \end{center}
+    \caption{Реалізація структури класу Breed}
+    \label{fig:flutter_breed_class}
 \end{figure}
-
+\FloatBarrier
 
 До \textbf{рівня даних (data)} належить BreedApi та BreedDatabase. На цьому рівні описана взаємодія з БД та мережею.
 BreedApi, як згадувалось в секції \ref{subsec:flutter_http_dart_theory} реалізовано за допомогою пакету \textbf{http/http.dart}.
@@ -266,10 +268,10 @@ BreedDatabase реалізовано за допомогою пакету \textb
 
 \begin{figure}
     \begin{center}
-        \includegraphics[scale=0.4]{flutter_classes.png}
-        \caption{Діаграма класів Flutter}
-        \label{fig:flutter_classes}
+        \includegraphics[scale=0.55, width=\textwidth]{flutter_classes.png}
     \end{center}
+    \caption{Діаграма класів Flutter}
+    \label{fig:flutter_classes}
 \end{figure}
 
 
