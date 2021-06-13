@@ -366,7 +366,7 @@ React Native має більшу спільноту розробників, ні
 
 Перший випадок тестує продуктивність додатків, що показують списки обсягом в 1000 елементів.
 Результат виконання тесту на Android див. рис. \ref{fig:android_benchmark_list}, де
-для iOS див. рис. \ref{fig:android_benchmark_list}.
+для iOS див. рис. \ref{fig:ios_benchmark_list}.
 Для обох платформ частота кадрів тримається в значеннях 60.
 На платформі Android найгірші результати продемонструвала платформа React Native, яка використовує найбільше ресурсів.
 На платформі iOS React Native також продемонструвала найгірші результати, окрім використання ресурсів GPU.
@@ -392,6 +392,13 @@ React Native вимагає найбільш значної експлуатац
 React-native відстає як від Android, так і від Flutter.
 Запуск безперервної анімації споживає більше енергії акумулятора на React Native.
 
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{android_benchmark_list.png}
+    \caption{Android тестовий аналіз продуктивності рендерінгу списків}
+    \label{fig:android_benchmark_list}
+\end{figure}
+\FloatBarrier
+
 Результати тестів рендерінгу списків для iOS платформи (див. рис. \ref{fig:ios_benchmark_list}) для React Native гірші, ніж результати Flutter та Swift.
 Причиною є неможливість використовувати компіляцію IoT на iOS.
 Пам'ять Flutter майже відповідає споживанню пам'яті на iOS Native.
@@ -405,58 +412,50 @@ Android вимагає найменшого обсягу пам'яті (205 Мб
 Холодний запуск програми з Flutter є лідером (2 секунди).
 Для Android Native та React Native це займає близько 4 секунд.
 
+\FloatBarrier
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{ios_benchmark_list.png}
+    \caption{iOS тестовий аналіз продуктивності рендерінгу списків}
+    \label{fig:ios_benchmark_list}
+\end{figure}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{android_benchmark_animations.png}
+    \caption{Android тестовий аналіз продуктивності анімацій}
+    \label{fig:android_benchmark_animations}
+\end{figure}
+
 Результати тестів рендерінгу анімацій для iOS платформи (див. рис. \ref{fig:ios_benchmark_animations})
 та React Native у цьому тесті майже однакові.
 iOS Native вимагає найменшого обсягу пам'яті (48 Мб). React Native потребує 135 Мб, а Flutter 117 Мб.
 Холодний запуск програми з Flutter є лідером (2 секунди).
 Для iOS та React Native це займає близько 10 секунд.
 
-Результати тестів рендерінгу анімацій для Android платформи (див. рис. \ref{fig:android_benchmark_animations})
-Native показав високу продуктивність та найбільш ефективне споживання пам'яті.
-Flutter продемонстрував достатньо продуктивності, щоб комфортно працювати, але вдвічі більше витрат пам'яті порівняно з рідною.
-React Native — показав низьку продуктивність у цьому випадку.
+\FloatBarrier
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{ios_benchmark_animations.png}
+    \caption{iOS тестовий аналіз продуктивності анімацій}
+    \label{fig:ios_benchmark_animations}
+\end{figure}
+\FloatBarrier
 
 Результати тестів рендерінгу складних анімацій для Android платформи (див. рис. \ref{fig:android_benchmark_animations2})
 продемонстрували високу продуктивність та найбільш ефективне споживання пам'яті.
 Flutter продемонстрував достатню продуктивності, щоб комфортно працювати, але вдвічі більше витрат пам'яті порівняно з рідною.
 React Native — показав низьку продуктивність у цьому випадку.
 
-Результати тестів рендерінгу складних анімацій для iOS платформи (див. рис. \ref{fig:ios_benchmark_animations2})
-продемонстрували високу продуктивність на нативній платформі.
-React Native використовував переважно процесор для рендерингу, тоді як Flutter використовував графічний процесор.
-React Native використовував трохи більше пам'яті.
-
-\begin{figure}
-    \includegraphics[width=\textwidth]{android_benchmark_list.png}
-    \caption{Android тестовий аналіз продуктивності рендерінгу списків}
-    \label{fig:android_benchmark_list}
-\end{figure}
-
-\begin{figure}
-    \includegraphics[width=\textwidth]{ios_benchmark_list.png}
-    \caption{iOS тестовий аналіз продуктивності рендерінгу списків}
-    \label{fig:ios_benchmark_list}
-\end{figure}
-
-\begin{figure}
-    \includegraphics[width=\textwidth]{android_benchmark_animations.png}
-    \caption{Android тестовий аналіз продуктивності анімацій}
-    \label{fig:android_benchmark_animations}
-\end{figure}
-
-\begin{figure}
-    \includegraphics[width=\textwidth]{ios_benchmark_animations.png}
-    \caption{iOS тестовий аналіз продуктивності анімацій}
-    \label{fig:ios_benchmark_animations}
-\end{figure}
-
-\begin{figure}
+\begin{figure}[h]
     \includegraphics[width=\textwidth]{android_benchmark_animations2.png}
     \caption{Android тестовий аналіз продуктивності важких анімацій}
     \label{fig:android_benchmark_animations2}
 \end{figure}
 
-\begin{figure}
+Результати тестів рендерінгу складних анімацій для iOS платформи (див. рис. \ref{fig:ios_benchmark_animations2})
+продемонстрували високу продуктивність на нативній платформі.
+React Native використовував переважно процесор для рендерингу, тоді як Flutter використовував графічний процесор.
+React Native використовував трохи більше пам'яті.
+
+\begin{figure}[h]
     \includegraphics[width=\textwidth]{ios_benchmark_animations2.png}
     \caption{iOS тестовий аналіз продуктивності важких анімацій}
     \label{fig:ios_benchmark_animations2}
