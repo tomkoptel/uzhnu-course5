@@ -28,5 +28,8 @@ $PDFLATEX $MAINTEX
 cp $MAINTEX.pdf ../$PDF_NAME
 cd ..
 
-# Clear
-find -regextype sed $TEX/ -maxdepth 1 -type f ! -regex ".*\.(tex|log|blg|bib|cls|sty|bst|clo|asm|gitignore)" -exec rm -f {} \; ;
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  find -E $TEX/ -maxdepth 1 -type f ! -regex ".*\.(tex|log|blg|bib|cls|sty|bst|clo|asm|gitignore)" -exec rm -f {} \; ;
+else
+  find $TEX/ -maxdepth 1 -type f ! -regextype sed -regex ".*\.(tex|log|blg|bib|cls|sty|bst|clo|asm|gitignore)" -exec rm -f {} \; ;
+fi
