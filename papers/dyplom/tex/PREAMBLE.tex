@@ -247,3 +247,7 @@ tabsize=2
 % Fixes the numbering of the images
 \renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}
 \renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}
+
+% See https://tex.stackexchange.com/questions/25917/how-to-protect-text-from-being-split-by-a-float/25923#25923
+\usepackage{placeins}
+\usepackage{flafter}

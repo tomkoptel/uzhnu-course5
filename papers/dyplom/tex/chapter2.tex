@@ -160,6 +160,7 @@
     \item \textbf{main} репозиторій в якому зберігається код Android модуля, а саме статичні ресурси та AndroidManifest.
 \end{enumerate}
 
+
 \section{Архітектура додатків}
 \label{sec:general_app_architecture}
 
@@ -176,25 +177,24 @@
 що додаток відображуємо на сторінці.
 
 \textbf{Рівень даних} (або data) відповідає за виклики до мережі, збереження даних в БД та робота з файловою системою.
-Цей рівень знає де взяти дані.
+
+\FloatBarrier
+
+\begin{figure}[ht]
+    \includegraphics[width=\textwidth]{general_app_flow.png}
+    \caption{Загальна схема послідовностей додатку}
+    \label{fig:gen_app_flow}
+\end{figure}
 
 \textbf{Рівень домену} (або domain) рівень бізнес-логіки. На цьому рівні я визначив контракт. Далі на базі контракту
 збудував рівень презентації.
 
-\begin{figure}
+\begin{figure}[h]
     \begin{center}
-        \includegraphics[scale=0.25]{general_app_flow.png}
-        \caption{Загальна схема послідовностей додатку}
-        \label{fig:gen_app_flow}
+        \includegraphics[scale=0.45]{clean_architecture.png}
     \end{center}
-\end{figure}
-
-\begin{figure}
-    \begin{center}
-        \includegraphics[scale=0.4]{clean_architecture.png}
-        \caption{Чиста архітектура (Clean Architecture)}
-        \label{fig:clean_architecture}
-    \end{center}
+    \caption{Чиста архітектура (Clean Architecture)}
+    \label{fig:clean_architecture}
 \end{figure}
 
 Всі додатки імітують архітектуру MVVM(Model-View-View Model) (див. мал. \ref{fig:gen_app_architecture}).
@@ -203,13 +203,16 @@
 мережею так і з базою даних.
 \textbf{View} - відповідає за зображення даних і є "пасивним" спостерігачем даних з рівня ViewModel.
 
-\begin{figure}
+\FloatBarrier
+\begin{figure}[h]
     \begin{center}
         \includegraphics[scale=0.3]{app_layers.png}
-        \caption{Загальна архітектура додатку}
-        \label{fig:gen_app_architecture}
     \end{center}
+    \caption{Загальна архітектура додатку}
+    \label{fig:gen_app_architecture}
 \end{figure}
+\FloatBarrier
+
 
 \section{Особливості архітектури додатку React Native}
 \label{sec:kn_app_architecture}
@@ -249,14 +252,14 @@ BreedListState, BreedListViewModel, що відповідають за логі�
 з конкретикою реалізації рівня даних. Даний підхід дозволяє мені замінити деталі реалізації рівня даних без впливу на
 рівень презентації. Наприклад, я можу замість зберігання даних в БД використати кеш на файловій системі.
 
-\begin{figure}
+\begin{figure}[h]
     \begin{center}
         \includegraphics[scale=0.4]{breed_dart.png}
-        \caption{Реалізація структури класу Breed}
-        \label{fig:flutter_breed_class}
     \end{center}
+    \caption{Реалізація структури класу Breed}
+    \label{fig:flutter_breed_class}
 \end{figure}
-
+\FloatBarrier
 
 До \textbf{рівня даних (data)} належить BreedApi та BreedDatabase. На цьому рівні описана взаємодія з БД та мережею.
 BreedApi, як згадувалось в секції \ref{subsec:flutter_http_dart_theory} реалізовано за допомогою пакету \textbf{http/http.dart}.
@@ -265,10 +268,10 @@ BreedDatabase реалізовано за допомогою пакету \textb
 
 \begin{figure}
     \begin{center}
-        \includegraphics[scale=0.4]{flutter_classes.png}
-        \caption{Діаграма класів Flutter}
-        \label{fig:flutter_classes}
+        \includegraphics[scale=0.55, width=\textwidth]{flutter_classes.png}
     \end{center}
+    \caption{Діаграма класів Flutter}
+    \label{fig:flutter_classes}
 \end{figure}
 
 
@@ -293,23 +296,25 @@ BreedModel підписується на потік змін з бази дан�
 
 Отримаємо наступний приклад описаний на мал. \ref{fig:kmm_architecture}.
 
-\begin{figure}
+\begin{figure}[h]
     \begin{center}
         \includegraphics[scale=0.4]{kmm_architecture.png}
-        \caption{Взаємодія шарів абстракції в KMM}
-        \label{fig:kmm_architecture}
     \end{center}
+    \caption{Взаємодія шарів абстракції в KMM}
+    \label{fig:kmm_architecture}
 \end{figure}
-
-\begin{figure}
-    \begin{center}
-        \includegraphics[scale=0.3]{kmm_app_flow.png}
-        \caption{Послідовність дій для перевірки закешовоного стану в KMM}
-        \label{fig:kmm_app_flow}
-    \end{center}
-\end{figure}
+\FloatBarrier
 
 Останній пазл нашої конфігурації полягає в використанні багато платформної бібліотеки для зберігання налаштувань (див. мал. \ref{fig:kmm_app_flow}).
 В нашому випадку я використовую це рішення для того, щоб зберегти час останньої оновлення, а саме коли було в останнє зроблено запит до сервера.
 Коли до BreedModel виконує запит на отримання списку порід з мережі, наша модель спочатку перевіряє, чи виконано це запит протягом минулої години.
 Якщо відповідь негативна, то модель приймає вирішення оновити список порід.
+
+\FloatBarrier
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.3]{kmm_app_flow.png}
+    \end{center}
+    \caption{Послідовність дій для перевірки закешовоного стану в KMM}
+    \label{fig:kmm_app_flow}
+\end{figure}
