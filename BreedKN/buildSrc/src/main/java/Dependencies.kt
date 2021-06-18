@@ -14,7 +14,7 @@ object Versions {
     val multiplatformSettings = "0.5.1"
     val coroutines = "1.3.5-native-mt"
     val koin = "3.1.0"
-    val serialization = "0.20.0"
+    val serialization = "1.2.1"
     val cocoapodsext = "0.6"
 
 }
@@ -29,6 +29,7 @@ object Deps {
     val stately = "co.touchlab:stately-common:${Versions.stately}"
     val multiplatformSettings = "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
     val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
+    val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
     val koinCore = "io.insert-koin:koin-core:${Versions.koin}"
     val cocoapodsext = "co.touchlab:kotlinnativecocoapods:${Versions.cocoapodsext}"
 
