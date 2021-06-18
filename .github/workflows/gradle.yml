@@ -10,7 +10,7 @@ jobs:
   build_rn:
     runs-on: ubuntu-latest
     if:
-      startsWith('refs/heads/rn', github.head_ref) || startsWith('master', github.head_ref)
+      startsWith('rn', github.head_ref) || contains('master', github.head_ref)
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@master
