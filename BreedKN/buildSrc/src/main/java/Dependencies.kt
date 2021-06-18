@@ -9,7 +9,7 @@ object Versions {
     val buildToolsVersion = "29.0.0"
     val junit = "4.12"
     val sqlDelight = "1.3.0"
-    val ktor = "1.3.2"
+    val ktor = "1.6.0"
     val stately = "1.0.2"
     val multiplatformSettings = "0.5.1"
     val coroutines = "1.3.5-native-mt"
