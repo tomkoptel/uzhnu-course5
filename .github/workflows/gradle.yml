@@ -89,7 +89,7 @@ jobs:
           ${{ runner.os }}-gradle-
     - uses: subosito/flutter-action@v1
       with:
-        flutter-version: '2.12.0'
+        channel: 'stable'
     - run: flutter pub get
     - run: flutter build apk --debug
     - name: Upload APK
