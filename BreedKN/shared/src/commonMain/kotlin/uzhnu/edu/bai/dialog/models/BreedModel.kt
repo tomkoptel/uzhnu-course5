@@ -30,7 +30,7 @@ class BreedModel(private val viewUpdate: (ItemDataSummary) -> Unit,
             dbHelper.selectAllItems().asFlow()
                 .map { q ->
                     val itemList = q.executeAsList()
-                    ItemDataSummary(itemList.maxBy { it.name.length }, itemList)
+                    ItemDataSummary(itemList.maxByOrNull { it.name.length }, itemList)
                 }
                 .flowOn(Dispatchers.Default)
                 .collect { summary ->
