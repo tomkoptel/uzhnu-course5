@@ -77,15 +77,15 @@ jobs:
       run: (cd ./BreedKN && ./gradlew :app:assembleDebug)
     - name: "step-log"
       run: |
-        tree -L 3 BreedKN/android/app/build/
-        tree -L 3 BreedKN/android/app/build/outputs/
-        tree -L 3 BreedKN/android/app/build/outputs/apk/
-        ls -la BreedKN/android/app/build/outputs/apk/debug/
+        tree -L 3 BreedKN/app/build/
+        tree -L 3 BreedKN/app/build/outputs/
+        tree -L 3 BreedKN/app/build/outputs/apk/
+        ls -la BreedKN/app/build/outputs/apk/debug/
     - name: Upload APK
       uses: actions/upload-artifact@v1
       with:
         name: kmm-app
-        path: BreedKN/android/app/build/outputs/apk/debug/app-debug.apk
+        path: BreedKN/app/build/outputs/apk/debug/app-debug.apk
   build_dyplom_paper:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
