@@ -24,10 +24,29 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
+    - name: Store Gradle Binnary
+      uses: actions/cache@v1
+      with:
+        path: ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+    - name: Store Gradle Caches
+      uses: actions/cache@v1.1.2
+      with:
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
     - name: Install Dependencies
       run: (cd BreedRN && npm ci)
     - name: Build app
-      run: (cd BreedRN/android && ./gradlew :app:assembleDebug)
+      run: (cd BreedRN/android && ./gradlew :app:assembleRelease)
+    - name: Upload APK
+      uses: actions/upload-artifact@v1
+      with:
+        name: rn-app
+        path: BreedRN/android/app/build/outputs/apk/release/app-release.apk
 
   build_dyplom_paper:
     if: github.ref == 'refs/heads/master'
