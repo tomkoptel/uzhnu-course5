@@ -7,6 +7,15 @@ on:
     branches: [ master ]
 
 jobs:
+  job-master:
+    runs-on: ubuntu-latest
+    steps:
+    - name: "step-checkout"
+      uses: actions/checkout@v1
+    - name: "step-log"
+      run: |
+        echo "[B] github.ref: ${{github.ref}}"
+
   build_rn:
     runs-on: ubuntu-latest
     if:
