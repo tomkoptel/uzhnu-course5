@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import org.koin.core.inject
+import org.koin.core.component.inject
 
 class BreedModel(private val viewUpdate: (ItemDataSummary) -> Unit,
                  private val errorUpdate: (String) -> Unit) : BaseModel() {
