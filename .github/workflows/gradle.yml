@@ -93,10 +93,10 @@ jobs:
     - name: Install Dependencies
       run: (cd breed_flutter && flutter pub get)
     - name: Build Debug APK
-      run: (cd breed_flutter && flutter build apk --debug)
+      run: (cd breed_flutter && flutter build apk --release)
     - name: Upload Debug APK
       uses: actions/upload-artifact@v1
       with:
         name: flutter-app
-        path: breed_flutter/build/app/outputs/flutter-apk/app-debug.apk
+        path: breed_flutter/build/app/outputs/flutter-apk/app-release.apk
 
