@@ -73,15 +73,9 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
-    - name: Build Android App
+    - name: Build Debug APK
       run: (cd ./BreedKN && ./gradlew :app:assembleDebug)
-    - name: "step-log"
-      run: |
-        tree -L 3 BreedKN/app/build/
-        tree -L 3 BreedKN/app/build/outputs/
-        tree -L 3 BreedKN/app/build/outputs/apk/
-        ls -la BreedKN/app/build/outputs/apk/debug/
-    - name: Upload APK
+    - name: Upload Debug APK
       uses: actions/upload-artifact@v1
       with:
         name: kmm-app
