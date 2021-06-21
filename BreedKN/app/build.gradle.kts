@@ -40,14 +40,16 @@ dependencies {
     implementation(Deps.material_x)
     implementation(Deps.app_compat_x)
     implementation(Deps.core_ktx)
-    implementation(Deps.ktor.androidCore)
     implementation(Deps.constraintlayout)
     implementation(Deps.SqlDelight.runtimeJdk)
     implementation(Deps.SqlDelight.driverAndroid)
-    implementation(Deps.Coroutines.jdk)
+
+    implementation(Deps.Coroutines.common)
     implementation(Deps.Coroutines.android)
+
     implementation(Deps.multiplatformSettings)
     implementation(Deps.koinCore)
     implementation(Deps.koinAndroid)
+    implementation(Deps.Ktor.androidCore)
     testImplementation(Deps.junit)
 }

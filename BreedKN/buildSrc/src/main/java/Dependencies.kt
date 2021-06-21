@@ -8,18 +8,19 @@ object Versions {
     val android_gradle_plugin = "3.6.2"
     val buildToolsVersion = "29.0.0"
     val junit = "4.12"
-    val sqlDelight = "1.3.0"
+    val sqlDelight = "1.5.0"
     val ktor = "1.6.0"
     val stately = "1.0.2"
-    val multiplatformSettings = "0.5.1"
-    val coroutines = "1.3.5-native-mt"
+    val multiplatformSettings = "0.7.7"
+    val coroutines = "1.5.0-native-mt"
     val koin = "3.1.0"
     val serialization = "1.2.1"
     val cocoapodsext = "0.6"
-
+    val kermit = "0.1.9"
 }
 
 object Deps {
+    val kermit = "co.touchlab:kermit:${Versions.kermit}"    
     val app_compat_x = "androidx.appcompat:appcompat:${Versions.android_x}"
     val material_x = "com.google.android.material:material:${Versions.android_x}"
     val core_ktx = "androidx.core:core-ktx:${Versions.android_x}"
@@ -58,30 +59,25 @@ object Deps {
         val reflect =     "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
     }
     object Coroutines {
-        val common = "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${Versions.coroutines}"
-        val jdk = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
-        val native = "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}"
+        val common = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
         val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
         val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
     }
     object SqlDelight{
         val gradle = "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelight}"
         val runtime = "com.squareup.sqldelight:runtime:${Versions.sqlDelight}"
+        val coroutinesExtensions = "com.squareup.sqldelight:coroutines-extensions:${Versions.sqlDelight}"
         val runtimeJdk = "com.squareup.sqldelight:runtime-jvm:${Versions.sqlDelight}"
         val driverIos = "com.squareup.sqldelight:native-driver:${Versions.sqlDelight}"
         val driverAndroid = "com.squareup.sqldelight:android-driver:${Versions.sqlDelight}"
     }
-    object ktor {
+    object Ktor {
         val commonCore = "io.ktor:ktor-client-core:${Versions.ktor}"
         val commonJson = "io.ktor:ktor-client-json:${Versions.ktor}"
-        val jvmCore =     "io.ktor:ktor-client-core-jvm:${Versions.ktor}"
+        val commonLogging = "io.ktor:ktor-client-logging:${Versions.ktor}"
         val androidCore = "io.ktor:ktor-client-okhttp:${Versions.ktor}"
-        val jvmJson =     "io.ktor:ktor-client-json-jvm:${Versions.ktor}"
-        val ios =         "io.ktor:ktor-client-ios:${Versions.ktor}"
-        val iosCore =     "io.ktor:ktor-client-core-native:${Versions.ktor}"
-        val iosJson =     "io.ktor:ktor-client-json-native:${Versions.ktor}"
-        val commonSerialization ="io.ktor:ktor-client-serialization:${Versions.ktor}"
-        val androidSerialization ="io.ktor:ktor-client-serialization-jvm:${Versions.ktor}"
-        val iosSerialization ="io.ktor:ktor-client-serialization-native:${Versions.ktor}"
+        val ios = "io.ktor:ktor-client-ios:${Versions.ktor}"
+        val commonSerialization = "io.ktor:ktor-client-serialization:${Versions.ktor}"
     }
+
 }

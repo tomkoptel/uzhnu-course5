@@ -1,23 +1,25 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'shared'
     spec.version                  = '1.1'
-    spec.homepage                 = 'https://github.com/tomkoptel/uzhnu-basics-of-ai-labs'
+    spec.homepage                 = 'https://github.com/touchlab/KaMPKit'
     spec.source                   = { :git => "Not Published", :tag => "Cocoapods/#{spec.name}/#{spec.version}" }
     spec.authors                  = ''
     spec.license                  = ''
-    spec.summary                  = 'Common library for the uzhnu-basics-of-ai-labs'
+    spec.summary                  = 'Common library for the KaMP starter kit'
 
-
+    spec.static_framework         = true
     spec.vendored_frameworks      = "build/cocoapods/framework/shared.framework"
     spec.libraries                = "c++"
     spec.module_name              = "#{spec.name}_umbrella"
 
-            
+                
+
+                
 
     spec.pod_target_xcconfig = {
         'KOTLIN_TARGET[sdk=iphonesimulator*]' => 'ios_x64',
         'KOTLIN_TARGET[sdk=iphoneos*]' => 'ios_arm',
-        'KOTLIN_TARGET[sdk=watchsimulator*]' => 'watchos_x86',
+        'KOTLIN_TARGET[sdk=watchsimulator*]' => 'watchos_x64',
         'KOTLIN_TARGET[sdk=watchos*]' => 'watchos_arm',
         'KOTLIN_TARGET[sdk=appletvsimulator*]' => 'tvos_x64',
         'KOTLIN_TARGET[sdk=appletvos*]' => 'tvos_arm64',
